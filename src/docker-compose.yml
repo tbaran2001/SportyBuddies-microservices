@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  sportdb:
+    image: postgres
+
+  sport.api:
+    image: ${DOCKER_REGISTRY-}sportapi
+    build:
+      context: .
+      dockerfile: Services/Sport/Sport.API/Dockerfile
+
+volumes:
+  postgres_sport:
