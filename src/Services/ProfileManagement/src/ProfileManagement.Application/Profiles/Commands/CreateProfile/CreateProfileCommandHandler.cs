@@ -6,7 +6,7 @@ public class CreateProfileCommandHandler(IProfilesRepository profilesRepository,
      public async Task<ProfileResponse> Handle(CreateProfileCommand command,
          CancellationToken cancellationToken)
      {
-         var profile = command.Adapt<Profile>();
+         var profile = Profile.CreateSimple(ProfileName.Create(command.Name), ProfileDescription.Create(command.Description));
 
          await profilesRepository.AddProfileAsync(profile);
          await unitOfWork.CommitChangesAsync();

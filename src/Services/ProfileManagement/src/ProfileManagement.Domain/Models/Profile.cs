@@ -44,6 +44,20 @@ public class Profile : Entity
         return profile;
     }
 
+    public static Profile CreateSimple(ProfileName name, ProfileDescription description)
+    {
+        var profile = Create(
+            Guid.NewGuid(),
+            name,
+            description,
+            DateTime.UtcNow,
+            new DateOnly(1990, 1, 1),
+            Gender.Unknown,
+            Preferences.Default);
+
+        return profile;
+    }
+
     public void Update(
         ProfileName name,
         ProfileDescription description,

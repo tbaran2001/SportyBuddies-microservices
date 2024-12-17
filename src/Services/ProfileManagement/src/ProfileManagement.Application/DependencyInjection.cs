@@ -1,7 +1,7 @@
 using System.Reflection;
 using BuildingBlocks.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
-using ProfileManagement.Application.Profiles.Commands.CreateProfile;
+using ProfileManagement.Application.Common;
 
 namespace ProfileManagement.Application;
 
@@ -16,7 +16,7 @@ public static class DependencyInjection
             configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
-        var xd=new CreateProfileCommand("xd","xd");
+        MapsterConfig.Configure();
 
         return services;
     }
