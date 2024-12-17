@@ -7,13 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{66
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sport", "Sport", "{699C653A-64E1-4645-B4AC-B40B6FDB858E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sport.API", "Services\Sport\Sport.API\Sport.API.csproj", "{BAE9EC47-AF6E-4335-8225-39FB9D958400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sport.API", "Services\Sport\Sport.API\Sport.API.csproj", "{BAE9EC47-AF6E-4335-8225-39FB9D958400}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{5A284822-E2B9-41AB-BBFA-116CB5895532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{5994FB1D-E2F3-450F-848E-96C4E883217D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{5994FB1D-E2F3-450F-848E-96C4E883217D}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CF6CF26F-122E-4117-8BA0-D087C46F5202}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfileManagement", "ProfileManagement", "{5B6A2814-B073-4027-81A5-2564BB43CCC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4146F24E-ED03-434A-965C-E7DDD256346A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.API", "Services\ProfileManagement\src\ProfileManagement.API\ProfileManagement.API.csproj", "{4BA27670-6CDB-4820-BB9D-08871C1913DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Infrastructure", "Services\ProfileManagement\src\ProfileManagement.Infrastructure\ProfileManagement.Infrastructure.csproj", "{1BEB61F9-E96C-473A-AFA9-1997D19D1355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Domain", "Services\ProfileManagement\src\ProfileManagement.Domain\ProfileManagement.Domain.csproj", "{338FDBEB-3756-482C-8976-02D337BEACC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Application", "Services\ProfileManagement\src\ProfileManagement.Application\ProfileManagement.Application.csproj", "{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +45,22 @@ Global
 		{CF6CF26F-122E-4117-8BA0-D087C46F5202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF6CF26F-122E-4117-8BA0-D087C46F5202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF6CF26F-122E-4117-8BA0-D087C46F5202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA27670-6CDB-4820-BB9D-08871C1913DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA27670-6CDB-4820-BB9D-08871C1913DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA27670-6CDB-4820-BB9D-08871C1913DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA27670-6CDB-4820-BB9D-08871C1913DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEB61F9-E96C-473A-AFA9-1997D19D1355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEB61F9-E96C-473A-AFA9-1997D19D1355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEB61F9-E96C-473A-AFA9-1997D19D1355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEB61F9-E96C-473A-AFA9-1997D19D1355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338FDBEB-3756-482C-8976-02D337BEACC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338FDBEB-3756-482C-8976-02D337BEACC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338FDBEB-3756-482C-8976-02D337BEACC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338FDBEB-3756-482C-8976-02D337BEACC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +69,12 @@ Global
 		{699C653A-64E1-4645-B4AC-B40B6FDB858E} = {66A8784E-6759-4B6B-AB4B-E036076ECE59}
 		{BAE9EC47-AF6E-4335-8225-39FB9D958400} = {699C653A-64E1-4645-B4AC-B40B6FDB858E}
 		{5994FB1D-E2F3-450F-848E-96C4E883217D} = {5A284822-E2B9-41AB-BBFA-116CB5895532}
+		{5B6A2814-B073-4027-81A5-2564BB43CCC4} = {66A8784E-6759-4B6B-AB4B-E036076ECE59}
+		{4146F24E-ED03-434A-965C-E7DDD256346A} = {5B6A2814-B073-4027-81A5-2564BB43CCC4}
+		{4BA27670-6CDB-4820-BB9D-08871C1913DD} = {4146F24E-ED03-434A-965C-E7DDD256346A}
+		{1BEB61F9-E96C-473A-AFA9-1997D19D1355} = {4146F24E-ED03-434A-965C-E7DDD256346A}
+		{338FDBEB-3756-482C-8976-02D337BEACC4} = {4146F24E-ED03-434A-965C-E7DDD256346A}
+		{FAC8CC37-BE3B-4909-835B-E99601FB9E6A} = {4146F24E-ED03-434A-965C-E7DDD256346A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A798736C-AADB-4D36-80B1-B4DBC3B9078B}
