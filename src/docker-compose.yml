@@ -4,6 +4,9 @@ services:
   sportdb:
     image: postgres
 
+  profiledb:
+    image: mcr.microsoft.com/mssql/server
+
   sport.api:
     image: ${DOCKER_REGISTRY-}sportapi
     build:

@@ -13,6 +13,15 @@ services:
     volumes:
       - postgres_sport:/var/lib/postgresql/data/
 
+  profiledb:
+    container_name: profiledb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123!
+    restart: always
+    ports:
+      - "1433:1433"
+
   sport.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
