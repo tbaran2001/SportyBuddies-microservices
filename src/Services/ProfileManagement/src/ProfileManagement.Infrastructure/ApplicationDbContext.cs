@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using ProfileManagement.Domain.Common;
 using ProfileManagement.Domain.Models;
 
 namespace ProfileManagement.Infrastructure;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options),IUnitOfWork
 {
     public DbSet<Sport> Sports => Set<Sport>();
     public DbSet<Profile> Profiles => Set<Profile>();
@@ -14,5 +15,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    public async Task CommitChangesAsync()
+    {
+        await base.SaveChangesAsync();
     }
 }

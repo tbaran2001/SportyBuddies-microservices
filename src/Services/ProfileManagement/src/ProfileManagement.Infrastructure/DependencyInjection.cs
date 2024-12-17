@@ -2,7 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProfileManagement.Domain.Common;
+using ProfileManagement.Domain.Interfaces;
 using ProfileManagement.Infrastructure.Interceptors;
+using ProfileManagement.Infrastructure.Repositories;
 
 namespace ProfileManagement.Infrastructure;
 
@@ -20,6 +23,11 @@ public static class DependencyInjection
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(connectionString);
         });
+
+        services.AddScoped<IProfilesRepository, ProfilesRepository>();
+
+        services.AddScoped<IUnitOfWork>(serviceProvider =>
+            serviceProvider.GetRequiredService<ApplicationDbContext>());
 
         return services;
     }
