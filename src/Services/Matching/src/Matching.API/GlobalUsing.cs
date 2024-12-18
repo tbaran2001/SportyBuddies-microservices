@@ -1,6 +1,10 @@
-﻿global using BuildingBlocks.CQRS;
-global using Matching.API.Models;
-global using Carter;
+﻿global using Carter;
 global using MediatR;
 global using Mapster;
+global using Marten;
+global using BuildingBlocks.CQRS;
 global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.Exceptions;
+global using Matching.API.Models;
+global using Matching.API.Exceptions;
+global using Matching.API.Data;

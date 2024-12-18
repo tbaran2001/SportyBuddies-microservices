@@ -13,6 +13,18 @@ services:
     volumes:
       - postgres_sport:/var/lib/postgresql/data/
 
+  matchingdb:
+    container_name: matchingdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=MatchesDb
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_matching:/var/lib/postgresql/data/
+
   profiledb:
     container_name: profiledb
     environment:

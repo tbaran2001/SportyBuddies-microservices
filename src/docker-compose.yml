@@ -4,6 +4,9 @@ services:
   sportdb:
     image: postgres
 
+  matchingdb:
+    image: postgres
+
   profiledb:
     image: mcr.microsoft.com/mssql/server
 
@@ -15,3 +18,4 @@ services:
 
 volumes:
   postgres_sport:
+  postgres_matching:

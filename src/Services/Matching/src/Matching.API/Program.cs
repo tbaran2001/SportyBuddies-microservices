@@ -1,8 +1,13 @@
+using BuildingBlocks.Exceptions.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var assembly= typeof(Program).Assembly;
 builder.Services.AddCarter();
+
+builder.Services.AddMarten(options => { options.Connection(builder.Configuration.GetConnectionString("Database")!); })
+    .UseLightweightSessions();
+
+var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssembly(assembly);
@@ -10,8 +15,14 @@ builder.Services.AddMediatR(configuration =>
     configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
+builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 app.MapCarter();
+
+app.UseExceptionHandler(options => { });
 
 app.Run();
