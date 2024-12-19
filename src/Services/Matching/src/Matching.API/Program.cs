@@ -16,6 +16,12 @@ builder.Services.AddMediatR(configuration =>
 });
 
 builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
+builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+});
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
