@@ -7,11 +7,11 @@ services:
   matchingdb:
     image: postgres
 
-  profiledb:
-    image: mcr.microsoft.com/mssql/server
-
   distributedcache:
     image: redis
+
+  profiledb:
+    image: mcr.microsoft.com/mssql/server
 
   sport.api:
     image: ${DOCKER_REGISTRY-}sportapi
@@ -19,6 +19,14 @@ services:
       context: .
       dockerfile: Services/Sport/Sport.API/Dockerfile
 
+  matching.api:
+    image: ${DOCKER_REGISTRY-}matchingapi
+    build:
+      context: .
+      dockerfile: Services/Matching/src/Matching.API/Dockerfile
+
 volumes:
   postgres_sport:
   postgres_matching:
+
+
