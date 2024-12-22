@@ -1,0 +1,36 @@
+syntax ="proto3";
+
+option csharp_namespace = "Buddies.Grpc";
+
+package buddies;
+
+service BuddiesProtoService {
+    rpc GetProfileBuddies(GetProfileBuddiesRequest) returns (GetProfileBuddiesResponse);
+    rpc CreateBuddies(CreateBuddiesRequest) returns (CreateBuddiesResponse);
+}
+
+message BuddyResponse {
+    string id = 1;
+    string oppositeBuddyId = 2;
+    string profileId = 3;
+    string matchedProfileId = 4;
+    string created_on_utc = 5;
+}
+
+message GetProfileBuddiesRequest {
+    string profileId = 1;
+}
+
+message GetProfileBuddiesResponse {
+    repeated BuddyResponse buddies = 1;
+}
+
+message CreateBuddiesRequest {
+    string profileId = 1;
+    string matchedProfileId = 2;
+}
+
+message CreateBuddiesResponse {
+    BuddyResponse buddy1 = 1;
+    BuddyResponse buddy2 = 2;
+}
