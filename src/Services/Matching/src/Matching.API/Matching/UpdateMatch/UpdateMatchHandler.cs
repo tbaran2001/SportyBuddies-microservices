@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Buddies.Grpc;
+using FluentValidation;
 
 namespace Matching.API.Matching.UpdateMatch;
 
@@ -15,10 +16,19 @@ public class UpdateMatchCommandValidator : AbstractValidator<UpdateMatchCommand>
     }
 }
 
-public class UpdateMatchCommandHandler(IMatchesRepository matchesRepository) : ICommandHandler<UpdateMatchCommand, UpdateMatchResult>
+public class UpdateMatchCommandHandler(
+    IMatchesRepository matchesRepository,
+    BuddiesProtoService.BuddiesProtoServiceClient buddiesProto)
+    : ICommandHandler<UpdateMatchCommand, UpdateMatchResult>
 {
     public async Task<UpdateMatchResult> Handle(UpdateMatchCommand command, CancellationToken cancellationToken)
     {
+        await buddiesProto.CreateBuddiesAsync(new CreateBuddiesRequest
+        {
+            ProfileId = Guid.NewGuid().ToString(),
+            MatchedProfileId = Guid.NewGuid().ToString()
+        }, cancellationToken: cancellationToken);
+
         await matchesRepository.UpdateMatchAsync(command.MatchId, command.Swipe, cancellationToken);
 
         return new UpdateMatchResult(true);

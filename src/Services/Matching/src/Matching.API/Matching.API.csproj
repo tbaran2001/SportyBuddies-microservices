@@ -16,6 +16,7 @@
       <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0" />
       <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
       <PackageReference Include="Carter" Version="8.2.1" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
       <PackageReference Include="Marten" Version="7.34.1" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.2" />
       <PackageReference Include="Scrutor" Version="5.0.2" />
@@ -25,6 +26,12 @@
       <Content Include="..\..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Protobuf Include="..\..\..\Buddies\src\Buddies.Grpc\Protos\buddies.proto" GrpcServices="Client">
+        <Link>Protos\buddies.proto</Link>
+      </Protobuf>
     </ItemGroup>
 
 </Project>

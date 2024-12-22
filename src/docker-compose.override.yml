@@ -62,11 +62,13 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=matchingdb;Port=5432;Database=MatchesDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - GrpcSettings__BuddiesUrl=https://buddies.grpc:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
     depends_on:
       - matchingdb
       - distributedcache
+      - buddies.grpc
     ports:
       - "6001:8080"
       - "6061:8081"
