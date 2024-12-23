@@ -1,5 +1,7 @@
+using System.Reflection;
 using Buddies.Grpc;
 using BuildingBlocks.Exceptions.Handler;
+using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
@@ -46,6 +48,8 @@ builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(op
 
         return handler;
     });
+
+builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

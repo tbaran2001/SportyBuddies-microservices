@@ -78,7 +78,7 @@ public class Profile : Entity
             throw new DomainException("Profile already has this sport.");
 
         _profileSports.Add(new ProfileSport(Id, sportId));
-        AddDomainEvent(new ProfileSportAddedEvent(this));
+        AddDomainEvent(new ProfileSportAddedEvent(Id, sportId));
     }
 
     public void RemoveSport(Guid sportId)

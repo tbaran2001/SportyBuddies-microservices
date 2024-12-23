@@ -1,4 +1,5 @@
 using BuildingBlocks.Exceptions.Handler;
+using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using ProfileManagement.Application;
@@ -19,6 +20,8 @@ builder.Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString("Database")!);
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 

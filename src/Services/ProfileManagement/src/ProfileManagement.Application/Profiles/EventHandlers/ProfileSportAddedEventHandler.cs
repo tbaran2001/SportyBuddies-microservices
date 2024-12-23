@@ -1,10 +1,26 @@
-﻿namespace ProfileManagement.Application.Profiles.EventHandlers;
+﻿using MassTransit;
+using Microsoft.FeatureManagement;
 
-public class ProfileSportAddedEventHandler(ILogger<ProfileSportAddedEventHandler> logger):INotificationHandler<ProfileSportAddedEvent>
+namespace ProfileManagement.Application.Profiles.EventHandlers;
+
+public class ProfileSportAddedEventHandler(
+    IPublishEndpoint publishEndpoint,
+    IFeatureManager featureManager,
+    ILogger<ProfileSportAddedEventHandler> logger)
+    : INotificationHandler<ProfileSportAddedEvent>
 {
-    public Task Handle(ProfileSportAddedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(ProfileSportAddedEvent domainEvent, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Domain Event handled: {DomainEvent}", notification.GetType().Name);
-        return Task.CompletedTask;
+        logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
+
+        if (!await featureManager.IsEnabledAsync("OrderFulfillment"))
+        {
+            var profileSportAddedIntegrationEvent = new
+            {
+                domainEvent.ProfileId,
+                domainEvent.SportId
+            };
+            await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
+        }
     }
 }

@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7433CE0-3E0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buddies.Grpc", "Services\Buddies\src\Buddies.Grpc\Buddies.Grpc.csproj", "{133D7DE7-E06F-484B-A318-BCD1E870A55D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{7517000D-799D-4123-AA3C-97AA45887620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{133D7DE7-E06F-484B-A318-BCD1E870A55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{133D7DE7-E06F-484B-A318-BCD1E870A55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{133D7DE7-E06F-484B-A318-BCD1E870A55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7517000D-799D-4123-AA3C-97AA45887620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7517000D-799D-4123-AA3C-97AA45887620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7517000D-799D-4123-AA3C-97AA45887620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7517000D-799D-4123-AA3C-97AA45887620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{883FEF9F-4B7B-4AC7-AA23-6522E8146156} = {66A8784E-6759-4B6B-AB4B-E036076ECE59}
 		{E7433CE0-3E02-4141-A5D8-D1705E3D86DA} = {883FEF9F-4B7B-4AC7-AA23-6522E8146156}
 		{133D7DE7-E06F-484B-A318-BCD1E870A55D} = {E7433CE0-3E02-4141-A5D8-D1705E3D86DA}
+		{7517000D-799D-4123-AA3C-97AA45887620} = {5A284822-E2B9-41AB-BBFA-116CB5895532}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A798736C-AADB-4D36-80B1-B4DBC3B9078B}

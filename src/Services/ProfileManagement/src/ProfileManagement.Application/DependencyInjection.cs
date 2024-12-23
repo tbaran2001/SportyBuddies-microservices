@@ -1,6 +1,7 @@
 using System.Reflection;
 using BuildingBlocks.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 using ProfileManagement.Application.Common;
 
 namespace ProfileManagement.Application;
@@ -17,6 +18,8 @@ public static class DependencyInjection
         });
 
         MapsterConfig.Configure();
+
+        services.AddFeatureManagement();
 
         return services;
     }

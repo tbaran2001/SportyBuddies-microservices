@@ -3,7 +3,4 @@ using ProfileManagement.Domain.Models;
 
 namespace ProfileManagement.Domain.Events;
 
-public class ProfileSportAddedEvent(Profile profile) : IDomainEvent
-{
-
-}
+public record ProfileSportAddedEvent(Guid ProfileId, Guid SportId) : IDomainEvent;

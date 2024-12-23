@@ -1,6 +1,12 @@
-﻿namespace ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
+﻿using MassTransit;
+using ProfileSportAddedEvent = BuildingBlocks.Messaging.Events.ProfileSportAddedEvent;
 
-public class AddSportToProfileCommandHandler(IProfilesRepository profilesRepository, IUnitOfWork unitOfWork)
+namespace ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
+
+public class AddSportToProfileCommandHandler(
+    IProfilesRepository profilesRepository,
+    IUnitOfWork unitOfWork,
+    IPublishEndpoint publishEndpoint)
     : ICommandHandler<AddSportToProfileCommand>
 {
     public async Task<Unit> Handle(AddSportToProfileCommand request, CancellationToken cancellationToken)
@@ -12,6 +18,8 @@ public class AddSportToProfileCommandHandler(IProfilesRepository profilesReposit
         profile.AddSport(request.SportId);
 
         await unitOfWork.CommitChangesAsync();
+
+
 
         return Unit.Value;
     }
