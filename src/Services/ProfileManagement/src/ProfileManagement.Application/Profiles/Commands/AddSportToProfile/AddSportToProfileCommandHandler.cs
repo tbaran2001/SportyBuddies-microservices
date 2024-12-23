@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-using ProfileSportAddedEvent = BuildingBlocks.Messaging.Events.ProfileSportAddedEvent;
 
 namespace ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
 

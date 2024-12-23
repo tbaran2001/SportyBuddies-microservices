@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using BuildingBlocks.Messaging.Events;
+using MassTransit;
 using Microsoft.FeatureManagement;
 
 namespace ProfileManagement.Application.Profiles.EventHandlers;
@@ -13,12 +14,12 @@ public class ProfileSportAddedEventHandler(
     {
         logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
 
-        if (!await featureManager.IsEnabledAsync("OrderFulfillment"))
+        if (!await featureManager.IsEnabledAsync("Matching"))
         {
-            var profileSportAddedIntegrationEvent = new
+            var profileSportAddedIntegrationEvent = new ProfileSportAddedIntegrationEvent
             {
-                domainEvent.ProfileId,
-                domainEvent.SportId
+                ProfileId = domainEvent.ProfileId,
+                SportId = domainEvent.SportId
             };
             await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
         }

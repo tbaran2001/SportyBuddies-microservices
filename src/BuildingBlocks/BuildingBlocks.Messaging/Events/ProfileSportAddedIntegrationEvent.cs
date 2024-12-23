@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlocks.Messaging.Events;
 
-public record ProfileSportAddedEvent : IntegrationEvent
+public record ProfileSportAddedIntegrationEvent : IntegrationEvent
 {
     public Guid ProfileId { get; init; }
     public Guid SportId { get; init; }

@@ -22,13 +22,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+      <Protobuf Include="Protos\buddies.proto" GrpcServices="Server" />
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="Protos\buddies.proto" GrpcServices="Server" />
+      <Content Include="..\..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

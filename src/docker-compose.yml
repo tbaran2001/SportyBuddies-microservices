@@ -13,6 +13,9 @@ services:
   profiledb:
     image: mcr.microsoft.com/mssql/server
 
+  messagebroker:
+    image: rabbitmq:management
+
   sport.api:
     image: ${DOCKER_REGISTRY-}sportapi
     build:
@@ -30,6 +33,12 @@ services:
     build:
       context: .
       dockerfile: Services/Buddies/src/Buddies.Grpc/Dockerfile
+
+  profilemanagement.api:
+    image: ${DOCKER_REGISTRY-}profilemanagementapi
+    build:
+      context: .
+      dockerfile: Services/ProfileManagement/src/ProfileManagement.API/Dockerfile
 
 volumes:
   postgres_sport:
