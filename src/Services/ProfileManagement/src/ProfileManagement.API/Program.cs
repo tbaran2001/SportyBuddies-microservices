@@ -39,8 +39,6 @@ if (app.Environment.IsDevelopment())
     await app.InitializeDatabaseAsync();
 }
 
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
