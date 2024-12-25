@@ -19,31 +19,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfileManagement", "Profil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4146F24E-ED03-434A-965C-E7DDD256346A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.API", "Services\ProfileManagement\src\ProfileManagement.API\ProfileManagement.API.csproj", "{4BA27670-6CDB-4820-BB9D-08871C1913DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.API", "Services\ProfileManagement\src\ProfileManagement.API\ProfileManagement.API.csproj", "{4BA27670-6CDB-4820-BB9D-08871C1913DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Infrastructure", "Services\ProfileManagement\src\ProfileManagement.Infrastructure\ProfileManagement.Infrastructure.csproj", "{1BEB61F9-E96C-473A-AFA9-1997D19D1355}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Infrastructure", "Services\ProfileManagement\src\ProfileManagement.Infrastructure\ProfileManagement.Infrastructure.csproj", "{1BEB61F9-E96C-473A-AFA9-1997D19D1355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Domain", "Services\ProfileManagement\src\ProfileManagement.Domain\ProfileManagement.Domain.csproj", "{338FDBEB-3756-482C-8976-02D337BEACC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Domain", "Services\ProfileManagement\src\ProfileManagement.Domain\ProfileManagement.Domain.csproj", "{338FDBEB-3756-482C-8976-02D337BEACC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Application", "Services\ProfileManagement\src\ProfileManagement.Application\ProfileManagement.Application.csproj", "{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileManagement.Application", "Services\ProfileManagement\src\ProfileManagement.Application\ProfileManagement.Application.csproj", "{FAC8CC37-BE3B-4909-835B-E99601FB9E6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matching", "Matching", "{1BA4397F-560C-418C-BCD0-B3AEBFEE9186}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72C65F38-E0F5-4E1A-B34F-5C9CB939AB51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.API", "Services\Matching\src\Matching.API\Matching.API.csproj", "{F425E97F-7F4A-426D-980B-BE504D2ECF85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matching.API", "Services\Matching\src\Matching.API\Matching.API.csproj", "{F425E97F-7F4A-426D-980B-BE504D2ECF85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buddies", "Buddies", "{883FEF9F-4B7B-4AC7-AA23-6522E8146156}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7433CE0-3E02-4141-A5D8-D1705E3D86DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buddies.Grpc", "Services\Buddies\src\Buddies.Grpc\Buddies.Grpc.csproj", "{133D7DE7-E06F-484B-A318-BCD1E870A55D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Buddies.Grpc", "Services\Buddies\src\Buddies.Grpc\Buddies.Grpc.csproj", "{133D7DE7-E06F-484B-A318-BCD1E870A55D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{7517000D-799D-4123-AA3C-97AA45887620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{7517000D-799D-4123-AA3C-97AA45887620}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{D2348421-B4C0-4F15-95C8-B6D762719D41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpApiGateway", "ApiGateways\YarpApiGateway\YarpApiGateway.csproj", "{BBB7532E-9B5F-4F7B-9854-787BF61FC855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YarpApiGateway", "ApiGateways\YarpApiGateway\YarpApiGateway.csproj", "{BBB7532E-9B5F-4F7B-9854-787BF61FC855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
