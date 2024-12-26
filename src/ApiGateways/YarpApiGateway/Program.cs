@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,22 @@ builder.Services.AddRateLimiter(options =>
     });
 });
 
+builder.Services.AddAuthentication(BearerTokenDefaults.AuthenticationScheme)
+    .AddBearerToken();
+
 var app = builder.Build();
+
+app.MapGet("login", () =>
+    Results.SignIn(
+        new ClaimsPrincipal(new ClaimsIdentity(
+            [
+                new Claim("sub", Guid.NewGuid().ToString())
+            ],
+            BearerTokenDefaults.AuthenticationScheme)),
+        authenticationScheme: BearerTokenDefaults.AuthenticationScheme));
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseRateLimiter();
 
