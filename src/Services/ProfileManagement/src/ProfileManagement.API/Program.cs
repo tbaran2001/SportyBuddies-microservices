@@ -1,6 +1,7 @@
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using ProfileManagement.Application;
 using ProfileManagement.Infrastructure;
@@ -23,6 +24,16 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddMessageBroker(builder.Configuration);
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["IdentityServiceUrl"];
+        options.Audience = "ProfileManagement";
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.NameClaimType = "username";
+    });
+
 var app = builder.Build();
 
 app.UseExceptionHandler(_ => { });
@@ -39,6 +50,7 @@ if (app.Environment.IsDevelopment())
     await app.InitializeDatabaseAsync();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
