@@ -45,6 +45,6 @@ public class AccountController(UserManager<ApplicationUser> userManager, IUserSt
 
         await dbContext.SaveChangesAsync();
 
-        return Ok(user);
+        return Ok(user.Id);
     }
 }

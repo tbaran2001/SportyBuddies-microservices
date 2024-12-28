@@ -1,24 +1,24 @@
-﻿using MassTransit;
+﻿using BuildingBlocks.Authentication;
+using MassTransit;
 
 namespace ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
 
 public class AddSportToProfileCommandHandler(
     IProfilesRepository profilesRepository,
-    IUnitOfWork unitOfWork,
-    IPublishEndpoint publishEndpoint)
+    IUserContext userContext,
+    IUnitOfWork unitOfWork)
     : ICommandHandler<AddSportToProfileCommand>
 {
     public async Task<Unit> Handle(AddSportToProfileCommand request, CancellationToken cancellationToken)
     {
-        var profile = await profilesRepository.GetProfileByIdAsync(request.ProfileId);
+        var currentUser = userContext.GetCurrentUser();
+
+        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUser.Id);
         if (profile == null)
-            throw new ProfileNotFoundException(request.ProfileId);
+            throw new ProfileNotFoundException(currentUser.Id);
 
         profile.AddSport(request.SportId);
-
         await unitOfWork.CommitChangesAsync();
-
-
 
         return Unit.Value;
     }

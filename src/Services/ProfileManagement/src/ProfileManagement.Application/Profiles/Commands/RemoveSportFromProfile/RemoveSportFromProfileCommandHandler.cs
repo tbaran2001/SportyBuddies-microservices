@@ -1,15 +1,21 @@
-﻿namespace ProfileManagement.Application.Profiles.Commands.RemoveSportFromProfile;
+﻿using BuildingBlocks.Authentication;
 
-public class RemoveSportFromProfileCommandHandler(IProfilesRepository profilesRepository, IUnitOfWork unitOfWork): ICommandHandler<RemoveSportFromProfileCommand>
+namespace ProfileManagement.Application.Profiles.Commands.RemoveSportFromProfile;
+
+public class RemoveSportFromProfileCommandHandler(
+    IProfilesRepository profilesRepository,
+    IUserContext userContext,
+    IUnitOfWork unitOfWork) : ICommandHandler<RemoveSportFromProfileCommand>
 {
     public async Task<Unit> Handle(RemoveSportFromProfileCommand request, CancellationToken cancellationToken)
     {
-        var profile = await profilesRepository.GetProfileByIdAsync(request.ProfileId);
+        var currentUser = userContext.GetCurrentUser();
+
+        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUser.Id);
         if (profile == null)
-            throw new ProfileNotFoundException(request.ProfileId);
+            throw new ProfileNotFoundException(currentUser.Id);
 
         profile.RemoveSport(request.SportId);
-
         await unitOfWork.CommitChangesAsync();
 
         return Unit.Value;

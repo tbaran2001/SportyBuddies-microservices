@@ -44,10 +44,10 @@ public class Profile : Entity
         return profile;
     }
 
-    public static Profile CreateSimple(ProfileName name, ProfileDescription description)
+    public static Profile CreateSimple(Guid id,ProfileName name, ProfileDescription description)
     {
         var profile = Create(
-            Guid.NewGuid(),
+            id,
             name,
             description,
             DateTime.UtcNow,

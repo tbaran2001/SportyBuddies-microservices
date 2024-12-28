@@ -60,30 +60,30 @@ public class ProfilesController(ISender sender) : ControllerBase
         return Ok(profileResult);
     }
 
-    [HttpPut("{profileId:guid}")]
-    public async Task<ActionResult<ProfileResponse>> UpdateProfile(Guid profileId, UpdateProfileRequest request)
+    [HttpPut("me")]
+    public async Task<ActionResult<ProfileResponse>> UpdateProfile(UpdateProfileRequest request)
     {
-        var command = request.Adapt<UpdateProfileCommand>() with { Id = profileId };
+        var command = request.Adapt<UpdateProfileCommand>();
 
         var profileResult = await sender.Send(command);
 
         return Ok(profileResult);
     }
 
-    [HttpPost("{profileId:guid}/sports/{sportId:guid}")]
-    public async Task<ActionResult> AddSportToProfile(Guid profileId, Guid sportId)
+    [HttpPost("sports/{sportId:guid}")]
+    public async Task<ActionResult> AddSportToProfile(Guid sportId)
     {
-        var command = new AddSportToProfileCommand(profileId, sportId);
+        var command = new AddSportToProfileCommand(sportId);
 
         await sender.Send(command);
 
         return NoContent();
     }
 
-    [HttpDelete("{profileId:guid}/sports/{sportId:guid}")]
-    public async Task<ActionResult> RemoveSportFromProfile(Guid profileId, Guid sportId)
+    [HttpDelete("sports/{sportId:guid}")]
+    public async Task<ActionResult> RemoveSportFromProfile(Guid sportId)
     {
-        var command = new RemoveSportFromProfileCommand(profileId, sportId);
+        var command = new RemoveSportFromProfileCommand(sportId);
 
         await sender.Send(command);
 

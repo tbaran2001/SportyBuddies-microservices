@@ -9,7 +9,7 @@ public class GetCurrentProfileQueryHandler(IProfilesRepository profilesRepositor
     {
         var currentUser = userContext.GetCurrentUser();
 
-        var profile = await profilesRepository.GetProfileByIdAsync(currentUser.Id);
+        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUser.Id);
         if (profile == null)
             throw new ProfileNotFoundException(currentUser.Id);
 
