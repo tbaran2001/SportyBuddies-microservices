@@ -13,6 +13,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.2"/>
 
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.0"/>
 
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2"/>
@@ -20,6 +22,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -103,5 +106,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\README.md" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
     </ItemGroup>
 </Project>

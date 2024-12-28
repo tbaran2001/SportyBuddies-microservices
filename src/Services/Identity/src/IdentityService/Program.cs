@@ -11,6 +11,10 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
     builder.Host.UseSerilog((ctx, lc) => lc
         .WriteTo.Console(
             outputTemplate:
@@ -23,6 +27,12 @@ try
         .ConfigurePipeline();
 
     SeedData.EnsureSeedData(app);
+
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    app.UseRouting();
+    app.MapControllers();
 
     app.Run();
 }
