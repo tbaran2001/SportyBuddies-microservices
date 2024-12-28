@@ -1,4 +1,5 @@
 using System.Reflection;
+using BuildingBlocks.Authentication;
 using BuildingBlocks.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FeatureManagement;
@@ -20,6 +21,9 @@ public static class DependencyInjection
         MapsterConfig.Configure();
 
         services.AddFeatureManagement();
+
+        services.AddScoped<IUserContext, UserContext>();
+        services.AddHttpContextAccessor();
 
         return services;
     }

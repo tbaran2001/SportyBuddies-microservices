@@ -9,24 +9,25 @@ using ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
 using ProfileManagement.Application.Profiles.Commands.CreateProfile;
 using ProfileManagement.Application.Profiles.Commands.RemoveSportFromProfile;
 using ProfileManagement.Application.Profiles.Commands.UpdateProfile;
+using ProfileManagement.Application.Profiles.Queries.GetCurrentProfile;
 using ProfileManagement.Application.Profiles.Queries.GetProfile;
 using ProfileManagement.Application.Profiles.Queries.GetProfiles;
 
 namespace ProfileManagement.API.Controllers;
 
-[Route("api/[controller]")]
+[Authorize]
 [ApiController]
+[Route("api/[controller]")]
 public class ProfilesController(ISender sender) : ControllerBase
 {
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<IEnumerable<ProfileResponse>>> GetProfiles()
+    [HttpGet("me")]
+    public async Task<ActionResult<ProfileResponse>> GetCurrentProfile()
     {
-        var query = new GetProfilesQuery();
+        var query = new GetCurrentProfileQuery();
 
-        var profilesResult = await sender.Send(query);
+        var profileResult = await sender.Send(query);
 
-        return Ok(profilesResult);
+        return Ok(profileResult);
     }
 
     [HttpGet("{profileId:guid}")]
@@ -37,6 +38,16 @@ public class ProfilesController(ISender sender) : ControllerBase
         var profileResult = await sender.Send(query);
 
         return Ok(profileResult);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ProfileResponse>>> GetProfiles()
+    {
+        var query = new GetProfilesQuery();
+
+        var profilesResult = await sender.Send(query);
+
+        return Ok(profilesResult);
     }
 
     [HttpPost]
