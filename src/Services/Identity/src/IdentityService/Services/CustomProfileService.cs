@@ -9,12 +9,10 @@ namespace IdentityService.Services;
 
 public class CustomProfileService(UserManager<ApplicationUser> userManager) : IProfileService
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-
     public async Task GetProfileDataAsync(ProfileDataRequestContext context)
     {
-        var user = await _userManager.GetUserAsync(context.Subject);
-        var existingClaims = await _userManager.GetClaimsAsync(user);
+        var user = await userManager.GetUserAsync(context.Subject);
+        var existingClaims = await userManager.GetClaimsAsync(user);
 
         var claims = new List<Claim>
         {

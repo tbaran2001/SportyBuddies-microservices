@@ -18,7 +18,7 @@ public class SeedData
 
         var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        if(userMgr.Users.Any())
+        if (userMgr.Users.Any())
             return;
 
         var alice = userMgr.FindByNameAsync("alice").Result;
@@ -26,6 +26,7 @@ public class SeedData
         {
             alice = new ApplicationUser
             {
+                Id = new Guid("8d69a725-c1b7-45eb-8ace-982bdc21ca78"),
                 UserName = "alice",
                 Email = "AliceSmith@email.com",
                 EmailConfirmed = true,
@@ -36,10 +37,9 @@ public class SeedData
                 throw new Exception(result.Errors.First().Description);
             }
 
-            result = userMgr.AddClaimsAsync(alice, new Claim[]
-            {
+            result = userMgr.AddClaimsAsync(alice, [
                 new Claim(JwtClaimTypes.Name, "Alice Smith")
-            }).Result;
+            ]).Result;
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
@@ -57,6 +57,7 @@ public class SeedData
         {
             bob = new ApplicationUser
             {
+                Id = new Guid("f0d08409-8f34-4f88-aba4-cc7e906f7d62"),
                 UserName = "bob",
                 Email = "BobSmith@email.com",
                 EmailConfirmed = true
@@ -67,10 +68,9 @@ public class SeedData
                 throw new Exception(result.Errors.First().Description);
             }
 
-            result = userMgr.AddClaimsAsync(bob, new Claim[]
-            {
+            result = userMgr.AddClaimsAsync(bob, [
                 new Claim(JwtClaimTypes.Name, "Bob Smith")
-            }).Result;
+            ]).Result;
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
