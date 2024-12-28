@@ -1,5 +1,6 @@
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProfileManagement.API.Contracts;
@@ -18,6 +19,7 @@ namespace ProfileManagement.API.Controllers;
 public class ProfilesController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<ProfileResponse>>> GetProfiles()
     {
         var query = new GetProfilesQuery();

@@ -127,6 +127,7 @@ services:
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - FeatureManagement__Matching=false
+      - IdentityServiceUrl=http://identityservice:8080
     depends_on:
       - profiledb
       - messagebroker
@@ -144,6 +145,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - IdentityServiceUrl=http://identityservice:8080
     depends_on:
       - sport.api
       - matching.api
@@ -151,6 +153,19 @@ services:
     ports:
       - "6004:8080"
       - "6064:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  identityservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__Database=Server=identitydb;Database=IdentityDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+    depends_on:
+      - identitydb
+    ports:
+      - "6065:8080"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

@@ -49,6 +49,12 @@ services:
       context: .
       dockerfile: ApiGateways/YarpApiGateway/Dockerfile
 
+  identityservice:
+    image: ${DOCKER_REGISTRY-}identityservice
+    build:
+      context: .
+      dockerfile: Services/Identity/src/IdentityService/Dockerfile
+
 volumes:
   postgres_sport:
   postgres_matching:

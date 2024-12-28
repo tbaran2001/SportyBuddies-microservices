@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,25 +15,21 @@ builder.Services.AddRateLimiter(options =>
     });
 });
 
-/*builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["IdentityServiceUrl"];
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.NameClaimType = "username";
+        options.TokenValidationParameters.ValidateIssuer = false;
 
-builder.Services.AddIdentity(builder.Configuration);*/
+    });
 
 var app = builder.Build();
 
-/*if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-    await app.InitializeDatabaseAsync();
-}*/
-
-//app.UseAuthentication();
-//app.UseAuthorization();
-
-//app.MapIdentityApi();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseRateLimiter();
 
