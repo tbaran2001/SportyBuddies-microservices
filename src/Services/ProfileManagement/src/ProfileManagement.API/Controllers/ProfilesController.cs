@@ -50,16 +50,6 @@ public class ProfilesController(ISender sender) : ControllerBase
         return Ok(profilesResult);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<ProfileResponse>> CreateProfile(CreateProfileRequest request)
-    {
-        var command = request.Adapt<CreateProfileCommand>();
-
-        var profileResult = await sender.Send(command);
-
-        return Ok(profileResult);
-    }
-
     [HttpPut("me")]
     public async Task<ActionResult<ProfileResponse>> UpdateProfile(UpdateProfileRequest request)
     {

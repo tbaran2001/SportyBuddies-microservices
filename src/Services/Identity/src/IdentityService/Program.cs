@@ -1,4 +1,6 @@
-﻿using IdentityService;
+﻿using System.Reflection;
+using BuildingBlocks.Messaging.MassTransit;
+using IdentityService;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -21,6 +23,8 @@ try
             "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
+
+    builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
     var app = builder
         .ConfigureServices()

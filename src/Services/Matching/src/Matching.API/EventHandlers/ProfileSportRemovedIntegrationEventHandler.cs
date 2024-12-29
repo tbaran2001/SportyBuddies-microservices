@@ -4,9 +4,9 @@ using Matching.API.Matching.CreateMatches;
 
 namespace Matching.API.EventHandlers;
 
-public class ProfileSportAddedEventHandler(ISender sender):IConsumer<ProfileSportAddedIntegrationEvent>
+public class ProfileSportRemovedIntegrationEventHandler(ISender sender) : IConsumer<ProfileSportRemovedIntegrationEvent>
 {
-    public async Task Consume(ConsumeContext<ProfileSportAddedIntegrationEvent> context)
+    public async Task Consume(ConsumeContext<ProfileSportRemovedIntegrationEvent> context)
     {
         var command = new CreateMatchesCommand(context.Message.ProfileId);
         await sender.Send(command);

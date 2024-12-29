@@ -1,7 +1,9 @@
 using System.Security.Claims;
+using BuildingBlocks.Messaging.Events;
 using IdentityModel;
 using IdentityService.Data;
 using IdentityService.Models;
+using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,11 @@ namespace IdentityService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AccountController(UserManager<ApplicationUser> userManager, IUserStore<ApplicationUser> userStore,ApplicationDbContext dbContext)
+public class AccountController(
+    UserManager<ApplicationUser> userManager,
+    IUserStore<ApplicationUser> userStore,
+    ApplicationDbContext dbContext,
+    IPublishEndpoint publishEndpoint)
     : ControllerBase
 {
     [HttpPost("register")]
@@ -44,6 +50,13 @@ public class AccountController(UserManager<ApplicationUser> userManager, IUserSt
         }
 
         await dbContext.SaveChangesAsync();
+
+        var userRegisteredIntegrationEvent = new UserRegisteredIntegrationEvent
+        {
+            UserId = user.Id,
+            Name = request.Name
+        };
+        await publishEndpoint.Publish(userRegisteredIntegrationEvent);
 
         return Ok(user.Id);
     }

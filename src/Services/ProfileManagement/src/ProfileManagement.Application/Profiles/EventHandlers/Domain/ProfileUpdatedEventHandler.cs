@@ -1,4 +1,4 @@
-﻿namespace ProfileManagement.Application.Profiles.EventHandlers;
+﻿namespace ProfileManagement.Application.Profiles.EventHandlers.Domain;
 
 public class ProfileUpdatedEventHandler(ILogger<ProfileUpdatedEventHandler> logger) : INotificationHandler<ProfileUpdatedEvent>
 {

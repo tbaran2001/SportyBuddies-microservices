@@ -51,7 +51,7 @@ services:
 
   messagebroker:
     container_name: messagebroker
-    hostname: ecommerce-mq
+    hostname: sportybuddies-mq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -85,7 +85,7 @@ services:
       - GrpcSettings__BuddiesUrl=https://buddies.grpc:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
-      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
     depends_on:
@@ -123,7 +123,7 @@ services:
       - ConnectionStrings__Database=Server=profiledb;Database=ProfileDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
-      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - FeatureManagement__Matching=false
@@ -162,8 +162,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__Database=Server=identitydb;Database=IdentityDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - MessageBroker__Host=amqp://sportybuddies-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
       - identitydb
+      - messagebroker
     ports:
       - "6065:8080"
     volumes:

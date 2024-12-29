@@ -88,6 +88,6 @@ public class Profile : Entity
             throw new DomainException("Profile does not have this sport.");
 
         _profileSports.Remove(sport);
-        AddDomainEvent(new ProfileSportRemovedEvent(this));
+        AddDomainEvent(new ProfileSportRemovedEvent(Id, sportId));
     }
 }
