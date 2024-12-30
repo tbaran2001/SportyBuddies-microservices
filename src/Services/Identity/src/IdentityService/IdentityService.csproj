@@ -110,6 +110,7 @@
 
     <ItemGroup>
       <Folder Include="Controllers\" />
+      <Folder Include="keys\" />
     </ItemGroup>
 
     <ItemGroup>

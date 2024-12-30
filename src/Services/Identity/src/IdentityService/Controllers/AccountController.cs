@@ -21,43 +21,69 @@ public class AccountController(
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var emailStore = (IUserEmailStore<ApplicationUser>)userStore;
-        var email = request.Email;
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-        if (string.IsNullOrEmpty(email))
-        {
-            return BadRequest("Email is required");
-        }
+        var user = await CreateUserAsync(request.Email, request.Password);
+        if (user == null)
+            return BadRequest("User creation failed.");
 
-        var user = new ApplicationUser();
+        var emailConfirmationResult = await ConfirmEmailAsync(user);
+        if (!emailConfirmationResult.Succeeded)
+            return BadRequest(emailConfirmationResult.Errors);
 
-        await userStore.SetUserNameAsync(user, email, CancellationToken.None);
-        await emailStore.SetEmailAsync(user, email, CancellationToken.None);
-        var result = await userManager.CreateAsync(user, request.Password);
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(result.Errors);
-        }
-
-        result = userManager.AddClaimsAsync(user, [
-            new Claim(JwtClaimTypes.Name, request.Name)
-        ]).Result;
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(result.Errors);
-        }
+        var claimsResult = await AddUserClaimsAsync(user, request.Name);
+        if (!claimsResult.Succeeded)
+            return BadRequest(claimsResult.Errors);
 
         await dbContext.SaveChangesAsync();
 
-        var userRegisteredIntegrationEvent = new UserRegisteredIntegrationEvent
+        var integrationEvent = new UserRegisteredIntegrationEvent
         {
             UserId = user.Id,
             Name = request.Name
         };
-        await publishEndpoint.Publish(userRegisteredIntegrationEvent);
+        await publishEndpoint.Publish(integrationEvent);
 
-        return Ok(user.Id);
+        return Ok(new { UserId = user.Id });
+    }
+
+    private async Task<ApplicationUser?> CreateUserAsync(string email, string password)
+    {
+        if (string.IsNullOrEmpty(email))
+        {
+            ModelState.AddModelError(nameof(email), "Email is required.");
+            return null;
+        }
+
+        var emailStore = (IUserEmailStore<ApplicationUser>)userStore;
+        var user = new ApplicationUser();
+
+        await userStore.SetUserNameAsync(user, email, CancellationToken.None);
+        await emailStore.SetEmailAsync(user, email, CancellationToken.None);
+
+        var result = await userManager.CreateAsync(user, password);
+        if (result.Succeeded) return user;
+
+        foreach (var error in result.Errors)
+            ModelState.AddModelError(error.Code, error.Description);
+
+        return null;
+    }
+
+    private async Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user)
+    {
+        user.EmailConfirmed = true;
+        return await userManager.UpdateAsync(user);
+    }
+
+    private async Task<IdentityResult> AddUserClaimsAsync(ApplicationUser user, string name)
+    {
+        var claims = new List<Claim>
+        {
+            new(JwtClaimTypes.Name, name)
+        };
+
+        return await userManager.AddClaimsAsync(user, claims);
     }
 }
