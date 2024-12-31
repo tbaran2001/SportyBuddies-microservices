@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Messaging.Events;
+using BuildingBlocks.Messaging.Events.Identity;
 using MassTransit;
 using ProfileManagement.Application.Profiles.Commands.CreateProfile;
 

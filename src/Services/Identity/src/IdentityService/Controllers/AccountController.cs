@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using BuildingBlocks.Messaging.Events;
+using BuildingBlocks.Messaging.Events.Identity;
 using IdentityModel;
 using IdentityService.Data;
 using IdentityService.Models;
