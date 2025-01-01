@@ -90,4 +90,9 @@ public class Profile : Entity
         _profileSports.Remove(sport);
         AddDomainEvent(new ProfileSportRemovedEvent(Id, sportId));
     }
+
+    public void UpdatePreferences(Preferences preferences)
+    {
+        Preferences = preferences;
+    }
 }
