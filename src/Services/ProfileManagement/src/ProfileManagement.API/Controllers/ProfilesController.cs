@@ -9,6 +9,7 @@ using ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
 using ProfileManagement.Application.Profiles.Commands.CreateProfile;
 using ProfileManagement.Application.Profiles.Commands.RemoveSportFromProfile;
 using ProfileManagement.Application.Profiles.Commands.UpdateProfile;
+using ProfileManagement.Application.Profiles.Commands.UpdateProfilePreferences;
 using ProfileManagement.Application.Profiles.Queries.GetCurrentProfile;
 using ProfileManagement.Application.Profiles.Queries.GetProfile;
 using ProfileManagement.Application.Profiles.Queries.GetProfiles;
@@ -74,6 +75,16 @@ public class ProfilesController(ISender sender) : ControllerBase
     public async Task<ActionResult> RemoveSportFromProfile(Guid sportId)
     {
         var command = new RemoveSportFromProfileCommand(sportId);
+
+        await sender.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("preferences")]
+    public async Task<ActionResult> UpdateProfilePreferences(UpdateProfilePreferencesRequest request)
+    {
+        var command = request.Adapt<UpdateProfilePreferencesCommand>();
 
         await sender.Send(command);
 
