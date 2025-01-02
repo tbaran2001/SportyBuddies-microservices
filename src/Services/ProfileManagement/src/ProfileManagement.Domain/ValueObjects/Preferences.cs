@@ -5,11 +5,11 @@ namespace ProfileManagement.Domain.ValueObjects;
 
 public record Preferences
 {
-    public static Preferences Default => new Preferences(18, 45, 50, 0);
-    public int MinAge { get; } = default!;
-    public int MaxAge { get; } = default!;
-    public int MaxDistance { get; } = default!;
-    public Gender PreferredGender { get; } = default!;
+    public static Preferences Default => new(18, 45, 50, 0);
+    public int MinAge { get; }
+    public int MaxAge { get; }
+    public int MaxDistance { get; }
+    public Gender PreferredGender { get; }
 
     private Preferences(int minAge, int maxAge, int maxDistance, Gender preferredGender)
     {

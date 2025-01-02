@@ -10,10 +10,10 @@ using ProfileManagement.Infrastructure;
 
 #nullable disable
 
-namespace ProfileManagement.Infrastructure.Migrations
+namespace ProfileManagement.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241217132139_Initial")]
+    [Migration("20250102172100_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -113,10 +113,6 @@ namespace ProfileManagement.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

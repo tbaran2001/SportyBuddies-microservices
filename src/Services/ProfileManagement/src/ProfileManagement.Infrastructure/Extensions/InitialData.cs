@@ -8,9 +8,9 @@ internal class InitialData
 {
     public static IEnumerable<Sport> Sports => new List<Sport>
     {
-        Sport.Create(new Guid("c256f0e3-be38-4502-89af-f26ac6553aeb"), "Football"),
-        Sport.Create(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"), "Basketball"),
-        Sport.Create(new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc"), "Tennis"),
+        Sport.Create(new Guid("c256f0e3-be38-4502-89af-f26ac6553aeb")),
+        Sport.Create(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6")),
+        Sport.Create(new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc")),
     };
 
     public static IEnumerable<Profile> ProfilesWithSports

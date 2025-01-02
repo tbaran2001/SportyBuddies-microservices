@@ -3,7 +3,4 @@ using ProfileManagement.Domain.Models;
 
 namespace ProfileManagement.Domain.Events;
 
-public class ProfileUpdatedEvent(Profile profile) : IDomainEvent
-{
-
-}
+public record ProfileUpdatedEvent(Guid ProfileId) : IDomainEvent;

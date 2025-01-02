@@ -39,7 +39,7 @@ public class Profile : Entity
             Preferences = preferences,
         };
 
-        profile.AddDomainEvent(new ProfileCreatedEvent(profile));
+        profile.AddDomainEvent(new ProfileCreatedEvent(profile.Id));
 
         return profile;
     }
@@ -69,7 +69,7 @@ public class Profile : Entity
         DateOfBirth = dateOfBirth;
         Gender = gender;
 
-        AddDomainEvent(new ProfileUpdatedEvent(this));
+        AddDomainEvent(new ProfileUpdatedEvent(Id));
     }
 
     public void AddSport(Guid sportId)

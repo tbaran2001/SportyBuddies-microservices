@@ -9,7 +9,7 @@ using ProfileManagement.Infrastructure;
 
 #nullable disable
 
-namespace ProfileManagement.Infrastructure.Migrations
+namespace ProfileManagement.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -110,10 +110,6 @@ namespace ProfileManagement.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
