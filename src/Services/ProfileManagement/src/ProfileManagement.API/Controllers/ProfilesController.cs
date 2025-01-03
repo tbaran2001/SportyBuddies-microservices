@@ -18,7 +18,7 @@ namespace ProfileManagement.API.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ProfilesController(ISender sender) : ControllerBase
 {
     [HttpGet("me")]

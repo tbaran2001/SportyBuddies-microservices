@@ -32,4 +32,13 @@ public class ProfilesRepository(ApplicationDbContext dbContext) : IProfilesRepos
     {
         dbContext.Profiles.Remove(profile);
     }
+
+    public async Task<IEnumerable<Guid>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports)
+    {
+        return await dbContext.Profiles
+            .Where(u => u.Id != profileId)
+            .Where(u => u.ProfileSports.Any(s => profileSports.Contains(s.SportId)))
+            .Select(u => u.Id)
+            .ToListAsync();
+    }
 }

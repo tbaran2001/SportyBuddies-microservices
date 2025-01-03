@@ -61,4 +61,31 @@ public class MatchesRepository(IDocumentSession session) : IMatchesRepository
 
         return randomMatch;
     }
+
+    public async Task<bool> CheckIfMatchExistsAsync(Guid profileId, Guid matchedProfileId,
+        CancellationToken cancellationToken = default)
+    {
+        var match = await session.Query<Match>()
+            .FirstOrDefaultAsync(m =>
+                    (m.ProfileId == profileId && m.MatchedProfileId == matchedProfileId) ||
+                    (m.ProfileId == matchedProfileId && m.MatchedProfileId == profileId),
+                cancellationToken);
+
+        return match != null;
+    }
+
+    public Task RemoveMatchesAsync(Guid profileId, IEnumerable<Guid> potentialMatches)
+    {
+        var matches = session.Query<Match>()
+            .Where(m => m.ProfileId == profileId && !potentialMatches.Contains(m.MatchedProfileId) ||
+                        m.MatchedProfileId == profileId && !potentialMatches.Contains(m.ProfileId))
+            .ToList();
+
+        foreach (var match in matches)
+        {
+            session.Delete(match);
+        }
+
+        return session.SaveChangesAsync();
+    }
 }

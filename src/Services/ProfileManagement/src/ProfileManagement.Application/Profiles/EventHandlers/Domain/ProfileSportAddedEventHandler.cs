@@ -5,6 +5,7 @@ using MassTransit;
 namespace ProfileManagement.Application.Profiles.EventHandlers.Domain;
 
 public class ProfileSportAddedEventHandler(
+    IProfilesRepository profilesRepository,
     IPublishEndpoint publishEndpoint,
     ILogger<ProfileSportAddedEventHandler> logger)
     : INotificationHandler<ProfileSportAddedEvent>
@@ -13,10 +14,13 @@ public class ProfileSportAddedEventHandler(
     {
         logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
 
+        var potentialMatches =
+            await profilesRepository.GetPotentialMatchesAsync(domainEvent.ProfileId, domainEvent.SportIds);
+
         var profileSportAddedIntegrationEvent = new ProfileSportAddedIntegrationEvent
         {
             ProfileId = domainEvent.ProfileId,
-            SportId = domainEvent.SportId
+            PotentialMatches = potentialMatches
         };
         await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
     }

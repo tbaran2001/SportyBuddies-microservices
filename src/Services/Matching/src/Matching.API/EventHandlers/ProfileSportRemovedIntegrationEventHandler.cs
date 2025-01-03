@@ -5,11 +5,13 @@ using Matching.API.Matching.CreateMatches;
 
 namespace Matching.API.EventHandlers;
 
-public class ProfileSportRemovedIntegrationEventHandler(ISender sender) : IConsumer<ProfileSportRemovedIntegrationEvent>
+public class ProfileSportRemovedIntegrationEventHandler(ISender sender, IMatchesRepository matchesRepository)
+    : IConsumer<ProfileSportRemovedIntegrationEvent>
 {
     public async Task Consume(ConsumeContext<ProfileSportRemovedIntegrationEvent> context)
     {
-        var command = new CreateMatchesCommand(context.Message.ProfileId);
-        await sender.Send(command);
+        var potentialMatches = context.Message.PotentialMatches;
+
+        await matchesRepository.RemoveMatchesAsync(context.Message.ProfileId, potentialMatches);
     }
 }

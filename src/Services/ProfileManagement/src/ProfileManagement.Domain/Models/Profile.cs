@@ -44,7 +44,7 @@ public class Profile : Entity
         return profile;
     }
 
-    public static Profile CreateSimple(Guid id,ProfileName name, ProfileDescription description)
+    public static Profile CreateSimple(Guid id, ProfileName name, ProfileDescription description)
     {
         var profile = Create(
             id,
@@ -78,7 +78,7 @@ public class Profile : Entity
             throw new DomainException("Profile already has this sport.");
 
         _profileSports.Add(new ProfileSport(Id, sportId));
-        AddDomainEvent(new ProfileSportAddedEvent(Id, sportId));
+        AddDomainEvent(new ProfileSportAddedEvent(Id, _profileSports.Select(ps => ps.SportId).ToList()));
     }
 
     public void RemoveSport(Guid sportId)
@@ -88,7 +88,7 @@ public class Profile : Entity
             throw new DomainException("Profile does not have this sport.");
 
         _profileSports.Remove(sport);
-        AddDomainEvent(new ProfileSportRemovedEvent(Id, sportId));
+        AddDomainEvent(new ProfileSportRemovedEvent(Id, _profileSports.Select(ps => ps.SportId).ToList()));
     }
 
     public void UpdatePreferences(Preferences preferences)

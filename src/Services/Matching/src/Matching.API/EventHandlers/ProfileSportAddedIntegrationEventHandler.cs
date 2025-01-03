@@ -9,7 +9,11 @@ public class ProfileSportAddedIntegrationEventHandler(ISender sender) : IConsume
 {
     public async Task Consume(ConsumeContext<ProfileSportAddedIntegrationEvent> context)
     {
-        var command = new CreateMatchesCommand(context.Message.ProfileId);
-        await sender.Send(command);
+        var potentialMatches= context.Message.PotentialMatches;
+
+        foreach (var match in potentialMatches)
+        {
+            await sender.Send(new CreateMatchesCommand(context.Message.ProfileId, match));
+        }
     }
 }

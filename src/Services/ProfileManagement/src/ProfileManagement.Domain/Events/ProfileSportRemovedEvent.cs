@@ -3,4 +3,4 @@ using ProfileManagement.Domain.Models;
 
 namespace ProfileManagement.Domain.Events;
 
-public record ProfileSportRemovedEvent(Guid ProfileId, Guid SportId) : IDomainEvent;
+public record ProfileSportRemovedEvent(Guid ProfileId, IEnumerable<Guid> SportIds) : IDomainEvent;

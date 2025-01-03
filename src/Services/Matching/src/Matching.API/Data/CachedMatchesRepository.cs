@@ -39,6 +39,16 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         return match;
     }
 
+    public async Task<bool> CheckIfMatchExistsAsync(Guid profileId, Guid matchedProfileId, CancellationToken cancellationToken = default)
+    {
+        return await matchesRepository.CheckIfMatchExistsAsync(profileId, matchedProfileId, cancellationToken);
+    }
+
+    public async Task RemoveMatchesAsync(Guid profileId, IEnumerable<Guid> potentialMatches)
+    {
+        await matchesRepository.RemoveMatchesAsync(profileId, potentialMatches);
+    }
+
     public async Task UpdateMatchAsync(Guid matchId, Swipe swipe, CancellationToken cancellationToken = default)
     {
         await matchesRepository.UpdateMatchAsync(matchId, swipe, cancellationToken);
