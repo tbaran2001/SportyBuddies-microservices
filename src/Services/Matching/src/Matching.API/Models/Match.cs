@@ -34,6 +34,12 @@ public class Match
         return (match1, match2);
     }
 
+    public void SetSwipe(Swipe swipe)
+    {
+        Swipe = swipe;
+        SwipeDateTime = DateTime.UtcNow;
+    }
+
     public Match(
         Guid id,
         Guid oppositeMatchId,

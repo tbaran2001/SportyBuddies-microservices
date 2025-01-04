@@ -11,6 +11,11 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         return await matchesRepository.GetMatchByIdAsync(matchId, cancellationToken);
     }
 
+    public async Task UpdateMatchAsync(Match match, CancellationToken cancellationToken = default)
+    {
+        await matchesRepository.UpdateMatchAsync(match, cancellationToken);
+    }
+
     public async Task<IEnumerable<Match>> GetMatchesAsync(Guid profileId, CancellationToken cancellationToken = default)
     {
         var cachedMatches = await cache.GetStringAsync(profileId.ToString(), cancellationToken);
@@ -49,10 +54,6 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         await matchesRepository.RemoveMatchesAsync(profileId, potentialMatches);
     }
 
-    public async Task UpdateMatchAsync(Guid matchId, Swipe swipe, CancellationToken cancellationToken = default)
-    {
-        await matchesRepository.UpdateMatchAsync(matchId, swipe, cancellationToken);
-    }
 
     public async Task AddMatchesAsync(IEnumerable<Match> matches, CancellationToken cancellationToken = default)
     {

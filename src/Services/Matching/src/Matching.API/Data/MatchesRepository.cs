@@ -1,63 +1,53 @@
-﻿using Marten.Patching;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Matching.API.Data;
 
-public class MatchesRepository(IDocumentSession session) : IMatchesRepository
+public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesRepository
 {
     public async Task<Match> GetMatchByIdAsync(Guid matchId, CancellationToken cancellationToken = default)
     {
-        var match = await session.LoadAsync<Match>(matchId, cancellationToken);
+        var match = await dbContext.Matches.FindAsync(matchId, cancellationToken);
         if (match == null)
             throw new MatchNotFoundException(matchId);
 
         return match;
     }
 
-    public async Task UpdateMatchAsync(Guid matchId, Swipe swipe, CancellationToken cancellationToken = default)
+    public async Task UpdateMatchAsync(Match match, CancellationToken cancellationToken = default)
     {
-        session.Patch<Match>(matchId)
-            .Set(m => m.Swipe, swipe)
-            .Set(m => m.SwipeDateTime, DateTime.UtcNow);
-
-        await session.SaveChangesAsync(cancellationToken);
+        dbContext.Matches.Update(match);
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<Match>> GetMatchesAsync(Guid profileId, CancellationToken cancellationToken = default)
     {
-        var matches = await session.Query<Match>()
+        return await dbContext.Matches
             .Where(m => m.ProfileId == profileId)
             .ToListAsync(cancellationToken);
-
-        return matches;
     }
 
     public async Task AddMatchesAsync(IEnumerable<Match> matches, CancellationToken cancellationToken = default)
     {
-        foreach (var match in matches)
-        {
-            session.Store(match);
-        }
-
-        await session.SaveChangesAsync(cancellationToken);
+        await dbContext.Matches.AddRangeAsync(matches, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<Match> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
     {
-        var count = await session.Query<Match>()
-            .CountAsync(m => m.ProfileId == profileId && m.Swipe == null, cancellationToken);
-
+        var count = await dbContext.Matches.CountAsync(m => m.ProfileId == profileId && m.Swipe == null,
+            cancellationToken);
         if (count == 0)
-            throw new MatchesNotFoundException(profileId);
+            return null;
 
         var randomIndex = new Random().Next(count);
 
-        var randomMatch = await session.Query<Match>()
+        var randomMatch = await dbContext.Matches
             .Where(m => m.ProfileId == profileId && m.Swipe == null)
             .Skip(randomIndex)
             .Take(1)
             .FirstOrDefaultAsync(cancellationToken);
         if (randomMatch == null)
-            throw new MatchesNotFoundException(profileId);
+            throw new MatchNotFoundException(profileId);
 
         return randomMatch;
     }
@@ -65,27 +55,19 @@ public class MatchesRepository(IDocumentSession session) : IMatchesRepository
     public async Task<bool> CheckIfMatchExistsAsync(Guid profileId, Guid matchedProfileId,
         CancellationToken cancellationToken = default)
     {
-        var match = await session.Query<Match>()
-            .FirstOrDefaultAsync(m =>
-                    (m.ProfileId == profileId && m.MatchedProfileId == matchedProfileId) ||
-                    (m.ProfileId == matchedProfileId && m.MatchedProfileId == profileId),
-                cancellationToken);
-
-        return match != null;
+        return await dbContext.Matches
+            .AnyAsync(m => m.ProfileId == profileId && m.MatchedProfileId == matchedProfileId ||
+                           m.ProfileId == matchedProfileId && m.MatchedProfileId == profileId, cancellationToken);
     }
 
     public Task RemoveMatchesAsync(Guid profileId, IEnumerable<Guid> potentialMatches)
     {
-        var matches = session.Query<Match>()
+        var matchesToRemove = dbContext.Matches
             .Where(m => m.ProfileId == profileId && !potentialMatches.Contains(m.MatchedProfileId) ||
-                        m.MatchedProfileId == profileId && !potentialMatches.Contains(m.ProfileId))
-            .ToList();
+                        m.MatchedProfileId == profileId && !potentialMatches.Contains(m.ProfileId));
 
-        foreach (var match in matches)
-        {
-            session.Delete(match);
-        }
+        dbContext.Matches.RemoveRange(matchesToRemove);
 
-        return session.SaveChangesAsync();
+        return Task.CompletedTask;
     }
 }

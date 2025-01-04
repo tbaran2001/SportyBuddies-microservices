@@ -4,13 +4,16 @@ using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCarter();
 
-builder.Services.AddMarten(options => { options.Connection(builder.Configuration.GetConnectionString("Database")!); })
-    .UseLightweightSessions();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
+});
 
 var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(configuration =>
@@ -31,7 +34,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks()
-    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
+    .AddSqlServer(builder.Configuration.GetConnectionString("Database")!)
     .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
 builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(options =>
@@ -62,5 +65,10 @@ app.UseHealthChecks("/health",
     {
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
+
+if (app.Environment.IsDevelopment())
+{
+    await app.InitializeDatabaseAsync();
+}
 
 app.Run();

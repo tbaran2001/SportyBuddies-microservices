@@ -29,7 +29,10 @@ public class UpdateMatchCommandHandler(
             MatchedProfileId = Guid.NewGuid().ToString()
         }, cancellationToken: cancellationToken);
 
-        await matchesRepository.UpdateMatchAsync(command.MatchId, command.Swipe, cancellationToken);
+        var match = await matchesRepository.GetMatchByIdAsync(command.MatchId, cancellationToken);
+
+        match.SetSwipe(command.Swipe);
+        await matchesRepository.UpdateMatchAsync(match, cancellationToken);
 
         return new UpdateMatchResult(true);
     }
