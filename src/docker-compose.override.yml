@@ -85,6 +85,7 @@ services:
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
+      - IdentityServiceUrl=http://identityservice:8080
     depends_on:
       - matchingdb
       - distributedcache

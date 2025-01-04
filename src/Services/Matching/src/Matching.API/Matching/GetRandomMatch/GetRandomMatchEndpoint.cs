@@ -6,9 +6,9 @@ public class GetRandomMatchEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/matches/{profileId}/random", async (Guid profileId, ISender sender) =>
+        app.MapGet("/matches/random", async (ISender sender) =>
             {
-                var query = new GetRandomMatchQuery(profileId);
+                var query = new GetRandomMatchQuery();
 
                 var result = await sender.Send(query);
 
@@ -16,6 +16,7 @@ public class GetRandomMatchEndpoint : ICarterModule
 
                 return Results.Ok(response);
             })
+            .RequireAuthorization()
             .WithName("GetRandomMatch")
             .Produces<GetRandomMatchResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)

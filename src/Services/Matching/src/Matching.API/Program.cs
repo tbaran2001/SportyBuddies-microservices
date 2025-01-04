@@ -1,8 +1,10 @@
 using System.Reflection;
 using Buddies.Grpc;
+using BuildingBlocks.Authentication;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,6 +56,20 @@ builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(op
 
 builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
+builder.Services.AddScoped<IUserContext, UserContext>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["IdentityServiceUrl"];
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.NameClaimType = "username";
+        options.TokenValidationParameters.ValidateIssuer = false;
+    });
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.MapCarter();
@@ -70,5 +86,8 @@ if (app.Environment.IsDevelopment())
 {
     await app.InitializeDatabaseAsync();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
