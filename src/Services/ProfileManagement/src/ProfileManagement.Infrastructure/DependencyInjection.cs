@@ -1,3 +1,5 @@
+using BuildingBlocks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -31,4 +33,16 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+
+        builder.Services.AddJwt();
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<AuthHeaderHandler>();
+
+        return builder;
+    }
+
 }

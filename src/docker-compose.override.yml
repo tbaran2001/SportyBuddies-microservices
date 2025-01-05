@@ -126,6 +126,10 @@ services:
       - MessageBroker__Password=guest
       - FeatureManagement__Matching=false
       - IdentityServiceUrl=http://identityservice:8080
+      - Jwt__Authority=http://identityservice:8080
+      - Jwt__Audience=profilemanagement-api
+      - Jwt__RequireHttpsMetadata=false
+      - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
       - profiledb
       - messagebroker
@@ -163,6 +167,7 @@ services:
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
+      - AuthOptions__IssuerUri=http://identityservice:8080
     depends_on:
       - identitydb
       - messagebroker
