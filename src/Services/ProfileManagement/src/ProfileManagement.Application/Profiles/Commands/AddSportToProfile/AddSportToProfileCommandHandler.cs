@@ -1,21 +1,21 @@
-﻿using BuildingBlocks.Authentication;
+﻿using BuildingBlocks.Web;
 using MassTransit;
 
 namespace ProfileManagement.Application.Profiles.Commands.AddSportToProfile;
 
 public class AddSportToProfileCommandHandler(
     IProfilesRepository profilesRepository,
-    IUserContext userContext,
+    ICurrentUserProvider currentUserProvider,
     IUnitOfWork unitOfWork)
     : ICommandHandler<AddSportToProfileCommand>
 {
     public async Task<Unit> Handle(AddSportToProfileCommand request, CancellationToken cancellationToken)
     {
-        var currentUser = userContext.GetCurrentUser();
+        var currentUserId = currentUserProvider.GetCurrentUserId();
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUser.Id);
+        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUserId);
         if (profile == null)
-            throw new ProfileNotFoundException(currentUser.Id);
+            throw new ProfileNotFoundException(currentUserId);
 
         profile.AddSport(request.SportId);
         await unitOfWork.CommitChangesAsync();

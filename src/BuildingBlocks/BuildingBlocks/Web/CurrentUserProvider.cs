@@ -1,20 +1,20 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlocks;
+namespace BuildingBlocks.Web;
 
 public interface ICurrentUserProvider
 {
-    long? GetCurrentUserId();
+    Guid GetCurrentUserId();
 }
 
 public class CurrentUserProvider(IHttpContextAccessor httpContextAccessor) : ICurrentUserProvider
 {
-    public long? GetCurrentUserId()
+    public Guid GetCurrentUserId()
     {
         var nameIdentifier = httpContextAccessor?.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        long.TryParse(nameIdentifier, out var userId);
+        Guid.TryParse(nameIdentifier, out var userId);
 
         return userId;
     }

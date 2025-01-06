@@ -1,9 +1,10 @@
-﻿using Duende.IdentityServer.Models;
+﻿using BuildingBlocks.Web;
+using Duende.IdentityServer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BuildingBlocks;
+namespace BuildingBlocks.Jwt;
 
 public static class JwtExtensions
 {

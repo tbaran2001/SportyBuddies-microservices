@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace BuildingBlocks;
+namespace BuildingBlocks.Web;
 
 public static class ConfigurationExtensions
 {

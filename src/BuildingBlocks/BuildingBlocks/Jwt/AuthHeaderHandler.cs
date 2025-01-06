@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlocks;
+namespace BuildingBlocks.Jwt;
 
 public class AuthHeaderHandler(IHttpContextAccessor httpContext) : DelegatingHandler
 {

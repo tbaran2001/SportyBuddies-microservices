@@ -8,6 +8,8 @@ buddiesdb
 buddiesdb-shm
 buddiesdb-wal
 
+tempkey.jwk
+
 # User-specific files
 *.suo
 *.user

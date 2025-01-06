@@ -23,8 +23,6 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString("Database")!);
 
-builder.AddIdentity();
-
 var app = builder.Build();
 
 app.UseExceptionHandler(_ => { });

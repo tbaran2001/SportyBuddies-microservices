@@ -32,18 +32,20 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
 
+        services.AddIdentityServices();
+
         return services;
     }
 
-    public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+    private static IServiceCollection AddIdentityServices(this IServiceCollection services)
     {
-        builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 
-        builder.Services.AddJwt();
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<AuthHeaderHandler>();
+        services.AddJwt();
+        services.AddHttpContextAccessor();
+        services.AddTransient<AuthHeaderHandler>();
 
-        return builder;
+        return services;
     }
 
 }

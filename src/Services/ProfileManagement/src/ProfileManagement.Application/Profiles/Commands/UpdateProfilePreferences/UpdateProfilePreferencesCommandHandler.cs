@@ -1,20 +1,20 @@
-﻿using BuildingBlocks.Authentication;
+﻿using BuildingBlocks.Web;
 
 namespace ProfileManagement.Application.Profiles.Commands.UpdateProfilePreferences;
 
 public class UpdateProfilePreferencesCommandHandler(
     IProfilesRepository profilesRepository,
-    IUserContext userContext,
+    ICurrentUserProvider currentUserProvider,
     IUnitOfWork unitOfWork)
     : ICommandHandler<UpdateProfilePreferencesCommand>
 {
     public async Task<Unit> Handle(UpdateProfilePreferencesCommand request, CancellationToken cancellationToken)
     {
-        var currentUser = userContext.GetCurrentUser();
+        var currentUserId = currentUserProvider.GetCurrentUserId();
 
-        var profile = await profilesRepository.GetProfileByIdAsync(currentUser.Id);
+        var profile = await profilesRepository.GetProfileByIdAsync(currentUserId);
         if (profile == null)
-            throw new ProfileNotFoundException(currentUser.Id);
+            throw new ProfileNotFoundException(currentUserId);
 
         var preferences = Preferences.Create(request.MinAge, request.MaxAge, request.MaxDistance, request.PreferredGender);
 

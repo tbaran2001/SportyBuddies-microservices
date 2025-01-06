@@ -1,7 +1,7 @@
 using System.Reflection;
-using BuildingBlocks.Authentication;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Messaging.MassTransit;
+using BuildingBlocks.Web;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FeatureManagement;
@@ -25,7 +25,7 @@ public static class DependencyInjection
 
         services.AddFeatureManagement();
 
-        services.AddScoped<IUserContext, UserContext>();
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
         services.AddHttpContextAccessor();
 
         services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
