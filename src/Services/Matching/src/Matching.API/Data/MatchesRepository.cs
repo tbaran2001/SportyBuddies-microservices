@@ -32,22 +32,12 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Match> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
+    public async Task<Match?> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
     {
-        var count = await dbContext.Matches.CountAsync(m => m.ProfileId == profileId && m.Swipe == null,
-            cancellationToken);
-        if (count == 0)
-            return null;
-
-        var randomIndex = new Random().Next(count);
-
         var randomMatch = await dbContext.Matches
             .Where(m => m.ProfileId == profileId && m.Swipe == null)
-            .Skip(randomIndex)
-            .Take(1)
+            .OrderBy(_ => Guid.NewGuid())
             .FirstOrDefaultAsync(cancellationToken);
-        if (randomMatch == null)
-            throw new MatchNotFoundException(profileId);
 
         return randomMatch;
     }
