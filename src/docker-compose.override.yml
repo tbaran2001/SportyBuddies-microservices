@@ -86,6 +86,10 @@ services:
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - IdentityServiceUrl=http://identityservice:8080
+      - Jwt__Authority=http://identityservice:8080
+      - Jwt__Audience=profilemanagement-api
+      - Jwt__RequireHttpsMetadata=false
+      - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
       - matchingdb
       - distributedcache

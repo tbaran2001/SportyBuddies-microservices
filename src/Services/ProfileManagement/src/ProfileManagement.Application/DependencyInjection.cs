@@ -25,9 +25,6 @@ public static class DependencyInjection
 
         services.AddFeatureManagement();
 
-        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-        services.AddHttpContextAccessor();
-
         services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
 
         return services;

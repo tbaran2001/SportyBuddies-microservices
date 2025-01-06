@@ -2,9 +2,8 @@ using System.Reflection;
 using Buddies.Grpc;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
-using BuildingBlocks.Web;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Matching.API.Extensions.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,19 +55,7 @@ builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(op
 
 builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
 
-builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = builder.Configuration["IdentityServiceUrl"];
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters.ValidateAudience = false;
-        options.TokenValidationParameters.NameClaimType = "username";
-        options.TokenValidationParameters.ValidateIssuer = false;
-    });
-builder.Services.AddAuthorization();
+builder.AddInfrastructure();
 
 var app = builder.Build();
 
