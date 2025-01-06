@@ -1,4 +1,4 @@
-﻿using BuildingBlocks;
+﻿using BuildingBlocks.Web;
 using IdentityService.Data;
 using Microsoft.EntityFrameworkCore;
 

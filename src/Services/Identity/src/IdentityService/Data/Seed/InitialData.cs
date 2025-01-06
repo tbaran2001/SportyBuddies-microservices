@@ -13,7 +13,7 @@ public static class InitialData
             new ApplicationUser
             {
                 Id = Guid.NewGuid(),
-                UserName = "admin",
+                UserName = "admin@xd.pl",
                 Email = "admin@xd.pl",
                 SecurityStamp = Guid.NewGuid().ToString()
             },
@@ -21,7 +21,7 @@ public static class InitialData
             new ApplicationUser
             {
                 Id = Guid.NewGuid(),
-                UserName = "user",
+                UserName = "user@xd.pl",
                 Email = "user@xd.pl",
                 SecurityStamp = Guid.NewGuid().ToString()
             }

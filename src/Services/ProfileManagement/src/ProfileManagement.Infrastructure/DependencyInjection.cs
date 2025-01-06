@@ -1,4 +1,5 @@
-using BuildingBlocks;
+using BuildingBlocks.Jwt;
+using BuildingBlocks.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

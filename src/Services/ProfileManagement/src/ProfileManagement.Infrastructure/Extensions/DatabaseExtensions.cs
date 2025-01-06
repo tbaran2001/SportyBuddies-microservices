@@ -6,7 +6,7 @@ namespace ProfileManagement.Infrastructure.Extensions;
 
 public static class DatabaseExtensions
 {
-    public static async Task InitializeDatabaseAsync(this WebApplication app)
+    public static Task InitializeDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
@@ -15,7 +15,9 @@ public static class DatabaseExtensions
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.MigrateAsync().GetAwaiter().GetResult();
 
-        await SeedAsync(context);
+        return Task.CompletedTask;
+
+        //await SeedAsync(context);
     }
 
     private static async Task SeedAsync(ApplicationDbContext context)

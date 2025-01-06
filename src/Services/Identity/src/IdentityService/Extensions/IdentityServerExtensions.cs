@@ -1,4 +1,4 @@
-﻿using BuildingBlocks;
+﻿using BuildingBlocks.Web;
 using IdentityService.Configurations;
 using IdentityService.Data;
 using IdentityService.Models;
@@ -19,6 +19,7 @@ public static class IdentityServerExtensions
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
+                config.Password.RequireLowercase = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
