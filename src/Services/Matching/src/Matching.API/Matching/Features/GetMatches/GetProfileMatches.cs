@@ -4,9 +4,9 @@ namespace Matching.API.Matching.Features.GetMatches;
 
 public record GetProfileMatchesQuery(Guid ProfileId) : IQuery<GetProfileMatchesResult>;
 
-public record GetProfileMatchesResult(IEnumerable<MatchDto> MatchDtos);
+public record GetProfileMatchesResult(IEnumerable<MatchDto> Matches);
 
-public record GetProfileMatchesResponseDto(IEnumerable<MatchDto> MatchDtos);
+public record GetProfileMatchesResponseDto(IEnumerable<MatchDto> Matches);
 
 public class GetProfileMatchesEndpoint : ICarterModule
 {
@@ -14,7 +14,7 @@ public class GetProfileMatchesEndpoint : ICarterModule
     {
         app.MapGet("/matches/{profileId}", async (Guid profileId, ISender sender) =>
             {
-                var query = new GetProfileMatchesQuery(Guid.NewGuid());
+                var query = new GetProfileMatchesQuery(profileId);
 
                 var result = await sender.Send(query);
 

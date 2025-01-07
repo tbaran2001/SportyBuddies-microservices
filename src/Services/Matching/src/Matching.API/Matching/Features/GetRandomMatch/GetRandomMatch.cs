@@ -6,9 +6,9 @@ namespace Matching.API.Matching.Features.GetRandomMatch;
 
 public record GetRandomMatchQuery : IQuery<GetRandomMatchResult>;
 
-public record GetRandomMatchResult(MatchDto MatchDto);
+public record GetRandomMatchResult(MatchDto Match);
 
-public record GetRandomMatchResponseDto(MatchDto MatchDto);
+public record GetRandomMatchResponseDto(MatchDto Match);
 
 public class GetRandomMatchEndpoint : ICarterModule
 {

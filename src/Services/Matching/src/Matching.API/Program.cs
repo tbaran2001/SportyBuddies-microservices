@@ -25,7 +25,7 @@ builder.Services.AddMediatR(configuration =>
 });
 
 builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
-builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();
+//builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
