@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Sport.API.Data.Repositories;
 using Sport.API.Sports.Dtos;
 
 namespace Sport.API.Sports.Features.GetSports;
@@ -32,16 +33,14 @@ public class GetSportsEndpoint : ICarterModule
     }
 }
 
-internal class GetSportsQueryHandler(
-    IDocumentSession session)
+internal class GetSportsQueryHandler(ISportsRepository sportsRepository)
     : IQueryHandler<GetSportsQuery, GetSportsResult>
 {
     public async Task<GetSportsResult> Handle(GetSportsQuery query, CancellationToken cancellationToken)
     {
         Guard.Against.Null(query, nameof(query));
 
-        var sports = await session.Query<Models.Sport>()
-            .ToListAsync(cancellationToken);
+        var sports = await sportsRepository.GetSportsAsync(cancellationToken);
 
         var sportDtos = sports.Adapt<IEnumerable<SportDto>>();
 

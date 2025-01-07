@@ -1,21 +1,8 @@
-using Marten.Schema;
-
 namespace Sport.API.Data;
 
-public class SportInitialData : IInitialData
+public class SportInitialData
 {
-    public async Task Populate(IDocumentStore store, CancellationToken cancellation)
-    {
-        var session = store.LightweightSession();
-
-        if (await session.Query<Sports.Models.Sport>().AnyAsync(token: cancellation))
-            return;
-
-        session.Store<Sports.Models.Sport>(GetInitialSports());
-        await session.SaveChangesAsync(cancellation);
-    }
-
-    private IEnumerable<Sports.Models.Sport> GetInitialSports() => new List<Sports.Models.Sport>
+    public static IEnumerable<Sports.Models.Sport> GetInitialSports() => new List<Sports.Models.Sport>
     {
         Sports.Models.Sport.CreateWithId(
             new Guid("c256f0e3-be38-4502-89af-f26ac6553aeb"), "Football", "Football description"),

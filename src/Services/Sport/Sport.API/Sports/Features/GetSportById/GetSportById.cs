@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Sport.API.Data.Repositories;
 using Sport.API.Sports.Dtos;
 using Sport.API.Sports.Exceptions;
 
@@ -33,15 +34,14 @@ public class GetSportById : ICarterModule
     }
 }
 
-internal class GetSportByIdQueryHandler(
-    IDocumentSession session)
+internal class GetSportByIdQueryHandler(ISportsRepository sportsRepository)
     : IQueryHandler<GetSportByIdQuery, GetSportByIdResult>
 {
     public async Task<GetSportByIdResult> Handle(GetSportByIdQuery query, CancellationToken cancellationToken)
     {
         Guard.Against.Null(query, nameof(query));
 
-        var sport = await session.LoadAsync<Models.Sport>(query.Id, cancellationToken);
+        var sport = await sportsRepository.GetSportByIdAsync(query.Id, cancellationToken);
         if (sport is null)
             throw new SportNotFoundException(query.Id);
 

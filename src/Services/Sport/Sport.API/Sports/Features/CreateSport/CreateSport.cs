@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using BuildingBlocks.Core.Event;
+using Sport.API.Data.Repositories;
 using Sport.API.Sports.Exceptions;
 
 namespace Sport.API.Sports.Features.CreateSport;
@@ -46,22 +47,19 @@ public class CreateSportCommandValidator : AbstractValidator<CreateSportCommand>
     }
 }
 
-internal class CreateSportCommandHandler(IDocumentSession session)
+internal class CreateSportCommandHandler(ISportsRepository sportsRepository)
     : ICommandHandler<CreateSportCommand, CreateSportResult>
 {
     public async Task<CreateSportResult> Handle(CreateSportCommand command, CancellationToken cancellationToken)
     {
         Guard.Against.Null(command, nameof(command));
 
-        var sport = await session.Query<Models.Sport>()
-            .FirstOrDefaultAsync(x => x.Name == command.Name, cancellationToken);
-        if (sport is not null)
-            throw new SportAlreadyExistException();
+        if (await sportsRepository.SportExistsAsync(command.Name, cancellationToken))
+            throw new SportAlreadyExistException(command.Name);
 
         var sportEntity = Models.Sport.Create(command.Name, command.Description);
 
-        session.Store(sportEntity);
-        await session.SaveChangesAsync(cancellationToken);
+        await sportsRepository.AddSportAsync(sportEntity, cancellationToken);
 
         return new CreateSportResult(sportEntity.Id);
     }

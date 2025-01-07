@@ -3,14 +3,14 @@ using Sport.API.Sports.Features.CreateSport;
 
 namespace Sport.API.Sports.Models;
 
-public class Sport:Entity
+public class Sport : Entity
 {
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+    public string Name { get; private set; } = default!;
+    public string Description { get; private set; } = default!;
 
     public static Sport Create(string name, string description)
     {
-        var sport= new Sport
+        var sport = new Sport
         {
             Id = Guid.NewGuid(),
             Name = name,
@@ -36,5 +36,10 @@ public class Sport:Entity
         sport.AddDomainEvent(domainEvent);
 
         return sport;
+    }
+
+    private Sport()
+    {
+
     }
 }

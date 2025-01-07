@@ -4,14 +4,11 @@ services:
   sportdb:
     container_name: sportdb
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=SportDb
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123!
     restart: always
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_sport:/var/lib/postgresql/data/
+      - "1436:1433"
 
   matchingdb:
     container_name: matchingdb
@@ -62,7 +59,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=sportdb;Port=5432;Database=SportDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Database=Server=sportdb;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - Jwt__Authority=http://identityservice:8080
+      - Jwt__Audience=profilemanagement-api
+      - Jwt__RequireHttpsMetadata=false
+      - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
       - sportdb
     ports:

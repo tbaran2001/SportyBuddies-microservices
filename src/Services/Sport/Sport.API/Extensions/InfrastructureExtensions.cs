@@ -1,7 +1,11 @@
 ﻿using BuildingBlocks.Exceptions.Handler;
+using BuildingBlocks.Jwt;
+using BuildingBlocks.Web;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 using Sport.API.Data;
+using Sport.API.Data.Repositories;
 
 namespace Sport.API.Extensions;
 
@@ -11,13 +15,11 @@ public static class InfrastructureExtensions
     {
         var assembly = typeof(Program).Assembly;
         builder.Services.AddCarter();
-        builder.Services.AddMarten(options =>
-            {
-                options.Connection(builder.Configuration.GetConnectionString("Database")!);
-            })
-            .UseLightweightSessions();
-        if (builder.Environment.IsDevelopment())
-            builder.Services.InitializeMartenWith<SportInitialData>();
+        builder.Services.AddDbContext<SportDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
+        });
+        builder.Services.AddScoped<ISportsRepository, SportsRepository>();
 
         builder.Services.AddMediatR(configuration =>
         {
@@ -29,6 +31,13 @@ public static class InfrastructureExtensions
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
         builder.Services.AddHealthChecks()
             .AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
+
+        // Identity
+        builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        builder.Services.AddJwt();
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<AuthHeaderHandler>();
+        builder.Services.AddAuthorization();
 
         return builder;
     }
@@ -44,6 +53,11 @@ public static class InfrastructureExtensions
             {
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.InitializeDatabaseAsync();
+        }
 
         return app;
     }
