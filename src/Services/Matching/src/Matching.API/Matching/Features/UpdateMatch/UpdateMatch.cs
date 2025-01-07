@@ -1,6 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Event;
-using FluentValidation;
 
 namespace Matching.API.Matching.Features.UpdateMatch;
 

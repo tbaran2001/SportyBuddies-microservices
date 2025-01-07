@@ -1,6 +1,4 @@
-﻿using Matching.API.Matching.Dtos;
-
-namespace Matching.API.Matching.Features.GetMatches;
+﻿namespace Matching.API.Matching.Features.GetMatches;
 
 public record GetProfileMatchesQuery(Guid ProfileId) : IQuery<GetProfileMatchesResult>;
 
