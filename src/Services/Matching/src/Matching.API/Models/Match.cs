@@ -1,8 +1,10 @@
-﻿namespace Matching.API.Models;
+﻿using BuildingBlocks.Core.Model;
+using Matching.API.Matching.Features.UpdateMatch;
 
-public class Match
+namespace Matching.API.Models;
+
+public class Match : Entity
 {
-    public Guid Id { get; private set; }
     public Guid OppositeMatchId { get; private set; }
     public Guid ProfileId { get; private set; }
     public Guid MatchedProfileId { get; private set; }
@@ -10,23 +12,22 @@ public class Match
     public Swipe? Swipe { get; private set; }
     public DateTime? SwipeDateTime { get; private set; }
 
-    private Match(
-        Guid id,
-        Guid profileId,
-        Guid matchedProfileId,
-        DateTime matchDateTime
-    )
-    {
-        Id = id;
-        ProfileId = profileId;
-        MatchedProfileId = matchedProfileId;
-        MatchDateTime = matchDateTime;
-    }
-
     public static (Match, Match) CreatePair(Guid profileId, Guid matchedProfileId, DateTime matchDateTime)
     {
-        var match1 = new Match(Guid.NewGuid(), profileId, matchedProfileId, matchDateTime);
-        var match2 = new Match(Guid.NewGuid(), matchedProfileId, profileId, matchDateTime);
+        var match1 = new Match
+        {
+            Id = Guid.NewGuid(),
+            ProfileId = profileId,
+            MatchedProfileId = matchedProfileId,
+            MatchDateTime = matchDateTime
+        };
+        var match2 = new Match
+        {
+            Id = Guid.NewGuid(),
+            ProfileId = matchedProfileId,
+            MatchedProfileId = profileId,
+            MatchDateTime = matchDateTime
+        };
 
         match1.OppositeMatchId = match2.Id;
         match2.OppositeMatchId = match1.Id;
@@ -34,28 +35,19 @@ public class Match
         return (match1, match2);
     }
 
-    public void SetSwipe(Swipe swipe)
+    public void SetSwipe(Swipe swipe, Swipe? oppositeMatchSwipe)
     {
         Swipe = swipe;
         SwipeDateTime = DateTime.UtcNow;
+
+        if (oppositeMatchSwipe != Models.Swipe.Right)
+            return;
+
+        var domainEvent = new BothSwipedRightDomainEvent(Id, ProfileId, MatchedProfileId);
+        AddDomainEvent(domainEvent);
     }
 
-    public Match(
-        Guid id,
-        Guid oppositeMatchId,
-        Guid profileId,
-        Guid matchedProfileId,
-        DateTime matchDateTime,
-        Swipe? swipe,
-        DateTime? swipeDateTime
-    )
+    private Match()
     {
-        Id = id;
-        OppositeMatchId = oppositeMatchId;
-        ProfileId = profileId;
-        MatchedProfileId = matchedProfileId;
-        MatchDateTime = matchDateTime;
-        Swipe = swipe;
-        SwipeDateTime = swipeDateTime;
     }
 }

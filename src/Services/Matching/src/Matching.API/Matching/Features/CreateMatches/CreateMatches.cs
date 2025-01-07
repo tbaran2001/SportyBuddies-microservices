@@ -1,12 +1,17 @@
-﻿namespace Matching.API.Matching.CreateMatches;
+﻿using Ardalis.GuardClauses;
 
-public record CreateMatchesCommand(Guid ProfileId,Guid MatchedProfileId) : ICommand;
+namespace Matching.API.Matching.Features.CreateMatches;
+
+public record CreateMatchesCommand(Guid ProfileId, Guid MatchedProfileId) : ICommand;
 
 public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository) : ICommandHandler<CreateMatchesCommand>
 {
     public async Task<Unit> Handle(CreateMatchesCommand command, CancellationToken cancellationToken)
     {
-        if(await matchesRepository.CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, cancellationToken))
+        Guard.Against.Null(command, nameof(command));
+
+        if (await matchesRepository.CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId,
+                cancellationToken))
             return Unit.Value;
 
         var (match1, match2) = Match.CreatePair(command.ProfileId, command.MatchedProfileId, DateTime.Now);
