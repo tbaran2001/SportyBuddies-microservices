@@ -1,4 +1,4 @@
-﻿namespace Matching.API.Models;
+﻿namespace Matching.API.Matching.Models;
 
 public enum Swipe
 {

@@ -29,15 +29,20 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="..\..\..\Buddies\src\Buddies.Grpc\Protos\buddies.proto" GrpcServices="Client">
-        <Link>Protos\buddies.proto</Link>
-      </Protobuf>
-    </ItemGroup>
-
-    <ItemGroup>
       <Content Include="..\..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="GrpcServer\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Protobuf Include="..\..\..\Buddies\src\Buddies.Grpc\Protos\buddies.proto">
+        <Link>GrpcServer\Protos\buddies.proto</Link>
+        <Generator>MSBuild:Compile</Generator>
+      </Protobuf>
     </ItemGroup>
 
 </Project>

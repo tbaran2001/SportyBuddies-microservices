@@ -1,4 +1,6 @@
 ﻿using Ardalis.GuardClauses;
+using Matching.API.Data.Repositories;
+using Matching.API.Matching.Exceptions;
 
 namespace Matching.API.Matching.Features.GetRandomMatch;
 

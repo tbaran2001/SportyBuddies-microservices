@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Matching.API.Matching.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Matching.API.Data;
 

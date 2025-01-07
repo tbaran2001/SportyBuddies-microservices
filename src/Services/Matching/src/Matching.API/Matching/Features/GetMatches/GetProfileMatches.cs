@@ -1,4 +1,7 @@
-﻿namespace Matching.API.Matching.Features.GetMatches;
+﻿using Matching.API.Data.Repositories;
+using Matching.API.Matching.Exceptions;
+
+namespace Matching.API.Matching.Features.GetMatches;
 
 public record GetProfileMatchesQuery(Guid ProfileId) : IQuery<GetProfileMatchesResult>;
 

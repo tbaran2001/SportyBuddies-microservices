@@ -1,4 +1,4 @@
-using Matching.API.Extensions.Infrastructure;
+using Matching.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

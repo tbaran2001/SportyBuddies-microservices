@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Messaging.Events.ProfileManagement;
 using MassTransit;
+using Matching.API.Data.Repositories;
 
 namespace Matching.API.EventHandlers;
 

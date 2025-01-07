@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks.Core.Model;
 using Matching.API.Matching.Features.UpdateMatch;
 
-namespace Matching.API.Models;
+namespace Matching.API.Matching.Models;
 
 public class Match : Entity
 {

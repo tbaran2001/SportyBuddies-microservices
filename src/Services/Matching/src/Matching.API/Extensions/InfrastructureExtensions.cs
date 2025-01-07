@@ -4,10 +4,11 @@ using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
 using BuildingBlocks.Messaging.MassTransit;
 using HealthChecks.UI.Client;
+using Matching.API.Data.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Matching.API.Extensions.Infrastructure;
+namespace Matching.API.Extensions;
 
 public static class InfrastructureExtensions
 {

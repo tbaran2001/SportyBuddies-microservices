@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Matching.API.Data;
+namespace Matching.API.Extensions;
 
 public static class DatabaseExtensions
 {

@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
+using Matching.API.Matching.Models;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Matching.API.Data;
+namespace Matching.API.Data.Repositories;
 
 public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDistributedCache cache)
     : IMatchesRepository
