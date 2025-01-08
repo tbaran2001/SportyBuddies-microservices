@@ -1,23 +1,11 @@
 version: '3.4'
 
 services:
-  sportdb:
-    image: mcr.microsoft.com/mssql/server
-
-  buddydb:
-    image: mcr.microsoft.com/mssql/server
-
-  matchingdb:
+  mssqldb:
     image: mcr.microsoft.com/mssql/server
 
   distributedcache:
     image: redis
-
-  profiledb:
-    image: mcr.microsoft.com/mssql/server
-
-  identitydb:
-    image: mcr.microsoft.com/mssql/server
 
   messagebroker:
     image: rabbitmq:management

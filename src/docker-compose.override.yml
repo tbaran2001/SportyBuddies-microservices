@@ -1,41 +1,8 @@
 version: '3.4'
 
 services:
-  sportdb:
-    container_name: sportdb
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123!
-    restart: always
-    ports:
-      - "1436:1433"
-
-  buddydb:
-    container_name: buddydb
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123!
-    restart: always
-    ports:
-      - "1437:1433"
-
-  matchingdb:
-    container_name: matchingdb
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123!
-    restart: always
-    ports:
-      - "1435:1433"
-
-  distributedcache:
-    container_name: distributedcache
-    restart: always
-    ports:
-      - "6379:6379"
-
-  profiledb:
-    container_name: profiledb
+  mssqldb:
+    container_name: mssqldb
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Password123!
@@ -43,14 +10,11 @@ services:
     ports:
       - "1433:1433"
 
-  identitydb:
-    container_name: identitydb
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123!
+  distributedcache:
+    container_name: distributedcache
     restart: always
     ports:
-      - "1434:1433"
+      - "6379:6379"
 
   messagebroker:
     container_name: messagebroker
@@ -68,7 +32,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=sportdb;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ConnectionStrings__Database=Server=mssqldb;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - Jwt__Authority=http://identityservice:8080
@@ -76,7 +40,7 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
-      - sportdb
+      - mssqldb
     ports:
       - "6000:8080"
       - "6060:8081"
@@ -89,7 +53,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=matchingdb;Database=MatchesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ConnectionStrings__Database=Server=mssqldb;Database=MatchesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ConnectionStrings__Redis=distributedcache:6379
       - GrpcSettings__BuddiesUrl=https://buddies.api:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
@@ -103,7 +67,7 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
-      - matchingdb
+      - mssqldb
       - distributedcache
       - buddies.api
       - messagebroker
@@ -119,7 +83,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=sportdb;Database=BuddiesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ConnectionStrings__Database=Server=mssqldb;Database=BuddiesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - Jwt__Authority=http://identityservice:8080
@@ -127,7 +91,7 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
-      - sportdb
+      - mssqldb
     ports:
       - "6002:8080"
       - "6062:8081"
@@ -140,7 +104,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=profiledb;Database=ProfileDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ConnectionStrings__Database=Server=mssqldb;Database=ProfileDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
@@ -153,7 +117,7 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
-      - profiledb
+      - mssqldb
       - messagebroker
     ports:
       - "6003:8080"
@@ -185,13 +149,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ConnectionStrings__Database=Server=identitydb;Database=IdentityDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+      - ConnectionStrings__Database=Server=mssqldb;Database=IdentityDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - AuthOptions__IssuerUri=http://identityservice:8080
     depends_on:
-      - identitydb
+      - mssqldb
       - messagebroker
     ports:
       - "6065:8080"
