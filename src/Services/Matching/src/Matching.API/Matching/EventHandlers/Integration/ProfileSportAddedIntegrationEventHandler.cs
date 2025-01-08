@@ -2,7 +2,7 @@
 using MassTransit;
 using Matching.API.Matching.Features.CreateMatches;
 
-namespace Matching.API.EventHandlers;
+namespace Matching.API.Matching.EventHandlers.Integration;
 
 public class ProfileSportAddedIntegrationEventHandler(ISender sender) : IConsumer<ProfileSportAddedIntegrationEvent>
 {

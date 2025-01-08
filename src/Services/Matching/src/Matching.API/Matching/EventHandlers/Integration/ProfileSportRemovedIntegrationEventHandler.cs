@@ -2,7 +2,7 @@
 using MassTransit;
 using Matching.API.Data.Repositories;
 
-namespace Matching.API.EventHandlers;
+namespace Matching.API.Matching.EventHandlers.Integration;
 
 public class ProfileSportRemovedIntegrationEventHandler(ISender sender, IMatchesRepository matchesRepository)
     : IConsumer<ProfileSportRemovedIntegrationEvent>
