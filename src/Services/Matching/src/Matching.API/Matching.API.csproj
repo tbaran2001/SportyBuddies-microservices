@@ -29,12 +29,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="GrpcServer\" />
+      <Folder Include="GrpcClient\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="..\..\..\Buddies\src\Buddies.API\GrpcServer\Protos\buddies.proto" GrpcServices="Client">
-        <Link>Protos\buddies.proto</Link>
+      <Protobuf Include="..\..\..\Buddies\src\Buddies.API\GrpcServer\Protos\buddies.proto">
+        <Link>GrpcClient\Protos\buddies.proto</Link>
+        <Generator>MSBuild:Compile</Generator>
       </Protobuf>
     </ItemGroup>
 

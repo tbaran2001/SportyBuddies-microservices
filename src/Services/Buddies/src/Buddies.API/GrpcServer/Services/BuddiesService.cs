@@ -31,6 +31,13 @@ public class BuddiesService(BuddyDbContext dbContext) : BuddiesProtoService.Budd
     public override async Task<CreateBuddiesResponse> CreateBuddies(CreateBuddiesRequest request,
         ServerCallContext context)
     {
+        var areAlreadyBuddies = await dbContext.Buddies
+            .Where(b => b.ProfileId == Guid.Parse(request.ProfileId) &&
+                        b.MatchedProfileId == Guid.Parse(request.MatchedProfileId))
+            .AnyAsync();
+        if (areAlreadyBuddies)
+            throw new RpcException(new Status(StatusCode.AlreadyExists, "Already buddies"));
+
         var (buddy1, buddy2) = Buddy.CreatePair(Guid.Parse(request.ProfileId), Guid.Parse(request.MatchedProfileId),
             DateTime.UtcNow);
         if (buddy1 is null || buddy2 is null)

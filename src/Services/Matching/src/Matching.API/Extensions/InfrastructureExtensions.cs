@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Buddies.Grpc;
+using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
 using BuildingBlocks.Messaging.MassTransit;
@@ -7,6 +8,7 @@ using HealthChecks.UI.Client;
 using Matching.API.Data.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Matching.API.Extensions;
 
@@ -24,11 +26,13 @@ public static class InfrastructureExtensions
             configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
             configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
+        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         //builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();
         builder.Services.AddStackExchangeRedisCache(options =>
         {

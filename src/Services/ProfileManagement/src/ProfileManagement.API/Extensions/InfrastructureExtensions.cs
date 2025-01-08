@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Core.Model;
+using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
 using BuildingBlocks.Messaging.MassTransit;
@@ -12,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.FeatureManagement;
 using ProfileManagement.API.Data;
-using ProfileManagement.API.Data.Interceptors;
 using ProfileManagement.API.Data.Repositories;
 using ProfileManagement.API.Data.Seed;
 using ProfileManagement.API.Profiles.Mapster;
