@@ -30,7 +30,7 @@ public class GetProfileEndpoint : ICarterModule
             })
             .RequireAuthorization()
             .WithName("GetProfiles")
-            .Produces<GetProfilesResponseDto>(StatusCodes.Status200OK)
+            .Produces<GetProfilesResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Get profiles")
             .WithDescription("Get profiles");

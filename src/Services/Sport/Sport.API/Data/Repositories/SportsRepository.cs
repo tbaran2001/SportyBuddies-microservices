@@ -4,7 +4,7 @@ namespace Sport.API.Data.Repositories;
 
 public class SportsRepository(SportDbContext dbContext) : ISportsRepository
 {
-    public async Task<Sports.Models.Sport?> GetSportByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Sports.Models.Sport> GetSportByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var sport = await dbContext.Sports.FindAsync(id, cancellationToken);
 

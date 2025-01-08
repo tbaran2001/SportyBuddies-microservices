@@ -4,7 +4,7 @@ using Matching.API.Data.Repositories;
 
 namespace Matching.API.Matching.EventHandlers.Integration;
 
-public class ProfileSportRemovedIntegrationEventHandler(ISender sender, IMatchesRepository matchesRepository)
+public class ProfileSportRemovedIntegrationEventHandler(IMatchesRepository matchesRepository)
     : IConsumer<ProfileSportRemovedIntegrationEvent>
 {
     public async Task Consume(ConsumeContext<ProfileSportRemovedIntegrationEvent> context)

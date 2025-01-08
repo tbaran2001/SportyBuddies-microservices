@@ -3,7 +3,6 @@ using BuildingBlocks.Messaging.Events.Identity;
 using FluentValidation;
 using IdentityService.Models;
 using Mapster;
-using MapsterMapper;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

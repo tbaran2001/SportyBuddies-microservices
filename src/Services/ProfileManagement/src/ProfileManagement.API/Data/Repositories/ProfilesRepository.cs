@@ -5,12 +5,12 @@ namespace ProfileManagement.API.Data.Repositories;
 
 public class ProfilesRepository(ProfileDbContext dbContext) : IProfilesRepository
 {
-    public async Task<Profile?> GetProfileByIdAsync(Guid profileId)
+    public async Task<Profile> GetProfileByIdAsync(Guid profileId)
     {
         return await dbContext.Profiles.FindAsync(profileId);
     }
 
-    public async Task<Profile?> GetProfileByIdWithSportsAsync(Guid profileId)
+    public async Task<Profile> GetProfileByIdWithSportsAsync(Guid profileId)
     {
         return await dbContext.Profiles
             .Include(u => u.ProfileSports)

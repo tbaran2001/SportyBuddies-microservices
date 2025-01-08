@@ -19,9 +19,9 @@ public abstract class Entity : IEquatable<Entity>
 
     public virtual IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public bool Equals(Entity? other)
+    public bool Equals(Entity other)
     {
-        return Equals((object?)other);
+        return Equals((object)other);
     }
 
     protected void AddDomainEvent(IDomainEvent domainEvent)
@@ -38,17 +38,17 @@ public abstract class Entity : IEquatable<Entity>
         return copy;
     }
 
-    public override bool Equals(object? obj)
+    public override bool Equals(object obj)
     {
         return obj is Entity entity && Id.Equals(entity.Id);
     }
 
-    public static bool operator ==(Entity? left, Entity? right)
+    public static bool operator ==(Entity left, Entity right)
     {
         return Equals(left, right);
     }
 
-    public static bool operator !=(Entity? left, Entity? right)
+    public static bool operator !=(Entity left, Entity right)
     {
         return !Equals(left, right);
     }

@@ -16,7 +16,7 @@ public class Profile : Entity
     public DateTime CreatedOnUtc { get; private set; }
     public DateOnly DateOfBirth { get; private set; }
     public Gender Gender { get; private set; } = Gender.Unknown;
-    public string? MainPhotoUrl { get; private set; }
+    public string MainPhotoUrl { get; private set; }
     public Preferences Preferences { get; private set; } = default!;
 
     private readonly List<ProfileSport> _profileSports = new();

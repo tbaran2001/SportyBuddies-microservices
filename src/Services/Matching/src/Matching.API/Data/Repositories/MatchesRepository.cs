@@ -34,7 +34,7 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Match?> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
+    public async Task<Match> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
     {
         var randomMatch = await dbContext.Matches
             .Where(m => m.ProfileId == profileId && m.Swipe == null)

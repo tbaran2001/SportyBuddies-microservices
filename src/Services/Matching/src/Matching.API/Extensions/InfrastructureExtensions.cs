@@ -77,7 +77,7 @@ public static class InfrastructureExtensions
         }
 
         app.MapCarter();
-        app.UseExceptionHandler(options => { });
+        app.UseExceptionHandler(_ => { });
         app.UseHealthChecks("/health",
             new HealthCheckOptions
             {

@@ -3,7 +3,6 @@ using MassTransit;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
 using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
-using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
 
 namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
