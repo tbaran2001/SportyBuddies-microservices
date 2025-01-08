@@ -10,6 +10,15 @@ services:
     ports:
       - "1436:1433"
 
+  buddydb:
+    container_name: buddydb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123!
+    restart: always
+    ports:
+      - "1437:1433"
+
   matchingdb:
     container_name: matchingdb
     environment:
@@ -82,7 +91,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=matchingdb;Database=MatchesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ConnectionStrings__Redis=distributedcache:6379
-      - GrpcSettings__BuddiesUrl=https://buddies.grpc:8081
+      - GrpcSettings__BuddiesUrl=https://buddies.api:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
@@ -96,7 +105,7 @@ services:
     depends_on:
       - matchingdb
       - distributedcache
-      - buddies.grpc
+      - buddies.api
       - messagebroker
     ports:
       - "6001:8080"
@@ -105,14 +114,20 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  buddies.grpc:
+  buddies.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Data Source=buddiesdb
+      - ConnectionStrings__Database=Server=sportdb;Database=BuddiesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - Jwt__Authority=http://identityservice:8080
+      - Jwt__Audience=profilemanagement-api
+      - Jwt__RequireHttpsMetadata=false
+      - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
+    depends_on:
+      - sportdb
     ports:
       - "6002:8080"
       - "6062:8081"

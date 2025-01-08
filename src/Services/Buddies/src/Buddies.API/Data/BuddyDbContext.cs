@@ -1,9 +1,9 @@
-﻿using Buddies.Grpc.Models;
+﻿using Buddies.API.Buddies.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Buddies.Grpc.Data;
+namespace Buddies.API.Data;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public class BuddyDbContext(DbContextOptions<BuddyDbContext> options) : DbContext(options)
 {
     public DbSet<Buddy> Buddies { get; set; }
 

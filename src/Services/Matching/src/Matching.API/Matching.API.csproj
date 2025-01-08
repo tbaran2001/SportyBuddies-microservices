@@ -33,9 +33,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="..\..\..\Buddies\src\Buddies.Grpc\Protos\buddies.proto">
-        <Link>GrpcServer\Protos\buddies.proto</Link>
-        <Generator>MSBuild:Compile</Generator>
+      <Protobuf Include="..\..\..\Buddies\src\Buddies.API\GrpcServer\Protos\buddies.proto" GrpcServices="Client">
+        <Link>Protos\buddies.proto</Link>
       </Protobuf>
     </ItemGroup>
 

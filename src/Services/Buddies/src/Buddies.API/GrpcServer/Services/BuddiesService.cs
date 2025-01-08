@@ -1,12 +1,13 @@
-﻿using Buddies.Grpc.Data;
-using Buddies.Grpc.Models;
+﻿using Buddies.API.Buddies.Models;
+using Buddies.API.Data;
+using Buddies.Grpc;
 using Grpc.Core;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace Buddies.Grpc.Services;
+namespace Buddies.API.GrpcServer.Services;
 
-public class BuddiesService(ApplicationDbContext dbContext) : BuddiesProtoService.BuddiesProtoServiceBase
+public class BuddiesService(BuddyDbContext dbContext) : BuddiesProtoService.BuddiesProtoServiceBase
 {
     public override async Task<GetProfileBuddiesResponse> GetProfileBuddies(GetProfileBuddiesRequest request,
         ServerCallContext context)

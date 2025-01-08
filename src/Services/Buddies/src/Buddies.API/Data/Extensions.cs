@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Buddies.Grpc.Data;
+namespace Buddies.API.Data;
 
 public static class Extensions
 {
@@ -8,7 +8,7 @@ public static class Extensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<ApplicationDbContext>();
+        var context = services.GetRequiredService<BuddyDbContext>();
 
         context.Database.Migrate();
 

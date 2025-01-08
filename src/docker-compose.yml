@@ -4,6 +4,9 @@ services:
   sportdb:
     image: mcr.microsoft.com/mssql/server
 
+  buddydb:
+    image: mcr.microsoft.com/mssql/server
+
   matchingdb:
     image: mcr.microsoft.com/mssql/server
 
@@ -25,17 +28,17 @@ services:
       context: .
       dockerfile: Services/Sport/Sport.API/Dockerfile
 
+  buddies.api:
+    image: ${DOCKER_REGISTRY-}buddiesapi
+    build:
+      context: .
+      dockerfile: Services/Buddies/src/Buddies.API/Dockerfile
+
   matching.api:
     image: ${DOCKER_REGISTRY-}matchingapi
     build:
       context: .
       dockerfile: Services/Matching/src/Matching.API/Dockerfile
-
-  buddies.grpc:
-    image: ${DOCKER_REGISTRY-}buddiesgrpc
-    build:
-      context: .
-      dockerfile: Services/Buddies/src/Buddies.Grpc/Dockerfile
 
   profilemanagement.api:
     image: ${DOCKER_REGISTRY-}profilemanagementapi
