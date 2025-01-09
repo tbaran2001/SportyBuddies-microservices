@@ -3,15 +3,10 @@ using BuildingBlocks.Exceptions;
 
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
-public class ProfileName : ValueObject
+public class ProfileName
 {
     public string Value { get; }
     private ProfileName(string value) => Value = value;
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
 
     public static ProfileName Create(string name)
     {
@@ -19,9 +14,5 @@ public class ProfileName : ValueObject
             throw new DomainException("Name cannot be empty");
 
         return new ProfileName(name);
-    }
-
-    private ProfileName()
-    {
     }
 }

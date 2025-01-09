@@ -1,17 +1,11 @@
-using BuildingBlocks.Core.Model;
 using BuildingBlocks.Exceptions;
 
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
-public class ProfileDescription : ValueObject
+public class ProfileDescription
 {
     public string Value { get; }
     private ProfileDescription(string value) => Value = value;
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
 
     public static ProfileDescription Create(string description)
     {
@@ -21,7 +15,4 @@ public class ProfileDescription : ValueObject
         return new ProfileDescription(description);
     }
 
-    private ProfileDescription()
-    {
-    }
 }

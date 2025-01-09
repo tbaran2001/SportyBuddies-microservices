@@ -15,21 +15,21 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
             .WithOne()
             .HasForeignKey(p => p.ProfileId);
 
-        builder.ComplexProperty(
-            p => p.Name, nameBuilder =>
-            {
-                nameBuilder.Property(n => n.Value)
-                    .HasColumnName(nameof(Profile.Name));
-            });
+        builder.OwnsOne(p => p.Name, nameBuilder =>
+        {
+            nameBuilder.Property(n => n.Value)
+                .HasColumnName(nameof(Profile.Name))
+                .IsRequired();
+        });
 
-        builder.ComplexProperty(
-            p => p.Description, descriptionBuilder =>
-            {
-                descriptionBuilder.Property(d => d.Value)
-                    .HasColumnName(nameof(Profile.Description));
-            });
+        builder.OwnsOne(p => p.Description, descriptionBuilder =>
+        {
+            descriptionBuilder.Property(d => d.Value)
+                .HasColumnName(nameof(Profile.Description))
+                .IsRequired();
+        });
 
-        builder.ComplexProperty(p => p.Preferences, preferencesBuilder =>
+        builder.OwnsOne(p => p.Preferences, preferencesBuilder =>
         {
             preferencesBuilder.Property(p => p.MinAge);
             preferencesBuilder.Property(p => p.MaxAge);

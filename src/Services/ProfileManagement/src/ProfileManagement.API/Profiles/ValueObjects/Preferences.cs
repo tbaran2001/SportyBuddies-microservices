@@ -3,7 +3,7 @@ using ProfileManagement.API.Profiles.Enums;
 
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
-public record Preferences
+public class Preferences
 {
     public static Preferences Default => new(18, 45, 50, 0);
     public int MinAge { get; }
@@ -29,9 +29,5 @@ public record Preferences
             throw new DomainException("Max distance must be in range from 1 to 100");
 
         return new Preferences(minAge, maxAge, maxDistance, preferredGender);
-    }
-
-    private Preferences()
-    {
     }
 }

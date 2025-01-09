@@ -16,16 +16,16 @@ namespace ProfileManagement.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     MainPhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preferences_MaxAge = table.Column<int>(type: "int", nullable: false),
-                    Preferences_MaxDistance = table.Column<int>(type: "int", nullable: false),
-                    Preferences_MinAge = table.Column<int>(type: "int", nullable: false),
-                    Preferences_PreferredGender = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Preferences_MinAge = table.Column<int>(type: "int", nullable: true),
+                    Preferences_MaxAge = table.Column<int>(type: "int", nullable: true),
+                    Preferences_MaxDistance = table.Column<int>(type: "int", nullable: true),
+                    Preferences_PreferredGender = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
