@@ -36,7 +36,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - Jwt__Authority=http://identityservice:8080
-      - Jwt__Audience=profilemanagement-api
+      - Jwt__Audience=sport-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
@@ -56,6 +56,7 @@ services:
       - ConnectionStrings__Database=Server=mssqldb;Database=MatchesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ConnectionStrings__Redis=distributedcache:6379
       - GrpcSettings__BuddiesUrl=https://buddies.api:8081
+      - GrpcSettings__ProfileUrl=https://profilemanagement.api:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
@@ -63,14 +64,15 @@ services:
       - MessageBroker__Password=guest
       - IdentityServiceUrl=http://identityservice:8080
       - Jwt__Authority=http://identityservice:8080
-      - Jwt__Audience=profilemanagement-api
+      - Jwt__Audience=matching-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
       - mssqldb
       - distributedcache
-      - buddies.api
       - messagebroker
+      - buddies.api
+      - profilemanagement.api
     ports:
       - "6001:8080"
       - "6061:8081"
@@ -87,7 +89,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - Jwt__Authority=http://identityservice:8080
-      - Jwt__Audience=profilemanagement-api
+      - Jwt__Audience=buddies-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:

@@ -52,14 +52,21 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
                            m.ProfileId == matchedProfileId && m.MatchedProfileId == profileId, cancellationToken);
     }
 
-    public Task RemoveMatchesAsync(Guid profileId, IEnumerable<Guid> potentialMatches)
+    public async Task RemoveMatchesAsync(Guid profileId, IEnumerable<Guid> potentialMatches)
     {
-        var matchesToRemove = dbContext.Matches
-            .Where(m => m.ProfileId == profileId && !potentialMatches.Contains(m.MatchedProfileId) ||
-                        m.MatchedProfileId == profileId && !potentialMatches.Contains(m.ProfileId));
+        var potentialMatchesList = potentialMatches.ToList();
 
-        dbContext.Matches.RemoveRange(matchesToRemove);
+        var matchesToRemove = await dbContext.Matches
+            .Where(m =>
+                (m.ProfileId == profileId && !potentialMatchesList.Contains(m.MatchedProfileId)) ||
+                (m.MatchedProfileId == profileId && !potentialMatchesList.Contains(m.ProfileId))
+            )
+            .ToListAsync();
 
-        return Task.CompletedTask;
+        if (matchesToRemove.Any())
+        {
+            dbContext.Matches.RemoveRange(matchesToRemove);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

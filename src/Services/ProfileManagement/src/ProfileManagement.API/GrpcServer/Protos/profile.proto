@@ -1,0 +1,17 @@
+﻿syntax ="proto3";
+
+option csharp_namespace = "ProfileManagement.API";
+
+package profile;
+
+service ProfileProtoService {
+    rpc GetPotentialMatches(GetPotentialMatchesRequest) returns (GetPotentialMatchesResponse);
+}
+
+message GetPotentialMatchesRequest {
+    string profileId = 1;
+}
+
+message GetPotentialMatchesResponse {
+    repeated string profileIds = 1;
+}

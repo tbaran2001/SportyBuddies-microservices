@@ -9,6 +9,7 @@ using Matching.API.Data.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using ProfileManagement.API;
 
 namespace Matching.API.Extensions;
 
@@ -43,6 +44,7 @@ public static class InfrastructureExtensions
         builder.Services.AddHealthChecks()
             .AddSqlServer(builder.Configuration.GetConnectionString("Database")!)
             .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
+        builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
         builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(options =>
             {
                 options.Address = new Uri(builder.Configuration["GrpcSettings:BuddiesUrl"]!);
@@ -57,7 +59,20 @@ public static class InfrastructureExtensions
 
                 return handler;
             });
-        builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
+        builder.Services.AddGrpcClient<ProfileProtoService.ProfileProtoServiceClient>(options =>
+            {
+                options.Address = new Uri(builder.Configuration["GrpcSettings:ProfileUrl"]!);
+            })
+            .ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback =
+                        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+
+                return handler;
+            });
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();

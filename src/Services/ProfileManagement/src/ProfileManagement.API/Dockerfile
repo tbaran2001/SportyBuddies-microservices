@@ -8,9 +8,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/ProfileManagement/src/ProfileManagement.API/ProfileManagement.API.csproj", "Services/ProfileManagement/src/ProfileManagement.API/"]
-COPY ["Services/ProfileManagement/src/ProfileManagement.Infrastructure/ProfileManagement.Infrastructure.csproj", "Services/ProfileManagement/src/ProfileManagement.Infrastructure/"]
-COPY ["Services/ProfileManagement/src/ProfileManagement.Domain/ProfileManagement.Domain.csproj", "Services/ProfileManagement/src/ProfileManagement.Domain/"]
-COPY ["Services/ProfileManagement/src/ProfileManagement.Application/ProfileManagement.Application.csproj", "Services/ProfileManagement/src/ProfileManagement.Application/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
 RUN dotnet restore "Services/ProfileManagement/src/ProfileManagement.API/ProfileManagement.API.csproj"

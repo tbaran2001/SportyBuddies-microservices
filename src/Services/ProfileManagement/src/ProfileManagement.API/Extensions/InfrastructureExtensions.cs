@@ -14,6 +14,7 @@ using Microsoft.FeatureManagement;
 using ProfileManagement.API.Data;
 using ProfileManagement.API.Data.Repositories;
 using ProfileManagement.API.Data.Seed;
+using ProfileManagement.API.GrpcServer.Services;
 using ProfileManagement.API.Profiles.Mapster;
 
 namespace ProfileManagement.API.Extensions;
@@ -24,6 +25,7 @@ public static class InfrastructureExtensions
     {
         var assembly = typeof(Program).Assembly;
         builder.Services.AddCarter();
+        builder.Services.AddGrpc();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddDbContext<ProfileDbContext>((sp, options) =>
@@ -71,6 +73,7 @@ public static class InfrastructureExtensions
 
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.MapGrpcService<ProfileService>();
 
         app.InitializeDatabase();
 

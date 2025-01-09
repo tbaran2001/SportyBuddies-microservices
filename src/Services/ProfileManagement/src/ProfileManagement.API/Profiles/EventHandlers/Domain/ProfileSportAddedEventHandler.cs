@@ -22,7 +22,6 @@ public class ProfileSportAddedEventHandler(
         var profileSportAddedIntegrationEvent = new ProfileSportAddedIntegrationEvent
         {
             ProfileId = domainEvent.ProfileId,
-            PotentialMatches = potentialMatches
         };
         await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
     }
