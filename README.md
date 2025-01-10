@@ -15,9 +15,6 @@ Database & Storage
 - Entity Framework Core
 - MSSQL
 - Redis
-- SQLite
-- PostgreSQL
-- Marten
 
 Architecture & Patterns
 - REST Api
@@ -27,6 +24,8 @@ Architecture & Patterns
 - Domain Driven Design
 
 Application Infrastructure
+- Yarp API Gateway
+- Duende IdentityServer
 - Docker
 - MassTransit
 - RabbitMQ
