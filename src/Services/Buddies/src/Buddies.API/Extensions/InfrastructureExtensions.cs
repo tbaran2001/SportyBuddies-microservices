@@ -34,6 +34,9 @@ public static class InfrastructureExtensions
         builder.Services.AddTransient<AuthHeaderHandler>();
         builder.Services.AddAuthorization();
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         return builder;
     }
 
@@ -46,6 +49,9 @@ public static class InfrastructureExtensions
         app.MapCarter();
         app.UseExceptionHandler(_ => { });
         app.MapGrpcService<BuddiesService>();
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         return app;
     }

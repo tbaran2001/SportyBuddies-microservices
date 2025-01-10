@@ -17,12 +17,18 @@ public static class InfrastructureExtensions
 
         builder.AddCustomIdentityServer();
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         return builder;
     }
 
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         app.UseIdentityServer();
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         return app;
     }

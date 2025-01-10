@@ -59,6 +59,9 @@ public static class InfrastructureExtensions
         builder.Services.AddTransient<AuthHeaderHandler>();
         builder.Services.AddAuthorization();
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         return builder;
     }
 
@@ -76,6 +79,10 @@ public static class InfrastructureExtensions
         app.MapGrpcService<ProfileService>();
 
         app.InitializeDatabase();
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
 
         return app;
     }

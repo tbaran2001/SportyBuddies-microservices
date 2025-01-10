@@ -81,6 +81,9 @@ public static class InfrastructureExtensions
         builder.Services.AddTransient<AuthHeaderHandler>();
         builder.Services.AddAuthorization();
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         return builder;
     }
 
@@ -98,6 +101,9 @@ public static class InfrastructureExtensions
             {
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         return app;
     }
