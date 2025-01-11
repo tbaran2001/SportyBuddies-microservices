@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocks.Messaging.Events.Matching;
+﻿namespace BuildingBlocks.Events.Matching;
 
 public record BothSwipedRightIntegrationEvent : IntegrationEvent
 {

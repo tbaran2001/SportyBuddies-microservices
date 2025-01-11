@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocks.Messaging.Events.ProfileManagement;
+﻿namespace BuildingBlocks.Events.ProfileManagement;
 
 public record ProfileSportAddedIntegrationEvent : IntegrationEvent
 {

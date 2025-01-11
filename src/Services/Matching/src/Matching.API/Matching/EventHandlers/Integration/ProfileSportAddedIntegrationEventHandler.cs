@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Messaging.Events.ProfileManagement;
+﻿using BuildingBlocks.Events.ProfileManagement;
 using MassTransit;
 using Matching.API.Matching.Features.CreateMatches;
 using ProfileManagement.API;

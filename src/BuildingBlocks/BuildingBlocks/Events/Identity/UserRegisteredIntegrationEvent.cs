@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocks.Messaging.Events.Identity;
+﻿namespace BuildingBlocks.Events.Identity;
 
 public record UserRegisteredIntegrationEvent: IntegrationEvent
 {

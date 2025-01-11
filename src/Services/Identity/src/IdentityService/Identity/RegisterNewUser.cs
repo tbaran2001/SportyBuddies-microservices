@@ -1,5 +1,5 @@
 ﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Messaging.Events.Identity;
+using BuildingBlocks.Events.Identity;
 using FluentValidation;
 using IdentityService.Models;
 using Mapster;

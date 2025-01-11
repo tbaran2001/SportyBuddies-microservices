@@ -3,7 +3,7 @@ using Buddies.Grpc;
 using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
-using BuildingBlocks.Messaging.MassTransit;
+using BuildingBlocks.MassTransit;
 using HealthChecks.UI.Client;
 using Matching.API.Data.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

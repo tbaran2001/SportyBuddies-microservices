@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Messaging.Events.Identity;
+﻿using BuildingBlocks.Events.Identity;
 using IdentityService.Identity;
 using IdentityService.Models;
 using MassTransit;

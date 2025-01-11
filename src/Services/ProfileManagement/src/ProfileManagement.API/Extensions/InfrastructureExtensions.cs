@@ -3,7 +3,7 @@ using BuildingBlocks.Core.Model;
 using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
-using BuildingBlocks.Messaging.MassTransit;
+using BuildingBlocks.MassTransit;
 using BuildingBlocks.Web;
 using Carter;
 using HealthChecks.UI.Client;

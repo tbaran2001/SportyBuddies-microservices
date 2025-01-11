@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using BuildingBlocks.Behaviors;
-using BuildingBlocks.Messaging.MassTransit;
+using BuildingBlocks.MassTransit;
 using IdentityService.Data.Seed;
 using IdentityService.Extensions;
 using IdentityService.Identity;
