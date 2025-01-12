@@ -29,8 +29,6 @@ public static class InfrastructureExtensions
         });
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-        builder.Services.AddHealthChecks()
-            .AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
@@ -50,12 +48,6 @@ public static class InfrastructureExtensions
         app.MapCarter();
 
         app.UseExceptionHandler(_ => { });
-
-        app.UseHealthChecks("/health",
-            new HealthCheckOptions
-            {
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
 
         if (app.Environment.IsDevelopment())
         {
