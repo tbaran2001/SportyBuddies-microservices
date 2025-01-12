@@ -37,6 +37,11 @@ public static class InfrastructureExtensions
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ProfileDbContext>());
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        //builder.Services.Decorate<IProfilesRepository, CachedProfilesRepository>();
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+        });
 
         builder.Services.AddMediatR(serviceConfiguration =>
         {
