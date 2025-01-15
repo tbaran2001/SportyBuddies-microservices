@@ -9,7 +9,6 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Buddies/src/Buddies.API/Buddies.API.csproj", "Services/Buddies/src/Buddies.API/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
 RUN dotnet restore "Services/Buddies/src/Buddies.API/Buddies.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Buddies/src/Buddies.API"
