@@ -30,6 +30,11 @@ Application Infrastructure
 - MassTransit
 - RabbitMQ
 
+Deployment & Automation
+- Kubernetes
+- Azure
+- CI/CD Pipelines with Azure DevOps
+
 Libraries & Utilities
 - MediatR
 - FluentValidation
@@ -41,3 +46,4 @@ Development:
 - JetBrains Rider
 - Visual Studio 2022
 - Postman
+- Git
