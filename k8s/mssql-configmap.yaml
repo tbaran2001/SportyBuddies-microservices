@@ -1,6 +1,0 @@
-﻿apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mssql-configmap
-data:
-  connection_string: "Server=mssql-service;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;"

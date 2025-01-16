@@ -1,0 +1,41 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: distributedcache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: distributedcache
+  template:
+    metadata:
+      labels:
+        app: distributedcache
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: distributedcache
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.2"
+            limits:
+              memory: "256Mi"
+              cpu: "0.5"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: distributedcache-service
+spec:
+  selector:
+    app: distributedcache
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379

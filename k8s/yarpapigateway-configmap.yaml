@@ -1,0 +1,86 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yarp-config
+data:
+  appsettings.json: |
+    {
+      "ReverseProxy": {
+        "Routes": {
+          "sport-route": {
+            "ClusterId": "sport-cluster",
+            "Match": {
+              "Path": "/sport-service/{**catch-all}"
+            },
+            "Transforms": [
+              {
+                "PathPattern": "{**catch-all}"
+              }
+            ]
+          },
+          "matching-route": {
+            "ClusterId": "matching-cluster",
+            "Match": {
+              "Path": "/matching-service/{**catch-all}"
+            },
+            "Transforms": [
+              {
+                "PathPattern": "{**catch-all}"
+              }
+            ]
+          },
+          "buddies-route": {
+            "ClusterId": "buddies-cluster",
+            "Match": {
+              "Path": "/buddies-service/{**catch-all}"
+            },
+            "Transforms": [
+              {
+                "PathPattern": "{**catch-all}"
+              }
+            ]
+          },
+          "profilemanagement-route": {
+            "ClusterId": "profilemanagement-cluster",
+            "Match": {
+              "Path": "/profilemanagement-service/{**catch-all}"
+            },
+            "Transforms": [
+              {
+                "PathPattern": "{**catch-all}"
+              }
+            ]
+          }
+        },
+        "Clusters": {
+          "sport-cluster": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://sportapi-service:6000/"
+              }
+            }
+          },
+          "matching-cluster": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://matchingapi-service:6001/"
+              }
+            }
+          },
+          "buddies-cluster": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://buddiesapi-service:6002/"
+              }
+            }
+          },
+          "profilemanagement-cluster": {
+            "Destinations": {
+              "destination1": {
+                "Address": "http://profilemanagementapi-service:6003/"
+              }
+            }
+          }
+        }
+      }
+    }

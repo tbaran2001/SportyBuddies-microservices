@@ -1,37 +1,29 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sportapi
+  name: yarpapigateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sportapi
+      app: yarpapigateway
   template:
     metadata:
       labels:
-        app: sportapi
+        app: yarpapigateway
     spec:
       restartPolicy: Always
       containers:
-        - name: sportapi
-          image: tbaran2001/sportapi:latest
+        - name: yarpapigateway
+          image: tbaran2001/yarpapigateway:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ASPNETCORE_HTTP_PORTS
               value: "8080"
-            - name: ConnectionStrings__Database
-              value: Server=mssql-service;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
-            - name: Jwt__Audience
-              value: sport-api
-            - name: Jwt__Authority
+            - name: IdentityServiceUrl
               value: http://identityservice-service:6065
-            - name: Jwt__MetadataAddress
-              value: http://identityservice-service:6065/.well-known/openid-configuration
-            - name: Jwt__RequireHttpsMetadata
-              value: "false"
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -42,17 +34,25 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "0.5"
+          volumeMounts:
+            - name: yarp-config-volume
+              mountPath: /app/appsettings.json
+              subPath: appsettings.json
+      volumes:
+        - name: yarp-config-volume
+          configMap:
+            name: yarp-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sportapi-service
+  name: yarpapigateway-service
 spec:
   type: NodePort
   selector:
-    app: sportapi
+    app: yarpapigateway
   ports:
     - protocol: TCP
-      port: 6000
+      port: 6004
       targetPort: 8080
-      nodePort: 31000
+      nodePort: 31004
