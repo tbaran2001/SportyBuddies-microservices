@@ -1,0 +1,59 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-deployment
+  labels:
+    app: mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      containers:
+        - name: mssql
+          image: mcr.microsoft.com/mssql/server
+          securityContext:
+            runAsUser: 0
+          ports:
+            - containerPort: 1433
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1"
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-secret
+                  key: sa-password
+            - name: MSSQL_PID
+              value: "Developer"
+          volumeMounts:
+            - name: mssql-data
+              mountPath: /var/opt/mssql
+      volumes:
+        - name: mssql-data
+          persistentVolumeClaim:
+            claimName: mssql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-service
+spec:
+  selector:
+    app: mssql
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
