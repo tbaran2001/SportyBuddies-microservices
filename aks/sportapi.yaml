@@ -1,0 +1,58 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sportapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sportapi
+  template:
+    metadata:
+      labels:
+        app: sportapi
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: sportapi
+          image: sportybuddiesacr.azurecr.io/sportapi:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_HTTP_PORTS
+              value: "8080"
+            - name: ConnectionStrings__Database
+              value: Server=mssql-service;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+            - name: Jwt__Audience
+              value: sport-api
+            - name: Jwt__Authority
+              value: http://identityservice-service:6065
+            - name: Jwt__MetadataAddress
+              value: http://identityservice-service:6065/.well-known/openid-configuration
+            - name: Jwt__RequireHttpsMetadata
+              value: "false"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.05"
+            limits:
+              memory: "256Mi"
+              cpu: "0.05"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sportapi-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: sportapi
+  ports:
+    - protocol: TCP
+      port: 8080
