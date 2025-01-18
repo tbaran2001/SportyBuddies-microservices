@@ -1,0 +1,63 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identityservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identityservice
+  template:
+    metadata:
+      labels:
+        app: identityservice
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: identityservice
+          image: sportybuddiesacr.azurecr.io/identityservice:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_HTTP_PORTS
+              value: "8080"
+            - name: ConnectionStrings__Database
+              value: Server=mssql-service;Database=IdentityDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+            - name: MessageBroker__Host
+              value: amqp://messagebroker-service
+            - name: MessageBroker__Password
+              value: guest
+            - name: MessageBroker__UserName
+              value: guest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.2"
+            limits:
+              memory: "256Mi"
+              cpu: "0.5"
+          volumeMounts:
+            - mountPath: /app/keys
+              name: identityservice-claim0
+      volumes:
+        - name: identityservice-claim0
+          persistentVolumeClaim:
+            claimName: identityservice-claim0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identityservice-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: identityservice
+  ports:
+    - protocol: TCP
+      port: 8080

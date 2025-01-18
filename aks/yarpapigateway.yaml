@@ -1,0 +1,56 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yarpapigateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yarpapigateway
+  template:
+    metadata:
+      labels:
+        app: yarpapigateway
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: acr-secret
+      containers:
+        - name: yarpapigateway
+          image: sportybuddiesacr.azurecr.io/yarpapigateway:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_HTTP_PORTS
+              value: "8080"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.01"
+            limits:
+              memory: "256Mi"
+              cpu: "0.01"
+          volumeMounts:
+            - name: yarp-config-volume
+              mountPath: /app/appsettings.json
+              subPath: appsettings.json
+      volumes:
+        - name: yarp-config-volume
+          configMap:
+            name: yarp-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarpapigateway-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: yarpapigateway
+  ports:
+    - protocol: TCP
+      port: 8080

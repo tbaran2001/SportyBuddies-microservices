@@ -29,9 +29,9 @@ spec:
             - name: Jwt__Audience
               value: sport-api
             - name: Jwt__Authority
-              value: http://identityservice-service:6065
+              value: http://identityservice-service
             - name: Jwt__MetadataAddress
-              value: http://identityservice-service:6065/.well-known/openid-configuration
+              value: http://identityservice-service/.well-known/openid-configuration
             - name: Jwt__RequireHttpsMetadata
               value: "false"
           ports:
@@ -40,17 +40,16 @@ spec:
           resources:
             requests:
               memory: "128Mi"
-              cpu: "0.05"
+              cpu: "0.03"
             limits:
               memory: "256Mi"
-              cpu: "0.05"
+              cpu: "0.03"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sportapi-service
 spec:
-  type: LoadBalancer
   selector:
     app: sportapi
   ports:
