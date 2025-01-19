@@ -28,7 +28,6 @@ public class GetProfileEndpoint : ICarterModule
 
                 return Results.Ok(response);
             })
-            .RequireAuthorization()
             .WithName("GetProfiles")
             .Produces<GetProfilesResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
