@@ -7,12 +7,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Sport.API.csproj", "Sport.API/"]
+COPY ["Services/Sport/Sport.API/Sport.API.csproj", "Services/Sport/Sport.API/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-RUN dotnet restore "./Services/Sport/Sport.API/Sport.API.csproj"
-WORKDIR "/src/Services/Sport/Sport.API"
+RUN dotnet restore "Services/Sport/Sport.API/Sport.API.csproj"
 COPY . .
-RUN dotnet build "./Sport.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Services/Sport/Sport.API"
+RUN dotnet build "Sport.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
