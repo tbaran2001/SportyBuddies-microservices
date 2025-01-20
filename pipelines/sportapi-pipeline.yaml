@@ -2,11 +2,11 @@ trigger:
   branches:
     include:
       - main
-    paths:
-      include:
-        - src/*
-        - pipelines/sportapi-pipeline.yaml
-        - aks/sportapi.yaml
+  paths:
+    include:
+      - src/*
+      - pipelines/sportapi-pipeline.yaml
+      - aks/sportapi.yaml
 
 pool:
   name: Default

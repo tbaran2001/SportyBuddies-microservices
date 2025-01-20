@@ -2,11 +2,11 @@ trigger:
   branches:
     include:
       - main
-    paths:
-      include:
-        - src/*
-        - pipelines/profilemanagementapi-pipeline.yaml
-        - aks/profilemanagementapi.yaml
+  paths:
+    include:
+      - src/*
+      - pipelines/profilemanagementapi-pipeline.yaml
+      - aks/profilemanagementapi.yaml
 
 pool:
   name: Default

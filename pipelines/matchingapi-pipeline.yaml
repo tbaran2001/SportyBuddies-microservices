@@ -2,11 +2,11 @@ trigger:
   branches:
     include:
       - main
-    paths:
-      include:
-        - src/*
-        - pipelines/matchingapi-pipeline.yaml
-        - aks/matchingapi.yaml
+  paths:
+    include:
+      - src/*
+      - pipelines/matchingapi-pipeline.yaml
+      - aks/matchingapi.yaml
 
 pool:
   name: Default
