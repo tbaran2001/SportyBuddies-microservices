@@ -1,5 +1,12 @@
 trigger:
-  - main
+  branches:
+    include:
+      - main
+    paths:
+      include:
+        - src/*
+        - pipelines/matchingapi-pipeline.yaml
+        - aks/matchingapi.yaml
 
 pool:
   name: Default
@@ -60,7 +67,7 @@ stages:
                   inputs:
                     action: deploy
                     manifests: |
-                      $(Pipeline.Workspace)/aks/matchingapiapi.yaml
+                      $(Pipeline.Workspace)/aks/matchingapi.yaml
                     imagePullSecrets: |
                       $(imagePullSecret)
                     containers: |

@@ -1,9 +1,12 @@
-# Deploy to Azure Kubernetes Service
-# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-  - main
+  branches:
+    include:
+      - main
+    paths:
+      include:
+        - src/*
+        - pipelines/sportapi-pipeline.yaml
+        - aks/sportapi.yaml
 
 pool:
   name: Default
@@ -12,15 +15,12 @@ resources:
   - repo: self
 
 variables:
-
-  # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'cd5e9aee-c715-497a-acff-c5ca69eb751d'
   imageRepository: 'sportapi'
   containerRegistry: 'sportybuddiesacr.azurecr.io'
   dockerfilePath: 'src/Services/Sport/Sport.API/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'sportybuddiesacr1a39-auth'
-
 
 stages:
   - stage: Build
