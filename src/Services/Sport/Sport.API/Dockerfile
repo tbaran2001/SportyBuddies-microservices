@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Sport/Sport.API/Sport.API.csproj", "Services/Sport/Sport.API/"]
+COPY ["Sport.API.csproj", "Sport.API/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "./Services/Sport/Sport.API/Sport.API.csproj"
 WORKDIR "/src/Services/Sport/Sport.API"
