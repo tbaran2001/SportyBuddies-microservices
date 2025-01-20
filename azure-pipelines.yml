@@ -36,6 +36,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
+        buildContext: $(Build.SourcesDirectory)/src/Services/Sport
         tags: |
           $(tag)
 
@@ -66,8 +67,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/sportapi.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
