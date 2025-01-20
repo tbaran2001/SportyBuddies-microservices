@@ -18,7 +18,7 @@ spec:
       containers:
         - name: profilemanagementapi
           image: sportybuddiesacr.azurecr.io/profilemanagementapi:v1
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
@@ -31,13 +31,13 @@ spec:
             - name: FeatureManagement__Matching
               value: "false"
             - name: IdentityServiceUrl
-              value: http://identityservice-service
+              value: http://identityservice-service:8080
             - name: Jwt__Audience
               value: profilemanagement-api
             - name: Jwt__Authority
-              value: http://identityservice-service
+              value: http://identityservice-service:8080
             - name: Jwt__MetadataAddress
-              value: http://identityservice-service/.well-known/openid-configuration
+              value: http://identityservice-service:8080/.well-known/openid-configuration
             - name: Jwt__RequireHttpsMetadata
               value: "false"
             - name: MessageBroker__Host
@@ -52,10 +52,10 @@ spec:
           resources:
             requests:
               memory: "128Mi"
-              cpu: "0.2"
+              cpu: "0.1"
             limits:
               memory: "256Mi"
-              cpu: "0.5"
+              cpu: "0.3"
 ---
 apiVersion: v1
 kind: Service

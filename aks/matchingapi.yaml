@@ -1,23 +1,21 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sportapi
+  name: matchingapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sportapi
+      app: matchingapi
   template:
     metadata:
       labels:
-        app: sportapi
+        app: matchingapi
     spec:
       restartPolicy: Always
-      imagePullSecrets:
-        - name: acr-secret
       containers:
-        - name: sportapi
-          image: sportybuddiesacr.azurecr.io/sportapi:v1
+        - name: matchingapi
+          image: sportybuddiesacr.azurecr.io/matchingapi:v1
           imagePullPolicy: IfNotPresent
           env:
             - name: ASPNETCORE_ENVIRONMENT
@@ -25,15 +23,29 @@ spec:
             - name: ASPNETCORE_HTTP_PORTS
               value: "8080"
             - name: ConnectionStrings__Database
-              value: Server=mssql-service;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+              value: Server=mssql-service;Database=MatchesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+            - name: ConnectionStrings__Redis
+              value: distributedcache:6379
+            - name: GrpcSettings__BuddiesUrl
+              value: http://buddiesapi-service:8080
+            - name: GrpcSettings__ProfileUrl
+              value: http://profilemanagementapi-service:8080
+            - name: IdentityServiceUrl
+              value: http://identityservice-service:8080
             - name: Jwt__Audience
-              value: sport-api
+              value: matching-api
             - name: Jwt__Authority
               value: http://identityservice-service:8080
             - name: Jwt__MetadataAddress
               value: http://identityservice-service:8080/.well-known/openid-configuration
             - name: Jwt__RequireHttpsMetadata
               value: "false"
+            - name: MessageBroker__Host
+              value: amqp://messagebroker-service:5672
+            - name: MessageBroker__Password
+              value: guest
+            - name: MessageBroker__UserName
+              value: guest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -48,10 +60,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sportapi-service
+  name: matchingapi-service
 spec:
   selector:
-    app: sportapi
+    app: matchingapi
   ports:
     - protocol: TCP
       port: 8080

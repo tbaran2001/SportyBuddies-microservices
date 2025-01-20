@@ -1,23 +1,23 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sportapi
+  name: buddiesapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sportapi
+      app: buddiesapi
   template:
     metadata:
       labels:
-        app: sportapi
+        app: buddiesapi
     spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: acr-secret
       containers:
-        - name: sportapi
-          image: sportybuddiesacr.azurecr.io/sportapi:v1
+        - name: buddiesapi
+          image: sportybuddiesacr.azurecr.io/buddiesapi:v1
           imagePullPolicy: IfNotPresent
           env:
             - name: ASPNETCORE_ENVIRONMENT
@@ -25,9 +25,9 @@ spec:
             - name: ASPNETCORE_HTTP_PORTS
               value: "8080"
             - name: ConnectionStrings__Database
-              value: Server=mssql-service;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
+              value: Server=mssql-service;Database=BuddiesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
             - name: Jwt__Audience
-              value: sport-api
+              value: buddies-api
             - name: Jwt__Authority
               value: http://identityservice-service:8080
             - name: Jwt__MetadataAddress
@@ -48,10 +48,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sportapi-service
+  name: buddiesapi-service
 spec:
   selector:
-    app: sportapi
+    app: buddiesapi
   ports:
     - protocol: TCP
       port: 8080

@@ -12,13 +12,20 @@ spec:
       labels:
         app: identityservice
     spec:
+      initContainers:
+        - name: set-permissions
+          image: busybox
+          command: [ "sh", "-c", "chmod -R 777 /app/keys" ]
+          volumeMounts:
+            - mountPath: /app/keys
+              name: identityservice-claim0
       restartPolicy: Always
       imagePullSecrets:
         - name: acr-secret
       containers:
         - name: identityservice
           image: sportybuddiesacr.azurecr.io/identityservice:v1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
