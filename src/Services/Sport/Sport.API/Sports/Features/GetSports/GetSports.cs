@@ -14,6 +14,7 @@ public class GetSportsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
+        app.MapGet("/test", () => Task.FromResult(Results.Ok("Test")));
         app.MapGet("/sports", async (ISender sender) =>
             {
                 var query = new GetSportsQuery();

@@ -9,6 +9,8 @@ public class SportInitialData
         Sports.Models.Sport.CreateWithId(
             new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"), "Basketball", "Basketball description"),
         Sports.Models.Sport.CreateWithId(
-            new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc"), "Tennis", "Tennis description")
+            new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc"), "Tennis", "Tennis description"),
+        Sports.Models.Sport.CreateWithId(
+            new Guid("f1b3f3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b"), "Volleyball", "Volleyball description")
     };
 }
