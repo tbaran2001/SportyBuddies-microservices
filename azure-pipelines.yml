@@ -17,7 +17,7 @@ variables:
   dockerRegistryServiceConnection: 'cd5e9aee-c715-497a-acff-c5ca69eb751d'
   imageRepository: 'sportapi'
   containerRegistry: 'sportybuddiesacr.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'src/Services/Sport/Sport.API/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'sportybuddiesacr1a39-auth'
 
