@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Sport.API.Data.Repositories;
 using Sport.API.Sports.Dtos;
 
@@ -14,7 +15,6 @@ public class GetSportsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/test", () => Task.FromResult(Results.Ok("Test")));
         app.MapGet("/sports", async (ISender sender) =>
             {
                 var query = new GetSportsQuery();
@@ -25,11 +25,11 @@ public class GetSportsEndpoint : ICarterModule
 
                 return Results.Ok(response);
             })
-            .WithName("GetSports")
+            .WithName(nameof(GetSports))
             .Produces<GetSportsResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get all sports")
-            .WithDescription("Get all sports");
+            .WithSummary(nameof(GetSports).Humanize())
+            .WithDescription(nameof(GetSports).Humanize());
     }
 }
 

@@ -1,7 +1,9 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.Security.Claims;
+using Ardalis.GuardClauses;
 using BuildingBlocks.CQRS;
 using BuildingBlocks.Web;
 using Carter;
+using Humanizer;
 using Mapster;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
@@ -20,6 +22,13 @@ public class GetCurrentProfileEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
+        app.MapGet("test", (IHttpContextAccessor context) =>
+        {
+            var id = context?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return Results.Content(id);
+        });
+
         app.MapGet("profiles/me", async (ISender sender) =>
             {
                 var query = new GetCurrentProfileQuery();
@@ -31,11 +40,11 @@ public class GetCurrentProfileEndpoint : ICarterModule
                 return Results.Ok(response);
             })
             .RequireAuthorization()
-            .WithName("GetCurrentProfile")
+            .WithName(nameof(GetCurrentProfile))
             .Produces<GetCurrentProfileResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get current user profile")
-            .WithDescription("Get the profile of the current user");
+            .WithSummary(nameof(GetCurrentProfile).Humanize())
+            .WithDescription(nameof(GetCurrentProfile).Humanize());
     }
 }
 

@@ -5,34 +5,38 @@ using BuildingBlocks.CQRS;
 using BuildingBlocks.Web;
 using Carter;
 using FluentValidation;
+using Humanizer;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
 using ProfileManagement.API.Profiles.Exceptions;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
 
-public record AddProfileSportCommand(Guid SportId) : ICommand;
+public record AddProfileSportCommand(Guid ProfileId, Guid SportId) : ICommand;
 
 public record ProfileSportAddedDomainEvent(Guid ProfileId, IEnumerable<Guid> SportIds) : IDomainEvent;
+
+public record AddProfileSportRequestDto(Guid SportId);
 
 public class AddProfileSportEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("profiles/sports/{sportId:guid}", async (Guid sportId, ISender sender) =>
-            {
-                var command = new AddProfileSportCommand(sportId);
+        app.MapPost("profiles/{profileId:guid}/sports",
+                async (Guid profileId, AddProfileSportRequestDto request, ISender sender) =>
+                {
+                    var command = new AddProfileSportCommand(profileId, request.SportId);
 
-                await sender.Send(command);
+                    await sender.Send(command);
 
-                return Results.NoContent();
-            })
+                    return Results.NoContent();
+                })
             .RequireAuthorization()
-            .WithName("AddProfileSport")
+            .WithName(nameof(AddProfileSport))
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Add a sport to a profile")
-            .WithDescription("Add a sport to a profile");
+            .WithSummary(nameof(AddProfileSport).Humanize())
+            .WithDescription(nameof(AddProfileSport).Humanize());
     }
 }
 
@@ -40,24 +44,22 @@ public class AddProfileSportCommandValidator : AbstractValidator<AddProfileSport
 {
     public AddProfileSportCommandValidator()
     {
+        RuleFor(x => x.ProfileId).NotEmpty();
         RuleFor(x => x.SportId).NotEmpty();
     }
 }
 
 internal class AddProfileSportCommandHandler(
     IProfilesRepository profilesRepository,
-    ICurrentUserProvider currentUserProvider,
     IUnitOfWork unitOfWork) : ICommandHandler<AddProfileSportCommand>
 {
     public async Task<Unit> Handle(AddProfileSportCommand command, CancellationToken cancellationToken)
     {
         Guard.Against.Null(command, nameof(command));
 
-        var currentUserId = currentUserProvider.GetCurrentUserId();
-
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUserId);
+        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
         if (profile == null)
-            throw new ProfileNotFoundException(currentUserId);
+            throw new ProfileNotFoundException(command.ProfileId);
 
         profile.AddSport(command.SportId);
         await unitOfWork.CommitChangesAsync();

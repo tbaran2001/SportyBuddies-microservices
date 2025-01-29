@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Sport.API.Data.Repositories;
 using Sport.API.Sports.Dtos;
 using Sport.API.Sports.Exceptions;
@@ -26,11 +27,11 @@ public class GetSportById : ICarterModule
                 return Results.Ok(response);
             })
             .RequireAuthorization()
-            .WithName("GetSportById")
+            .WithName(nameof(GetSportById))
             .Produces<GetSportByIdResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get a sport by id")
-            .WithDescription("Get a sport by id");
+            .WithSummary(nameof(GetSportById).Humanize())
+            .WithDescription(nameof(GetSportById).Humanize());
     }
 }
 

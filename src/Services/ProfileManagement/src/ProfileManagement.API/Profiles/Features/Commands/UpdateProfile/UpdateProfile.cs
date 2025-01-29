@@ -5,6 +5,7 @@ using BuildingBlocks.CQRS;
 using BuildingBlocks.Web;
 using Carter;
 using FluentValidation;
+using Humanizer;
 using Mapster;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
@@ -14,7 +15,7 @@ using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 
-public record UpdateProfileCommand(string Name, string Description, Gender Gender, DateOnly DateOfBirth)
+public record UpdateProfileCommand(Guid ProfileId, string Name, string Description, Gender Gender, DateOnly DateOfBirth)
     : ICommand<UpdateProfileResult>;
 
 public record UpdateProfileResult(Guid Id);
@@ -27,20 +28,21 @@ public class UpdateProfileEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("profiles/me", async (UpdateProfileRequestDto request, ISender sender) =>
-            {
-                var command = request.Adapt<UpdateProfileCommand>();
+        app.MapPut("profiles/{profileId:guid}",
+                async (Guid profileId, UpdateProfileRequestDto request, ISender sender) =>
+                {
+                    var command = request.Adapt<UpdateProfileCommand>() with { ProfileId = profileId };
 
-                await sender.Send(command);
+                    await sender.Send(command);
 
-                return Results.NoContent();
-            })
+                    return Results.NoContent();
+                })
             .RequireAuthorization()
-            .WithName("UpdateProfile")
+            .WithName(nameof(UpdateProfile))
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Update a profile")
-            .WithDescription("Update a profile of the current user");
+            .WithSummary(nameof(UpdateProfile).Humanize())
+            .WithDescription(nameof(UpdateProfile).Humanize());
     }
 }
 
@@ -48,6 +50,8 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
 {
     public UpdateProfileCommandValidator()
     {
+        RuleFor(x=>x.ProfileId)
+            .NotEmpty();
         RuleFor(x => x.Name)
             .NotEmpty()
             .MaximumLength(50);
@@ -63,19 +67,16 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
 
 internal class UpdateProfileCommandHandler(
     IProfilesRepository profilesRepository,
-    IUnitOfWork unitOfWork,
-    ICurrentUserProvider currentUserProvider)
+    IUnitOfWork unitOfWork)
     : ICommandHandler<UpdateProfileCommand, UpdateProfileResult>
 {
     public async Task<UpdateProfileResult> Handle(UpdateProfileCommand command, CancellationToken cancellationToken)
     {
         Guard.Against.Null(command, nameof(command));
 
-        var currentUserId = currentUserProvider.GetCurrentUserId();
-
-        var profile = await profilesRepository.GetProfileByIdAsync(currentUserId);
+        var profile = await profilesRepository.GetProfileByIdAsync(command.ProfileId);
         if (profile is null)
-            throw new ProfileNotFoundException(currentUserId);
+            throw new ProfileNotFoundException(command.ProfileId);
 
         profile.Update(ProfileName.Create(command.Name), ProfileDescription.Create(command.Description),
             command.DateOfBirth, command.Gender);

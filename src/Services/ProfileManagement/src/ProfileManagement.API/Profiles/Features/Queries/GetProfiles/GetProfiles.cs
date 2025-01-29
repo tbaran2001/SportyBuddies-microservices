@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using BuildingBlocks.CQRS;
 using Carter;
+using Humanizer;
 using Mapster;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
@@ -28,11 +29,11 @@ public class GetProfileEndpoint : ICarterModule
 
                 return Results.Ok(response);
             })
-            .WithName("GetProfiles")
+            .WithName(nameof(GetProfiles))
             .Produces<GetProfilesResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get profiles")
-            .WithDescription("Get profiles");
+            .WithSummary(nameof(GetProfiles).Humanize())
+            .WithDescription(nameof(GetProfiles).Humanize());
     }
 }
 

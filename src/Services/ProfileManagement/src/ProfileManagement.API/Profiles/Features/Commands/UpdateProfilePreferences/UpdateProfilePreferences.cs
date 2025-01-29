@@ -4,6 +4,7 @@ using BuildingBlocks.CQRS;
 using BuildingBlocks.Web;
 using Carter;
 using FluentValidation;
+using Humanizer;
 using Mapster;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
@@ -13,7 +14,12 @@ using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfilePreferences;
 
-public record UpdateProfilePreferencesCommand(int MinAge, int MaxAge, int MaxDistance, Gender PreferredGender)
+public record UpdateProfilePreferencesCommand(
+    Guid ProfileId,
+    int MinAge,
+    int MaxAge,
+    int MaxDistance,
+    Gender PreferredGender)
     : ICommand;
 
 public record UpdateProfilePreferencesRequestDto(int MinAge, int MaxAge, int MaxDistance, Gender PreferredGender);
@@ -22,20 +28,21 @@ public class UpdateProfilePreferencesEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("profiles/preferences", async (UpdateProfilePreferencesRequestDto request, ISender sender) =>
-            {
-                var command = request.Adapt<UpdateProfilePreferencesCommand>();
+        app.MapPut("profiles/{profileId:guid}/preferences",
+                async (Guid profileId, UpdateProfilePreferencesRequestDto request, ISender sender) =>
+                {
+                    var command = request.Adapt<UpdateProfilePreferencesCommand>() with { ProfileId = profileId };
 
-                await sender.Send(command);
+                    await sender.Send(command);
 
-                return Results.NoContent();
-            })
+                    return Results.NoContent();
+                })
             .RequireAuthorization()
-            .WithName("UpdateProfilePreferences")
+            .WithName(nameof(UpdateProfilePreferences))
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Update profile preferences")
-            .WithDescription("Update profile preferences of the current user");
+            .WithSummary(nameof(UpdateProfilePreferences).Humanize())
+            .WithDescription(nameof(UpdateProfilePreferences).Humanize());
     }
 }
 
@@ -43,6 +50,8 @@ public class UpdateProfilePreferencesCommandValidator : AbstractValidator<Update
 {
     public UpdateProfilePreferencesCommandValidator()
     {
+        RuleFor(x => x.ProfileId)
+            .NotEmpty();
         RuleFor(x => x.MinAge)
             .InclusiveBetween(18, 100);
         RuleFor(x => x.MaxAge)
@@ -56,18 +65,15 @@ public class UpdateProfilePreferencesCommandValidator : AbstractValidator<Update
 
 internal class UpdateProfilePreferencesCommandHandler(
     IProfilesRepository profilesRepository,
-    ICurrentUserProvider currentUserProvider,
     IUnitOfWork unitOfWork) : ICommandHandler<UpdateProfilePreferencesCommand>
 {
     public async Task<Unit> Handle(UpdateProfilePreferencesCommand command, CancellationToken cancellationToken)
     {
         Guard.Against.Null(command, nameof(command));
 
-        var currentUserId = currentUserProvider.GetCurrentUserId();
-
-        var profile = await profilesRepository.GetProfileByIdAsync(currentUserId);
+        var profile = await profilesRepository.GetProfileByIdAsync(command.ProfileId);
         if (profile == null)
-            throw new ProfileNotFoundException(currentUserId);
+            throw new ProfileNotFoundException(command.ProfileId);
 
         profile.UpdatePreferences(Preferences.Create(command.MinAge, command.MaxAge, command.MaxDistance,
             command.PreferredGender));

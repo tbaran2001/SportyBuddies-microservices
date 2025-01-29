@@ -2,6 +2,7 @@
 using BuildingBlocks.CQRS;
 using Carter;
 using FluentValidation;
+using Humanizer;
 using Mapster;
 using MediatR;
 using ProfileManagement.API.Data.Repositories;
@@ -29,11 +30,11 @@ public class GetProfileByIdEndpoint : ICarterModule
                 return Results.Ok(new GetProfileByIdResponseDto(result.Profile));
             })
             .RequireAuthorization()
-            .WithName("GetProfileById")
+            .WithName(nameof(GetProfileById))
             .Produces<GetProfileByIdResponseDto>()
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .WithSummary("Get a profile by id")
-            .WithDescription("Get a profile by id");
+            .WithSummary(nameof(GetProfileById).Humanize())
+            .WithDescription(nameof(GetProfileById).Humanize());
     }
 }
 

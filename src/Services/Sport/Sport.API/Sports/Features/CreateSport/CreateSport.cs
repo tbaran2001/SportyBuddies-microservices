@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using BuildingBlocks.Core.Event;
+using Humanizer;
 using Sport.API.Data.Repositories;
 using Sport.API.Sports.Exceptions;
 
@@ -30,11 +31,11 @@ public class CreateSportEndpoint : ICarterModule
                 return Results.CreatedAtRoute("GetSportById", new { id = result.Id }, response);
             })
             .RequireAuthorization()
-            .WithName("CreateSport")
+            .WithName(nameof(CreateSport))
             .Produces<CreateSportResponseDto>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Create a new sport")
-            .WithDescription("Create a new sport");
+            .WithSummary(nameof(CreateSport).Humanize())
+            .WithDescription(nameof(CreateSport).Humanize());
     }
 }
 
