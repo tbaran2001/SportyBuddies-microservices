@@ -51,17 +51,21 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
     public UpdateProfileCommandValidator()
     {
         RuleFor(x=>x.ProfileId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("ProfileId is required.");
         RuleFor(x => x.Name)
             .NotEmpty()
-            .MaximumLength(50);
+            .MaximumLength(50)
+            .WithMessage("Name is required and must not exceed 50 characters.");
         RuleFor(x => x.Description)
             .NotEmpty()
-            .MaximumLength(1000);
+            .MaximumLength(500)
+            .WithMessage("Description is required and must not exceed 500 characters.");
         RuleFor(x => x.Gender)
             .IsInEnum();
         RuleFor(x => x.DateOfBirth)
-            .Must(dateOfBirth => DateTime.Now.Year - dateOfBirth.Year >= 18);
+            .Must(dateOfBirth => DateTime.Now.Year - dateOfBirth.Year >= 18)
+            .WithMessage("Date of birth must be at least 18 years ago.");
     }
 }
 

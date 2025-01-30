@@ -51,13 +51,17 @@ public class UpdateProfilePreferencesCommandValidator : AbstractValidator<Update
     public UpdateProfilePreferencesCommandValidator()
     {
         RuleFor(x => x.ProfileId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("ProfileId is required.");
         RuleFor(x => x.MinAge)
-            .InclusiveBetween(18, 100);
+            .InclusiveBetween(18, 100)
+            .WithMessage("MinAge must be between 18 and 100.");
         RuleFor(x => x.MaxAge)
-            .InclusiveBetween(18, 100);
+            .InclusiveBetween(18, 100)
+            .WithMessage("MaxAge must be between 18 and 100.");
         RuleFor(x => x.MaxDistance)
-            .InclusiveBetween(1, 100);
+            .InclusiveBetween(1, 100)
+            .WithMessage("MaxDistance must be between 1 and 100.");
         RuleFor(x => x.PreferredGender)
             .IsInEnum();
     }

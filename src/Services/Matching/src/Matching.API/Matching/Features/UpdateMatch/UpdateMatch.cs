@@ -39,7 +39,7 @@ public class UpdateMatchCommandValidator : AbstractValidator<UpdateMatchCommand>
 {
     public UpdateMatchCommandValidator()
     {
-        RuleFor(x => x.MatchId).NotEmpty();
+        RuleFor(x => x.MatchId).NotEmpty().WithMessage("MatchId is required.");
         RuleFor(x => x.Swipe).IsInEnum();
     }
 }

@@ -42,7 +42,7 @@ public class GetProfileByIdQueryValidator : AbstractValidator<GetProfileByIdQuer
 {
     public GetProfileByIdQueryValidator()
     {
-        RuleFor(x => x.Id).NotEmpty();
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required.");
     }
 }
 

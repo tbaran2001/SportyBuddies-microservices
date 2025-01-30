@@ -43,8 +43,8 @@ public class CreateSportCommandValidator : AbstractValidator<CreateSportCommand>
 {
     public CreateSportCommandValidator()
     {
-        RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(100);
-        RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(500);
+        RuleFor(x => x.Name).NotEmpty().MaximumLength(100).WithMessage("Name is required and must not exceed 100 characters.");
+        RuleFor(x => x.Description).NotEmpty().MaximumLength(500).WithMessage("Description is required and must not exceed 500 characters.");
     }
 }
 

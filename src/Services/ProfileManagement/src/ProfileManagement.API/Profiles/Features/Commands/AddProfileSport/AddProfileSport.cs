@@ -44,8 +44,8 @@ public class AddProfileSportCommandValidator : AbstractValidator<AddProfileSport
 {
     public AddProfileSportCommandValidator()
     {
-        RuleFor(x => x.ProfileId).NotEmpty();
-        RuleFor(x => x.SportId).NotEmpty();
+        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
+        RuleFor(x => x.SportId).NotEmpty().WithMessage("SportId is required.");
     }
 }
 

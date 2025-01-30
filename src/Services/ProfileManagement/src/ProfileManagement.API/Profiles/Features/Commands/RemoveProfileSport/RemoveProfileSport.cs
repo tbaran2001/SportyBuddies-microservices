@@ -42,8 +42,8 @@ public class RemoveProfileSportCommandValidator : AbstractValidator<RemoveProfil
 {
     public RemoveProfileSportCommandValidator()
     {
-        RuleFor(x => x.ProfileId).NotEmpty();
-        RuleFor(x => x.SportId).NotEmpty();
+        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
+        RuleFor(x => x.SportId).NotEmpty().WithMessage("SportId is required.");
     }
 }
 

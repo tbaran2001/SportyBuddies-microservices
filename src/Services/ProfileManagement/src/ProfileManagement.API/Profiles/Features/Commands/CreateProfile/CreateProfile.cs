@@ -21,9 +21,9 @@ public class CreateProfileCommandValidator : AbstractValidator<CreateProfileComm
 {
     public CreateProfileCommandValidator()
     {
-        RuleFor(x => x.ProfileId).NotEmpty();
-        RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Description).NotEmpty();
+        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
+        RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
+        RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required.");
     }
 }
 

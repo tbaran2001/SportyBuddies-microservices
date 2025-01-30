@@ -45,7 +45,8 @@ public class GetBuddiesQueryValidator : AbstractValidator<GetBuddiesQuery>
     public GetBuddiesQueryValidator()
     {
         RuleFor(x => x.ProfileId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("ProfileId is required.");
     }
 }
 
