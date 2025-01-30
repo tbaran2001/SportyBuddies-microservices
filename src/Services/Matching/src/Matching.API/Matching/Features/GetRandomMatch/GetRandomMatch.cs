@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Matching.API.Data.Repositories;
 using Matching.API.Matching.Exceptions;
 
@@ -14,7 +15,7 @@ public class GetRandomMatchEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/matches/get-random-match", async (ISender sender) =>
+        app.MapGet("/matches/random", async (ISender sender) =>
             {
                 var query = new GetRandomMatchQuery();
 
@@ -25,11 +26,11 @@ public class GetRandomMatchEndpoint : ICarterModule
                 return Results.Ok(response);
             })
             .RequireAuthorization()
-            .WithName("GetRandomMatch")
+            .WithName(nameof(GetRandomMatch))
             .Produces<GetRandomMatchResponseDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get random match for a current profile")
-            .WithDescription("Get a random match for a profile by current profile id");
+            .WithSummary(nameof(GetRandomMatch).Humanize())
+            .WithDescription(nameof(GetRandomMatch).Humanize());
     }
 }
 

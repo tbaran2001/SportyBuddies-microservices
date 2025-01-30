@@ -17,7 +17,7 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         await matchesRepository.UpdateMatchAsync(match, cancellationToken);
     }
 
-    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid profileId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid? profileId,CancellationToken cancellationToken = default)
     {
         var cachedMatches = await cache.GetStringAsync(profileId.ToString(), cancellationToken);
         if (!string.IsNullOrEmpty(cachedMatches))

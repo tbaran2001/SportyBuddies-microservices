@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Matching.API.Data.Repositories;
 using Matching.API.Matching.Exceptions;
 using Matching.API.Matching.Models;
@@ -26,11 +27,11 @@ public class UpdateMatchEndpoint : ICarterModule
                 return Results.NoContent();
             })
             .RequireAuthorization()
-            .WithName("UpdateMatch")
+            .WithName(nameof(UpdateMatch))
             .Produces<UpdateMatchResult>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Update a match")
-            .WithDescription("Update a match by match id");
+            .WithSummary(nameof(UpdateMatch).Humanize())
+            .WithDescription(nameof(UpdateMatch).Humanize());
     }
 }
 

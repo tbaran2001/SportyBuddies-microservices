@@ -21,11 +21,15 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid profileId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid? profileId,
+        CancellationToken cancellationToken = default)
     {
-        return await dbContext.Matches
-            .Where(m => m.ProfileId == profileId)
-            .ToListAsync(cancellationToken);
+        var query = dbContext.Matches.AsQueryable();
+
+        if (profileId.HasValue)
+            query = query.Where(m => m.ProfileId == profileId);
+
+        return await query.ToListAsync(cancellationToken);
     }
 
     public async Task AddMatchesAsync(IEnumerable<Match> matches, CancellationToken cancellationToken = default)
