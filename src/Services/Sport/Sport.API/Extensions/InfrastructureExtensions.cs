@@ -55,7 +55,11 @@ public static class InfrastructureExtensions
         }
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Sport API");
+            options.RoutePrefix = string.Empty;
+        });
 
         return app;
     }

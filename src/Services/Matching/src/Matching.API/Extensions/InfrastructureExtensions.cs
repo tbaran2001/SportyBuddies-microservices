@@ -103,7 +103,11 @@ public static class InfrastructureExtensions
             });
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Matching API");
+            options.RoutePrefix = string.Empty;
+        });
 
         return app;
     }

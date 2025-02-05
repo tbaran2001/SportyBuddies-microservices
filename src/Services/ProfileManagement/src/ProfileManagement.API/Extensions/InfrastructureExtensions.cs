@@ -86,7 +86,11 @@ public static class InfrastructureExtensions
         app.InitializeDatabase();
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Profile API");
+            options.RoutePrefix = string.Empty;
+        });
 
 
         return app;

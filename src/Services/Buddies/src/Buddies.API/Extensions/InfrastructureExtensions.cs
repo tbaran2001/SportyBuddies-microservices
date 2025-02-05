@@ -51,7 +51,11 @@ public static class InfrastructureExtensions
         app.MapGrpcService<BuddiesService>();
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Buddies API");
+            options.RoutePrefix = string.Empty;
+        });
 
         return app;
     }

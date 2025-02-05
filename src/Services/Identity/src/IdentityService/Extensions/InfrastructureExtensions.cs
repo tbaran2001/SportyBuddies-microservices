@@ -28,7 +28,11 @@ public static class InfrastructureExtensions
         app.UseIdentityServer();
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity API");
+            options.RoutePrefix = string.Empty;
+        });
 
         return app;
     }
