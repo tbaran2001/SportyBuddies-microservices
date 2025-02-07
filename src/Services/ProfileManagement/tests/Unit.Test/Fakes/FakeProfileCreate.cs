@@ -8,6 +8,6 @@ public static class FakeProfileCreate
     {
         var command = new FakeCreateProfileCommand().Generate();
 
-        return global::ProfileManagement.API.Profiles.Models.Profile.CreateSimple(command.ProfileId, ProfileName.Create(command.Name), ProfileDescription.Create(command.Description));
+        return global::ProfileManagement.API.Profiles.Models.Profile.CreateSimple(command.ProfileId, Name.Of(command.Name), Description.Of(command.Description));
     }
 }

@@ -36,8 +36,8 @@ internal class CreateProfileCommandHandler(IProfilesRepository profilesRepositor
 
         var profile = Profile.CreateSimple(
             command.ProfileId,
-            ProfileName.Create(command.Name),
-            ProfileDescription.Create(command.Description));
+            Name.Of(command.Name),
+            Description.Of(command.Description));
 
         await profilesRepository.AddProfileAsync(profile);
         await unitOfWork.CommitChangesAsync();

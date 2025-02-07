@@ -12,7 +12,7 @@ public class RemoveSportTests
     public void RemoveSport_WhenUserHasSport_ShouldRemoveSport()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(), ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(), Name.Of("User"), Description.Of("Description"));
         var sportId = Guid.NewGuid();
         user.AddSport(sportId);
 
@@ -27,7 +27,7 @@ public class RemoveSportTests
     public void RemoveSport_WhenUserDoesNotHaveSport_ShouldThrowException()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(), ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(), Name.Of("User"), Description.Of("Description"));
         var sportId = Guid.NewGuid();
 
         // Act
@@ -41,7 +41,7 @@ public class RemoveSportTests
     public void RemoveSport_Should_RaiseSportRemovedDomainEvent()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(), ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(), Name.Of("User"), Description.Of("Description"));
         var sportId = Guid.NewGuid();
         user.AddSport(sportId);
 

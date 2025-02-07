@@ -11,10 +11,9 @@ namespace ProfileManagement.API.Profiles.Models;
 
 public class Profile : Entity
 {
-    public ProfileName Name { get; private set; } = default!;
-    public ProfileDescription Description { get; private set; } = default!;
-    public DateTime CreatedOnUtc { get; private set; }
-    public DateOnly DateOfBirth { get; private set; }
+    public Name Name { get; private set; } = default!;
+    public Description Description { get; private set; } = default!;
+    public DateOnly BirthDate { get; private set; }
     public Gender Gender { get; private set; } = Gender.Unknown;
     public string MainPhotoUrl { get; private set; }
     public Preferences Preferences { get; private set; } = default!;
@@ -24,9 +23,8 @@ public class Profile : Entity
 
     public static Profile Create(
         Guid id,
-        ProfileName name,
-        ProfileDescription description,
-        DateTime createdOnUtc,
+        Name name,
+        Description description,
         DateOnly dateOfBirth,
         Gender gender,
         Preferences preferences)
@@ -36,8 +34,7 @@ public class Profile : Entity
             Id = id,
             Name = name,
             Description = description,
-            CreatedOnUtc = createdOnUtc,
-            DateOfBirth = dateOfBirth,
+            BirthDate = dateOfBirth,
             Gender = gender,
             Preferences = preferences,
         };
@@ -47,13 +44,12 @@ public class Profile : Entity
         return profile;
     }
 
-    public static Profile CreateSimple(Guid id, ProfileName name, ProfileDescription description)
+    public static Profile CreateSimple(Guid id, Name name, Description description)
     {
         var profile = Create(
             id,
             name,
             description,
-            DateTime.UtcNow,
             new DateOnly(1990, 1, 1),
             Gender.Unknown,
             Preferences.Default);
@@ -62,14 +58,14 @@ public class Profile : Entity
     }
 
     public void Update(
-        ProfileName name,
-        ProfileDescription description,
+        Name name,
+        Description description,
         DateOnly dateOfBirth,
         Gender gender)
     {
         Name = name;
         Description = description;
-        DateOfBirth = dateOfBirth;
+        BirthDate = dateOfBirth;
         Gender = gender;
 
         AddDomainEvent(new ProfileUpdatedDomainEvent(Id));

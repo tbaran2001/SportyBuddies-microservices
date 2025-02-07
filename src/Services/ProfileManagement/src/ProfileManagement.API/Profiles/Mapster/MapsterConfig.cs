@@ -7,10 +7,10 @@ public class MapsterConfig
 {
     public static void Configure()
     {
-        TypeAdapterConfig<ProfileName, string>.NewConfig()
+        TypeAdapterConfig<Name, string>.NewConfig()
             .MapWith(src => src.Value);
 
-        TypeAdapterConfig<ProfileDescription, string>.NewConfig()
+        TypeAdapterConfig<Description, string>.NewConfig()
             .MapWith(src => src.Value);
     }
 }

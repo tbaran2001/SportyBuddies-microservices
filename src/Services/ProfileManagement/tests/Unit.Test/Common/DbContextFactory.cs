@@ -24,8 +24,8 @@ public static class DbContextFactory
     {
         var profiles = new List<Profile>
         {
-            Profile.CreateSimple(Guid.NewGuid(), ProfileName.Create("John Doe"), ProfileDescription.Create("Software Engineer")),
-            Profile.CreateSimple(Guid.NewGuid(), ProfileName.Create("Jane Doe"), ProfileDescription.Create("Software Engineer")),
+            Profile.CreateSimple(Guid.NewGuid(), Name.Of("John Doe"), Description.Of("Software Engineer")),
+            Profile.CreateSimple(Guid.NewGuid(), Name.Of("Jane Doe"), Description.Of("Software Engineer")),
         };
 
         context.Profiles.AddRange(profiles);

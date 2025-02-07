@@ -12,7 +12,7 @@ public class AddSportTests
     public void AddSport_WhenUserDoesNotHaveSport_ShouldAddSport()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(),ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(),Name.Of("User"), Description.Of("Description"));
 
         // Act
         user.AddSport(Guid.NewGuid());
@@ -25,7 +25,7 @@ public class AddSportTests
     public void AddSport_WhenUserHasSport_ShouldThrowException()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(),ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(),Name.Of("User"), Description.Of("Description"));
         var sportId = Guid.NewGuid();
         user.AddSport(sportId);
 
@@ -40,7 +40,7 @@ public class AddSportTests
     public void AddSport_Should_RaiseSportAddedDomainEvent()
     {
         // Arrange
-        var user = Profile.CreateSimple(Guid.NewGuid(),ProfileName.Create("User"), ProfileDescription.Create("Description"));
+        var user = Profile.CreateSimple(Guid.NewGuid(),Name.Of("User"), Description.Of("Description"));
         var sportId = Guid.NewGuid();
 
         // Act
