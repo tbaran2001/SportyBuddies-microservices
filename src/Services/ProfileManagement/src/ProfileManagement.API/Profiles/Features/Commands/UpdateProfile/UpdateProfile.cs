@@ -83,7 +83,7 @@ internal class UpdateProfileCommandHandler(
             throw new ProfileNotFoundException(command.ProfileId);
 
         profile.Update(Name.Of(command.Name), Description.Of(command.Description),
-            command.BirthDate, command.Gender);
+            BirthDate.Of(command.BirthDate), command.Gender);
 
         await unitOfWork.CommitChangesAsync();
 

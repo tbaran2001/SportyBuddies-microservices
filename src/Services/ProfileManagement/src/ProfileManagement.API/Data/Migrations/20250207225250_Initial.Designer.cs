@@ -12,8 +12,8 @@ using ProfileManagement.API.Data;
 namespace ProfileManagement.API.Data.Migrations
 {
     [DbContext(typeof(ProfileDbContext))]
-    [Migration("20250207223401_Ttest")]
-    partial class Ttest
+    [Migration("20250207225250_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,14 +31,8 @@ namespace ProfileManagement.API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
-
                     b.Property<int>("Gender")
                         .HasColumnType("int");
-
-                    b.Property<string>("MainPhotoUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -79,6 +73,23 @@ namespace ProfileManagement.API.Data.Migrations
 
             modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>
                 {
+                    b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.BirthDate", "BirthDate", b1 =>
+                        {
+                            b1.Property<Guid>("ProfileId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateOnly>("Value")
+                                .HasColumnType("date")
+                                .HasColumnName("BirthDate");
+
+                            b1.HasKey("ProfileId");
+
+                            b1.ToTable("Profiles");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProfileId");
+                        });
+
                     b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.Description", "Description", b1 =>
                         {
                             b1.Property<Guid>("ProfileId")
@@ -140,6 +151,8 @@ namespace ProfileManagement.API.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
                         });
+
+                    b.Navigation("BirthDate");
 
                     b.Navigation("Description");
 

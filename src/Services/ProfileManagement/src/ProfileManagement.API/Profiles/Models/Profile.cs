@@ -13,9 +13,8 @@ public class Profile : Entity
 {
     public Name Name { get; private set; } = default!;
     public Description Description { get; private set; } = default!;
-    public DateOnly BirthDate { get; private set; }
-    public Gender Gender { get; private set; } = Gender.Unknown;
-    public string MainPhotoUrl { get; private set; }
+    public BirthDate BirthDate { get; private set; }
+    public Gender Gender { get; private set; }
     public Preferences Preferences { get; private set; } = default!;
 
     private readonly List<ProfileSport> _profileSports = new();
@@ -25,7 +24,7 @@ public class Profile : Entity
         Guid id,
         Name name,
         Description description,
-        DateOnly dateOfBirth,
+        BirthDate dateOfBirth,
         Gender gender,
         Preferences preferences)
     {
@@ -50,7 +49,7 @@ public class Profile : Entity
             id,
             name,
             description,
-            new DateOnly(1990, 1, 1),
+            BirthDate.Of(new DateOnly(1990, 1, 1)),
             Gender.Unknown,
             Preferences.Default);
 
@@ -60,7 +59,7 @@ public class Profile : Entity
     public void Update(
         Name name,
         Description description,
-        DateOnly dateOfBirth,
+        BirthDate dateOfBirth,
         Gender gender)
     {
         Name = name;

@@ -29,6 +29,13 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
                 .IsRequired();
         });
 
+        builder.OwnsOne(p => p.BirthDate, birthDateBuilder =>
+        {
+            birthDateBuilder.Property(b => b.Value)
+                .HasColumnName(nameof(Profile.BirthDate))
+                .IsRequired();
+        });
+
         builder.OwnsOne(p => p.Preferences, preferencesBuilder =>
         {
             preferencesBuilder.Property(p => p.MinAge);
