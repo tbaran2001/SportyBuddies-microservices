@@ -15,14 +15,14 @@ using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 
-public record UpdateProfileCommand(Guid ProfileId, string Name, string Description, Gender Gender, DateOnly DateOfBirth)
+public record UpdateProfileCommand(Guid ProfileId, string Name, string Description, Gender Gender, DateOnly BirthDate)
     : ICommand<UpdateProfileResult>;
 
 public record UpdateProfileResult(Guid Id);
 
 public record ProfileUpdatedDomainEvent(Guid ProfileId) : IDomainEvent;
 
-public record UpdateProfileRequestDto(string Name, string Description, Gender Gender, DateOnly DateOfBirth);
+public record UpdateProfileRequestDto(string Name, string Description, Gender Gender, DateOnly BirthDate);
 
 public class UpdateProfileEndpoint : ICarterModule
 {
@@ -63,8 +63,8 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
             .WithMessage("Description is required and must not exceed 500 characters.");
         RuleFor(x => x.Gender)
             .IsInEnum();
-        RuleFor(x => x.DateOfBirth)
-            .Must(dateOfBirth => DateTime.Now.Year - dateOfBirth.Year >= 18)
+        RuleFor(x => x.BirthDate)
+            .Must(birthDate => DateTime.Now.Year - birthDate.Year >= 18)
             .WithMessage("Date of birth must be at least 18 years ago.");
     }
 }
@@ -83,7 +83,7 @@ internal class UpdateProfileCommandHandler(
             throw new ProfileNotFoundException(command.ProfileId);
 
         profile.Update(Name.Of(command.Name), Description.Of(command.Description),
-            command.DateOfBirth, command.Gender);
+            command.BirthDate, command.Gender);
 
         await unitOfWork.CommitChangesAsync();
 

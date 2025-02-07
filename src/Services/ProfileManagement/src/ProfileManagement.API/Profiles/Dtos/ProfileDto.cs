@@ -7,8 +7,7 @@ public record ProfileDto(
     Guid Id,
     string Name,
     string Description,
-    DateTime CreatedOnUtc,
     Gender Gender,
-    DateOnly DateOfBirth,
+    DateOnly BirthDate,
     Preferences Preferences,
     List<ProfileSportDto> ProfileSports);
