@@ -12,7 +12,7 @@ using ProfileManagement.API.Data;
 namespace ProfileManagement.API.Data.Migrations
 {
     [DbContext(typeof(ProfileDbContext))]
-    [Migration("20250207225250_Initial")]
+    [Migration("20250208211623_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,11 +28,13 @@ namespace ProfileManagement.API.Data.Migrations
             modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Unknown");
 
                     b.HasKey("Id");
 
@@ -42,13 +44,12 @@ namespace ProfileManagement.API.Data.Migrations
             modelBuilder.Entity("ProfileManagement.API.Profiles.Models.ProfileSport", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProfileId")
+                    b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SportId")
+                    b.Property<Guid?>("SportId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -60,10 +61,9 @@ namespace ProfileManagement.API.Data.Migrations
                     b.ToTable("ProfileSports");
                 });
 
-            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Sport", b =>
+            modelBuilder.Entity("ProfileManagement.API.Sports.Models.Sport", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -165,15 +165,11 @@ namespace ProfileManagement.API.Data.Migrations
                 {
                     b.HasOne("ProfileManagement.API.Profiles.Models.Profile", null)
                         .WithMany("ProfileSports")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfileId");
 
-                    b.HasOne("ProfileManagement.API.Profiles.Models.Sport", null)
+                    b.HasOne("ProfileManagement.API.Sports.Models.Sport", null)
                         .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SportId");
                 });
 
             modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>

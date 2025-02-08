@@ -1,8 +1,9 @@
-﻿using BuildingBlocks.Core.Model;
+﻿using Buddies.API.Buddies.ValueObjects;
+using BuildingBlocks.Core.Model;
 
 namespace Buddies.API.Buddies.Models;
 
-public class Buddy : Entity
+public record Buddy : Aggregate<BuddyId>
 {
     public Guid OppositeBuddyId { get; private set; }
     public Guid ProfileId { get; private set; }
@@ -13,14 +14,14 @@ public class Buddy : Entity
     {
         var buddy1 = new Buddy
         {
-            Id = Guid.NewGuid(),
+            Id = BuddyId.Of(Guid.NewGuid()),
             ProfileId = profileId,
             MatchedProfileId = matchedProfileId,
             CreatedOnUtc = createdOnUtc
         };
         var buddy2 = new Buddy
         {
-            Id = Guid.NewGuid(),
+            Id = BuddyId.Of(Guid.NewGuid()),
             ProfileId = matchedProfileId,
             MatchedProfileId = profileId,
             CreatedOnUtc = createdOnUtc

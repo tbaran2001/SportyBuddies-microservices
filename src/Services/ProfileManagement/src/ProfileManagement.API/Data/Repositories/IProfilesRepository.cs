@@ -1,4 +1,5 @@
 using ProfileManagement.API.Profiles.Models;
+using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Data.Repositories;
 
@@ -9,5 +10,5 @@ public interface IProfilesRepository
     Task<IEnumerable<Profile>> GetAllProfilesAsync();
     Task AddProfileAsync(Profile profile);
     void RemoveProfile(Profile profile);
-    Task<IEnumerable<Guid>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports);
+    Task<IEnumerable<ProfileId>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports);
 }

@@ -1,9 +1,10 @@
 ﻿using BuildingBlocks.Core.Model;
 using Sport.API.Sports.Features.CreateSport;
+using Sport.API.Sports.ValueObjects;
 
 namespace Sport.API.Sports.Models;
 
-public class Sport : Entity
+public record Sport : Aggregate<SportId>
 {
     public string Name { get; private set; } = default!;
     public string Description { get; private set; } = default!;
@@ -12,7 +13,7 @@ public class Sport : Entity
     {
         var sport = new Sport
         {
-            Id = Guid.NewGuid(),
+            Id = SportId.Of(Guid.NewGuid()),
             Name = name,
             Description = description
         };
@@ -23,7 +24,7 @@ public class Sport : Entity
         return sport;
     }
 
-    public static Sport CreateWithId(Guid id, string name, string description)
+    public static Sport CreateWithId(SportId id, string name, string description)
     {
         var sport = new Sport
         {

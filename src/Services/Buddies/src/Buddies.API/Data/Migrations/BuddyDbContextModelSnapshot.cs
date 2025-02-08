@@ -25,7 +25,6 @@ namespace Buddies.API.Data.Migrations
             modelBuilder.Entity("Buddies.API.Buddies.Models.Buddy", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOnUtc")
@@ -47,35 +46,35 @@ namespace Buddies.API.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d6410e3d-3f8e-4216-a982-daca6402309b"),
-                            CreatedOnUtc = new DateTime(2025, 1, 8, 14, 9, 33, 290, DateTimeKind.Utc).AddTicks(1962),
-                            MatchedProfileId = new Guid("13ba1cf4-831b-4d88-9545-471b352a0744"),
-                            OppositeBuddyId = new Guid("2680f1f5-cadb-4011-8a44-a75e06c49ae9"),
-                            ProfileId = new Guid("087e44eb-9044-4ebb-b2e1-0e67d12a7395")
+                            Id = new Guid("f7097c74-1bcc-4f5b-80d7-949720c2c1b7"),
+                            CreatedOnUtc = new DateTime(2025, 2, 8, 21, 22, 19, 793, DateTimeKind.Utc).AddTicks(4608),
+                            MatchedProfileId = new Guid("45662e8e-71f1-4de0-b69d-0f70ba09bd71"),
+                            OppositeBuddyId = new Guid("b6a6486c-cadd-4046-bbc9-66ab6e7e6d1b"),
+                            ProfileId = new Guid("6e57134d-939d-407b-979a-bb7403fb43a2")
                         },
                         new
                         {
-                            Id = new Guid("2680f1f5-cadb-4011-8a44-a75e06c49ae9"),
-                            CreatedOnUtc = new DateTime(2025, 1, 8, 14, 9, 33, 290, DateTimeKind.Utc).AddTicks(1962),
-                            MatchedProfileId = new Guid("087e44eb-9044-4ebb-b2e1-0e67d12a7395"),
-                            OppositeBuddyId = new Guid("d6410e3d-3f8e-4216-a982-daca6402309b"),
-                            ProfileId = new Guid("13ba1cf4-831b-4d88-9545-471b352a0744")
+                            Id = new Guid("b6a6486c-cadd-4046-bbc9-66ab6e7e6d1b"),
+                            CreatedOnUtc = new DateTime(2025, 2, 8, 21, 22, 19, 793, DateTimeKind.Utc).AddTicks(4608),
+                            MatchedProfileId = new Guid("6e57134d-939d-407b-979a-bb7403fb43a2"),
+                            OppositeBuddyId = new Guid("f7097c74-1bcc-4f5b-80d7-949720c2c1b7"),
+                            ProfileId = new Guid("45662e8e-71f1-4de0-b69d-0f70ba09bd71")
                         },
                         new
                         {
-                            Id = new Guid("f980fdcf-99ad-47e5-8b71-e515c7990fa1"),
-                            CreatedOnUtc = new DateTime(2025, 1, 8, 14, 9, 33, 290, DateTimeKind.Utc).AddTicks(1985),
-                            MatchedProfileId = new Guid("0efcc60c-59b2-4678-ac00-46d24cf870ea"),
-                            OppositeBuddyId = new Guid("3f6d154b-832d-4666-862c-97b5e47ef18c"),
-                            ProfileId = new Guid("087e44eb-9044-4ebb-b2e1-0e67d12a7395")
+                            Id = new Guid("e914ad86-d518-4792-aa83-54d1e732b263"),
+                            CreatedOnUtc = new DateTime(2025, 2, 8, 21, 22, 19, 793, DateTimeKind.Utc).AddTicks(4625),
+                            MatchedProfileId = new Guid("b9f551f2-307d-44cb-8a94-adba9d804cfe"),
+                            OppositeBuddyId = new Guid("8fc5fbad-bdbd-4adc-bf0c-14c0f5d6bb02"),
+                            ProfileId = new Guid("6e57134d-939d-407b-979a-bb7403fb43a2")
                         },
                         new
                         {
-                            Id = new Guid("3f6d154b-832d-4666-862c-97b5e47ef18c"),
-                            CreatedOnUtc = new DateTime(2025, 1, 8, 14, 9, 33, 290, DateTimeKind.Utc).AddTicks(1985),
-                            MatchedProfileId = new Guid("087e44eb-9044-4ebb-b2e1-0e67d12a7395"),
-                            OppositeBuddyId = new Guid("f980fdcf-99ad-47e5-8b71-e515c7990fa1"),
-                            ProfileId = new Guid("0efcc60c-59b2-4678-ac00-46d24cf870ea")
+                            Id = new Guid("8fc5fbad-bdbd-4adc-bf0c-14c0f5d6bb02"),
+                            CreatedOnUtc = new DateTime(2025, 2, 8, 21, 22, 19, 793, DateTimeKind.Utc).AddTicks(4625),
+                            MatchedProfileId = new Guid("6e57134d-939d-407b-979a-bb7403fb43a2"),
+                            OppositeBuddyId = new Guid("e914ad86-d518-4792-aa83-54d1e732b263"),
+                            ProfileId = new Guid("b9f551f2-307d-44cb-8a94-adba9d804cfe")
                         });
                 });
 #pragma warning restore 612, 618

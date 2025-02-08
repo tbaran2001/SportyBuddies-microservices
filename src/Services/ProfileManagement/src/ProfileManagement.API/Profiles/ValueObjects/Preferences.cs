@@ -3,7 +3,7 @@ using ProfileManagement.API.Profiles.Enums;
 
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
-public class Preferences
+public record Preferences
 {
     public static Preferences Default => new(18, 45, 50, 0);
     public int MinAge { get; }
@@ -19,7 +19,7 @@ public class Preferences
         PreferredGender = preferredGender;
     }
 
-    public static Preferences Create(int minAge, int maxAge, int maxDistance, Gender preferredGender)
+    public static Preferences Of(int minAge, int maxAge, int maxDistance, Gender preferredGender)
     {
         if (minAge < 0 || maxAge < 0)
             throw new DomainException("Age cannot be negative");

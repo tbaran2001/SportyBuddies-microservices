@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Matching.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250104193624_Initial")]
+    [Migration("20250208212122_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,10 +25,9 @@ namespace Matching.API.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Matching.API.Models.Match", b =>
+            modelBuilder.Entity("Matching.API.Matching.Models.Match", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("MatchDateTime")

@@ -1,6 +1,7 @@
 using BuildingBlocks.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using ProfileManagement.API.Profiles.Models;
+using ProfileManagement.API.Sports.Models;
 
 namespace ProfileManagement.API.Data;
 
@@ -12,9 +13,8 @@ public class ProfileDbContext(DbContextOptions<ProfileDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProfileDbContext).Assembly);
-
         base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProfileDbContext).Assembly);
     }
 
     public async Task CommitChangesAsync()

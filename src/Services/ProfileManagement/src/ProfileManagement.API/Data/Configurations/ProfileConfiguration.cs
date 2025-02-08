@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProfileManagement.API.Profiles.Enums;
 using ProfileManagement.API.Profiles.Models;
+using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Data.Configurations;
 
@@ -10,6 +11,9 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
     public void Configure(EntityTypeBuilder<Profile> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id)
+            .ValueGeneratedNever()
+            .HasConversion(profile => profile.Value, dbId => ProfileId.Of(dbId));
 
         builder.HasMany(p => p.ProfileSports)
             .WithOne()
@@ -35,6 +39,12 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
                 .HasColumnName(nameof(Profile.BirthDate))
                 .IsRequired();
         });
+
+        builder.Property(p => p.Gender)
+            .HasDefaultValue(Gender.Unknown)
+            .HasConversion(
+                g => g.ToString(),
+                g => (Gender)Enum.Parse(typeof(Gender), g));
 
         builder.OwnsOne(p => p.Preferences, preferencesBuilder =>
         {

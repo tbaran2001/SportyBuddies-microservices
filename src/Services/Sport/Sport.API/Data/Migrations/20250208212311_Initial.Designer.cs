@@ -12,7 +12,7 @@ using Sport.API.Data;
 namespace Sport.API.Data.Migrations
 {
     [DbContext(typeof(SportDbContext))]
-    [Migration("20250107220928_Initial")]
+    [Migration("20250208212311_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,15 +28,12 @@ namespace Sport.API.Data.Migrations
             modelBuilder.Entity("Sport.API.Sports.Models.Sport", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

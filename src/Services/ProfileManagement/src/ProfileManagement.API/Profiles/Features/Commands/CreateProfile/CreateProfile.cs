@@ -35,7 +35,7 @@ internal class CreateProfileCommandHandler(IProfilesRepository profilesRepositor
         Guard.Against.Null(command, nameof(command));
 
         var profile = Profile.CreateSimple(
-            command.ProfileId,
+            ProfileId.Of(command.ProfileId),
             Name.Of(command.Name),
             Description.Of(command.Description));
 

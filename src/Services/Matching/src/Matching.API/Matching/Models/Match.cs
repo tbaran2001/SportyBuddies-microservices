@@ -1,9 +1,10 @@
 ﻿using BuildingBlocks.Core.Model;
 using Matching.API.Matching.Features.UpdateMatch;
+using Matching.API.Matching.ValueObjects;
 
 namespace Matching.API.Matching.Models;
 
-public class Match : Entity
+public record Match : Aggregate<MatchId>
 {
     public Guid OppositeMatchId { get; private set; }
     public Guid ProfileId { get; private set; }
@@ -16,14 +17,14 @@ public class Match : Entity
     {
         var match1 = new Match
         {
-            Id = Guid.NewGuid(),
+            Id = MatchId.Of(Guid.NewGuid()),
             ProfileId = profileId,
             MatchedProfileId = matchedProfileId,
             MatchDateTime = matchDateTime
         };
         var match2 = new Match
         {
-            Id = Guid.NewGuid(),
+            Id =MatchId.Of(Guid.NewGuid()),
             ProfileId = matchedProfileId,
             MatchedProfileId = profileId,
             MatchDateTime = matchDateTime

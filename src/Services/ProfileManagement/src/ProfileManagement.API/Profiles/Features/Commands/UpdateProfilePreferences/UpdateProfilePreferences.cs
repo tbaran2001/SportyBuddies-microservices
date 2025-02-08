@@ -79,7 +79,7 @@ internal class UpdateProfilePreferencesCommandHandler(
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 
-        profile.UpdatePreferences(Preferences.Create(command.MinAge, command.MaxAge, command.MaxDistance,
+        profile.UpdatePreferences(Preferences.Of(command.MinAge, command.MaxAge, command.MaxDistance,
             command.PreferredGender));
         await unitOfWork.CommitChangesAsync();
 

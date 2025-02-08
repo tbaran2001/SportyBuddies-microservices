@@ -1,0 +1,16 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Sport.API.Sports.ValueObjects;
+
+namespace Sport.API.Data.Configuration;
+
+public class SportConfiguration: IEntityTypeConfiguration<Sports.Models.Sport>
+{
+    public void Configure(EntityTypeBuilder<Sports.Models.Sport> builder)
+    {
+        builder.HasKey(s => s.Id);
+        builder.Property(s => s.Id)
+            .ValueGeneratedNever()
+            .HasConversion(sport => sport.Value, dbId => SportId.Of(dbId));
+    }
+}

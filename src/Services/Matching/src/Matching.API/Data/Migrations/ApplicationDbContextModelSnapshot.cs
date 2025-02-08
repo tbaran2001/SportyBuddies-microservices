@@ -22,10 +22,9 @@ namespace Matching.API.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Matching.API.Models.Match", b =>
+            modelBuilder.Entity("Matching.API.Matching.Models.Match", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("MatchDateTime")

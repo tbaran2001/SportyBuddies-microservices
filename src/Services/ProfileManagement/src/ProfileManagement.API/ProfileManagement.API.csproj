@@ -40,8 +40,4 @@
         </AssemblyAttribute>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Sports\ValueObjects\" />
-    </ItemGroup>
-
 </Project>

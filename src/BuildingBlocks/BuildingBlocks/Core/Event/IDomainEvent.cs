@@ -2,9 +2,6 @@
 
 namespace BuildingBlocks.Core.Event;
 
-public interface IDomainEvent : INotification
+public interface IDomainEvent : IEvent
 {
-    Guid EventId => Guid.NewGuid();
-    public DateTime OccurredOn => DateTime.Now;
-    public string EventType => GetType().AssemblyQualifiedName;
 }

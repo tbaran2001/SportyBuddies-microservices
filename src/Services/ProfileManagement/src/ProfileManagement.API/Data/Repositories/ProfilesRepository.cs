@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProfileManagement.API.Profiles.Models;
+using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Data.Repositories;
 
@@ -32,7 +33,7 @@ public class ProfilesRepository(ProfileDbContext dbContext) : IProfilesRepositor
         dbContext.Profiles.Remove(profile);
     }
 
-    public async Task<IEnumerable<Guid>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports)
+    public async Task<IEnumerable<ProfileId>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports)
     {
         return await dbContext.Profiles
             .Where(u => u.Id != profileId)

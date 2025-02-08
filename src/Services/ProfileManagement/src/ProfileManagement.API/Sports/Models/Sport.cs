@@ -1,10 +1,11 @@
 using BuildingBlocks.Core.Model;
+using ProfileManagement.API.Sports.ValueObjects;
 
-namespace ProfileManagement.API.Profiles.Models;
+namespace ProfileManagement.API.Sports.Models;
 
-public class Sport : Entity
+public record Sport : Aggregate<SportId>
 {
-    public static Sport Create(Guid id)
+    public static Sport Create(SportId id)
     {
         var sport = new Sport
         {

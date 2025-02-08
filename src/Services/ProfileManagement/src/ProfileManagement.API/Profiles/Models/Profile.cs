@@ -6,14 +6,15 @@ using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
 using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
 using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 using ProfileManagement.API.Profiles.ValueObjects;
+using ProfileManagement.API.Sports.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Models;
 
-public class Profile : Entity
+public record Profile : Aggregate<ProfileId>
 {
     public Name Name { get; private set; } = default!;
     public Description Description { get; private set; } = default!;
-    public BirthDate BirthDate { get; private set; }
+    public BirthDate BirthDate { get; private set; } = default!;
     public Gender Gender { get; private set; }
     public Preferences Preferences { get; private set; } = default!;
 
@@ -21,7 +22,7 @@ public class Profile : Entity
     public IReadOnlyList<ProfileSport> ProfileSports => _profileSports.AsReadOnly();
 
     public static Profile Create(
-        Guid id,
+        ProfileId id,
         Name name,
         Description description,
         BirthDate dateOfBirth,
@@ -43,7 +44,7 @@ public class Profile : Entity
         return profile;
     }
 
-    public static Profile CreateSimple(Guid id, Name name, Description description)
+    public static Profile CreateSimple(ProfileId id, Name name, Description description)
     {
         var profile = Create(
             id,
@@ -75,8 +76,8 @@ public class Profile : Entity
         if (_profileSports.Any(s => s.SportId == sportId))
             throw new DomainException("Profile already has this sport.");
 
-        _profileSports.Add(new ProfileSport(Id, sportId));
-        AddDomainEvent(new ProfileSportAddedDomainEvent(Id, _profileSports.Select(ps => ps.SportId).ToList()));
+        _profileSports.Add(new ProfileSport(Id, SportId.Of(sportId)));
+        AddDomainEvent(new ProfileSportAddedDomainEvent(Id, _profileSports.Select(ps => ps.SportId.Value).ToList()));
     }
 
     public void RemoveSport(Guid sportId)
@@ -86,7 +87,7 @@ public class Profile : Entity
             throw new DomainException("Profile does not have this sport.");
 
         _profileSports.Remove(sport);
-        AddDomainEvent(new ProfileSportRemovedDomainEvent(Id, _profileSports.Select(ps => ps.SportId).ToList()));
+        AddDomainEvent(new ProfileSportRemovedDomainEvent(Id, _profileSports.Select(ps => ps.SportId.Value).ToList()));
     }
 
     public void UpdatePreferences(Preferences preferences)

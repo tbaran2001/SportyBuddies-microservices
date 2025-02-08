@@ -14,5 +14,8 @@ public class BuddyDbContext(DbContextOptions<BuddyDbContext> options) : DbContex
         var (buddy3, buddy4) = Buddy.CreatePair(profileId, Guid.NewGuid(), DateTime.UtcNow);
 
         modelBuilder.Entity<Buddy>().HasData(buddy1, buddy2, buddy3, buddy4);
+
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BuddyDbContext).Assembly);
     }
 }

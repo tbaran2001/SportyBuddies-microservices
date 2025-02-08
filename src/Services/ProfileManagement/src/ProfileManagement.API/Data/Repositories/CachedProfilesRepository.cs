@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using ProfileManagement.API.Profiles.Models;
+using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Data.Repositories;
 
@@ -60,7 +61,7 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
         cache.Remove(profile.Id.ToString());
     }
 
-    public async Task<IEnumerable<Guid>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports)
+    public async Task<IEnumerable<ProfileId>> GetPotentialMatchesAsync(Guid profileId, IEnumerable<Guid> profileSports)
     {
         return await profilesRepository.GetPotentialMatchesAsync(profileId, profileSports);
     }
