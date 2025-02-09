@@ -1,8 +1,4 @@
-﻿using Matching.API.Matching.Exceptions;
-using Matching.API.Matching.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Matching.API.Data.Repositories;
+﻿namespace Matching.API.Data.Repositories;
 
 public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesRepository
 {

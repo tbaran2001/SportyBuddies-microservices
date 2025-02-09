@@ -1,7 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Enums;
-using ProfileManagement.API.Profiles.ValueObjects;
-
-namespace ProfileManagement.API.Profiles.Dtos;
+﻿namespace ProfileManagement.API.Profiles.Dtos;
 
 public record ProfileDto(
     Guid Id,

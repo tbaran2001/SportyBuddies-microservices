@@ -1,5 +1,3 @@
-using ProfileManagement.API.Profiles.Exceptions;
-
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
 public record Description

@@ -1,11 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.CQRS;
-using Carter;
-using Humanizer;
-using Mapster;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Dtos;
 
 namespace ProfileManagement.API.Profiles.Features.Queries.GetProfiles;
 

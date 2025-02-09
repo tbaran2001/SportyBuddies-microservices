@@ -1,6 +1,3 @@
-using BuildingBlocks.Core.Model;
-using ProfileManagement.API.Sports.ValueObjects;
-
 namespace ProfileManagement.API.Sports.Models;
 
 public record Sport : Aggregate<SportId>

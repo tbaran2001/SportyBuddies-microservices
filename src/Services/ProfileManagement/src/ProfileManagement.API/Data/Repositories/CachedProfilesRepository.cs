@@ -1,7 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Data.Repositories;
 

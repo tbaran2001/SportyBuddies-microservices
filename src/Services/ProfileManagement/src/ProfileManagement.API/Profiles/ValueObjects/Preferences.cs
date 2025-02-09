@@ -1,6 +1,3 @@
-using BuildingBlocks.Exceptions;
-using ProfileManagement.API.Profiles.Enums;
-
 namespace ProfileManagement.API.Profiles.ValueObjects;
 
 public record Preferences

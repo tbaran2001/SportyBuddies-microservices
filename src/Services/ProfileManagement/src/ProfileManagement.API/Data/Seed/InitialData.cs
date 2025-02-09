@@ -1,12 +1,6 @@
-﻿using ProfileManagement.API.Profiles.Enums;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
-using ProfileManagement.API.Sports.Models;
-using ProfileManagement.API.Sports.ValueObjects;
+﻿namespace ProfileManagement.API.Data.Seed;
 
-namespace ProfileManagement.API.Data.Seed;
-
-internal class InitialData
+internal static class InitialData
 {
     public static IEnumerable<Sport> Sports => new List<Sport>
     {

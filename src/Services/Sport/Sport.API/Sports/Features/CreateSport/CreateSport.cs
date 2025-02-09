@@ -1,9 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Event;
-using Humanizer;
-using Sport.API.Data.Repositories;
-using Sport.API.Sports.Exceptions;
-using Sport.API.Sports.ValueObjects;
 
 namespace Sport.API.Sports.Features.CreateSport;
 

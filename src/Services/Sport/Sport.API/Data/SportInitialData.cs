@@ -1,5 +1,3 @@
-using Sport.API.Sports.ValueObjects;
-
 namespace Sport.API.Data;
 
 public static class SportInitialData

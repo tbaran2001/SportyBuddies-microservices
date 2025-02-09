@@ -1,5 +1,4 @@
-﻿using MediatR;
-using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
+﻿using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 
 namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 

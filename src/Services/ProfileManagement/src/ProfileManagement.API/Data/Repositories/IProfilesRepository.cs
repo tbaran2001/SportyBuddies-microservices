@@ -1,6 +1,3 @@
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
-
 namespace ProfileManagement.API.Data.Repositories;
 
 public interface IProfilesRepository

@@ -1,13 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Event;
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.CQRS;
-using FluentValidation;
-using Mapster;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Dtos;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
 

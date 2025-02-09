@@ -1,13 +1,4 @@
-﻿using BuildingBlocks.Exceptions.Handler;
-using BuildingBlocks.Jwt;
-using BuildingBlocks.Web;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
-using Sport.API.Data;
-using Sport.API.Data.Repositories;
-
-namespace Sport.API.Extensions;
+﻿namespace Sport.API.Extensions;
 
 public static class InfrastructureExtensions
 {

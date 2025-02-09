@@ -1,6 +1,4 @@
-﻿using Matching.API.Matching.Features.UpdateMatch;
-
-namespace Matching.API.Matching.Models;
+﻿namespace Matching.API.Matching.Models;
 
 public record Match : Aggregate<MatchId>
 {
@@ -22,7 +20,7 @@ public record Match : Aggregate<MatchId>
         };
         var match2 = new Match
         {
-            Id =MatchId.Of(Guid.NewGuid()),
+            Id = MatchId.Of(Guid.NewGuid()),
             ProfileId = matchedProfileId,
             MatchedProfileId = profileId,
             MatchedAt = matchedAt
@@ -39,7 +37,7 @@ public record Match : Aggregate<MatchId>
         Swipe = swipe;
         SwipedAt = SwipedAt.Of(DateTime.Now);
 
-        if (oppositeMatchSwipe != Models.Swipe.Right)
+        if (oppositeMatchSwipe != Swipe.Right)
             return;
 
         var domainEvent = new BothSwipedRightDomainEvent(Id, ProfileId, MatchedProfileId);

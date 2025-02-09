@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.Events.Identity;
-using MassTransit;
-using MediatR;
-using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
+﻿using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
 
 namespace ProfileManagement.API.Profiles.EventHandlers.Integration;
 

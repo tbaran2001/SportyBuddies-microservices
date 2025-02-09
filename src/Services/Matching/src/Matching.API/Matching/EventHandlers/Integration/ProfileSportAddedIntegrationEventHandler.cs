@@ -1,9 +1,4 @@
-﻿using BuildingBlocks.Events.ProfileManagement;
-using MassTransit;
-using Matching.API.Matching.Features.CreateMatches;
-using ProfileManagement.API;
-
-namespace Matching.API.Matching.EventHandlers.Integration;
+﻿namespace Matching.API.Matching.EventHandlers.Integration;
 
 public class ProfileSportAddedIntegrationEventHandler(
     ISender sender,

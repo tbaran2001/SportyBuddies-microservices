@@ -1,7 +1,3 @@
-using BuildingBlocks.Core.Model;
-using ProfileManagement.API.Profiles.ValueObjects;
-using ProfileManagement.API.Sports.ValueObjects;
-
 namespace ProfileManagement.API.Profiles.Models;
 
 public record ProfileSport : Entity<ProfileSportId>

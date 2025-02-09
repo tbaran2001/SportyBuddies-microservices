@@ -1,17 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Event;
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.CQRS;
-using BuildingBlocks.Web;
-using Carter;
-using FluentValidation;
-using Humanizer;
-using Mapster;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Enums;
-using ProfileManagement.API.Profiles.Exceptions;
-using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 
@@ -50,7 +37,7 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
 {
     public UpdateProfileCommandValidator()
     {
-        RuleFor(x=>x.ProfileId)
+        RuleFor(x => x.ProfileId)
             .NotEmpty()
             .WithMessage("ProfileId is required.");
         RuleFor(x => x.Name)

@@ -1,14 +1,5 @@
 ﻿using System.Security.Claims;
 using Ardalis.GuardClauses;
-using BuildingBlocks.CQRS;
-using BuildingBlocks.Web;
-using Carter;
-using Humanizer;
-using Mapster;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Dtos;
-using ProfileManagement.API.Profiles.Exceptions;
 
 namespace ProfileManagement.API.Profiles.Features.Queries.GetCurrentProfile;
 

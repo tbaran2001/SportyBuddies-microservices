@@ -1,14 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Event;
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.CQRS;
-using BuildingBlocks.Web;
-using Carter;
-using FluentValidation;
-using Humanizer;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Exceptions;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
 

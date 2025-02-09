@@ -1,7 +1,4 @@
-﻿using Matching.API.Matching.Models;
-using Matching.API.Matching.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Matching.API.Data.Configuration;
 

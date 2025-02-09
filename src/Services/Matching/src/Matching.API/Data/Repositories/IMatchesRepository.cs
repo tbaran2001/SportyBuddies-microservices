@@ -1,6 +1,4 @@
-﻿using Matching.API.Matching.Models;
-
-namespace Matching.API.Data.Repositories;
+﻿namespace Matching.API.Data.Repositories;
 
 public interface IMatchesRepository
 {

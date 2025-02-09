@@ -1,13 +1,4 @@
-﻿using Buddies.API.Data;
-using Buddies.API.GrpcServer.Services;
-using BuildingBlocks.Behaviors;
-using BuildingBlocks.Exceptions.Handler;
-using BuildingBlocks.Jwt;
-using BuildingBlocks.Web;
-using Carter;
-using Microsoft.EntityFrameworkCore;
-
-namespace Buddies.API.Extensions;
+﻿namespace Buddies.API.Extensions;
 
 public static class InfrastructureExtensions
 {
@@ -46,6 +37,7 @@ public static class InfrastructureExtensions
         {
             app.InitializeDatabaseAsync();
         }
+
         app.MapCarter();
         app.UseExceptionHandler(_ => { });
         app.MapGrpcService<BuddiesService>();

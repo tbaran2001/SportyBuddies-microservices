@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Core.Model;
-using Sport.API.Sports.Features.CreateSport;
-using Sport.API.Sports.ValueObjects;
+﻿using Sport.API.Sports.Features.CreateSport;
 
 namespace Sport.API.Sports.Models;
 
@@ -41,6 +39,5 @@ public record Sport : Aggregate<SportId>
 
     private Sport()
     {
-
     }
 }

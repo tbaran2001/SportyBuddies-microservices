@@ -1,16 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.CQRS;
-using BuildingBlocks.Web;
-using Carter;
-using FluentValidation;
-using Humanizer;
-using Mapster;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Enums;
-using ProfileManagement.API.Profiles.Exceptions;
-using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfilePreferences;
 

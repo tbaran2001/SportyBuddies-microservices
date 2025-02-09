@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace ProfileManagement.API.Data.Seed;
+﻿namespace ProfileManagement.API.Data.Seed;
 
 public static class DatabaseExtensions
 {
@@ -33,7 +31,7 @@ public static class DatabaseExtensions
 
     private static async Task SeedProfileWithSportsAsync(ProfileDbContext context)
     {
-        if(!await context.Profiles.AnyAsync())
+        if (!await context.Profiles.AnyAsync())
         {
             await context.Profiles.AddRangeAsync(InitialData.ProfilesWithSports);
             await context.SaveChangesAsync();

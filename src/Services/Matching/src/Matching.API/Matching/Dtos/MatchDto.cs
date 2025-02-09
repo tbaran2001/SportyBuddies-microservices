@@ -1,6 +1,4 @@
-﻿using Matching.API.Matching.Models;
-
-namespace Matching.API.Matching.Dtos;
+﻿namespace Matching.API.Matching.Dtos;
 
 public record MatchDto(
     Guid Id,

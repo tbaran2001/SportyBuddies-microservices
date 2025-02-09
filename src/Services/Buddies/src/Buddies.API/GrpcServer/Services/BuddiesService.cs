@@ -1,10 +1,5 @@
-﻿using Buddies.API.Buddies.Models;
-using Buddies.API.Buddies.ValueObjects;
-using Buddies.API.Data;
-using Buddies.Grpc;
+﻿using Buddies.Grpc;
 using Grpc.Core;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
 
 namespace Buddies.API.GrpcServer.Services;
 

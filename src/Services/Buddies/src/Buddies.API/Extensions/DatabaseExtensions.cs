@@ -1,7 +1,4 @@
-﻿using Buddies.API.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace Buddies.API.Extensions;
+﻿namespace Buddies.API.Extensions;
 
 public static class DatabaseExtensions
 {

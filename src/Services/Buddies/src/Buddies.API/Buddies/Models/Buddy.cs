@@ -1,7 +1,4 @@
-﻿using Buddies.API.Buddies.ValueObjects;
-using BuildingBlocks.Core.Model;
-
-namespace Buddies.API.Buddies.Models;
+﻿namespace Buddies.API.Buddies.Models;
 
 public record Buddy : Aggregate<BuddyId>
 {

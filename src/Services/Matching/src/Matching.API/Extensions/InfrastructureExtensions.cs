@@ -1,15 +1,11 @@
 ﻿using System.Reflection;
-using Buddies.Grpc;
 using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
 using BuildingBlocks.MassTransit;
 using HealthChecks.UI.Client;
-using Matching.API.Data.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using ProfileManagement.API;
 
 namespace Matching.API.Extensions;
 

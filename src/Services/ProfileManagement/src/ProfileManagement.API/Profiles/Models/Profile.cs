@@ -1,12 +1,7 @@
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.Exceptions;
-using ProfileManagement.API.Profiles.Enums;
 using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
 using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
 using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
 using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
-using ProfileManagement.API.Profiles.ValueObjects;
-using ProfileManagement.API.Sports.ValueObjects;
 
 namespace ProfileManagement.API.Profiles.Models;
 

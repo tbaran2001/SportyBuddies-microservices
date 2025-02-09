@@ -1,9 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Sports.Models;
-using ProfileManagement.API.Sports.ValueObjects;
-
 namespace ProfileManagement.API.Data.Configurations;
 
 public class SportConfiguration : IEntityTypeConfiguration<Sport>

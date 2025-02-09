@@ -1,15 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using Buddies.API.Buddies.Dtos;
-using Buddies.API.Data;
-using BuildingBlocks.CQRS;
-using Carter;
-using FluentValidation;
-using Humanizer;
-using Mapster;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace Buddies.API.Buddies.Features.GetBuddies;
+﻿namespace Buddies.API.Buddies.Features.GetBuddies;
 
 public record GetBuddiesQuery(Guid? ProfileId) : IQuery<GetBuddiesResult>;
 

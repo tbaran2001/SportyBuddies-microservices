@@ -1,7 +1,4 @@
-﻿using Buddies.API.Buddies.Models;
-using Buddies.API.Buddies.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Buddies.API.Data.Configuration;
 

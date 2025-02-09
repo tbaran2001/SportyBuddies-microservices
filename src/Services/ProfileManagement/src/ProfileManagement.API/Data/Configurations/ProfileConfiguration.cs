@@ -1,9 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProfileManagement.API.Profiles.Enums;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
-
 namespace ProfileManagement.API.Data.Configurations;
 
 public class ProfileConfiguration : IEntityTypeConfiguration<Profile>

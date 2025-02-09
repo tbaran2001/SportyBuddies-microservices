@@ -1,13 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using BuildingBlocks.CQRS;
-using Carter;
-using FluentValidation;
-using Humanizer;
-using Mapster;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Dtos;
-using ProfileManagement.API.Profiles.Exceptions;
 
 namespace ProfileManagement.API.Profiles.Features.Queries.GetProfileById;
 

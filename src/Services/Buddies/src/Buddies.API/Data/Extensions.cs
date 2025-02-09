@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Buddies.API.Data;
+﻿namespace Buddies.API.Data;
 
 public static class Extensions
 {

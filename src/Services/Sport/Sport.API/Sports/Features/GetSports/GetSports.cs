@@ -1,7 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using Humanizer;
-using Sport.API.Data.Repositories;
-using Sport.API.Sports.Dtos;
 
 namespace Sport.API.Sports.Features.GetSports;
 

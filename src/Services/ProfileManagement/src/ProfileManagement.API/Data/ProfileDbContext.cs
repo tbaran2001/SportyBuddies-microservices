@@ -1,8 +1,3 @@
-using BuildingBlocks.Core.Model;
-using Microsoft.EntityFrameworkCore;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Sports.Models;
-
 namespace ProfileManagement.API.Data;
 
 public class ProfileDbContext(DbContextOptions<ProfileDbContext> options) : DbContext(options), IUnitOfWork

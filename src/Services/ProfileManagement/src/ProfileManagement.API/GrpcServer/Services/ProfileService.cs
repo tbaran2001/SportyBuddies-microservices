@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using ProfileManagement.API.Data.Repositories;
 
 namespace ProfileManagement.API.GrpcServer.Services;
 

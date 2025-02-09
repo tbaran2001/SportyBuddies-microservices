@@ -1,23 +1,4 @@
-﻿using BuildingBlocks.Behaviors;
-using BuildingBlocks.Core.Model;
-using BuildingBlocks.EFCore.Interceptors;
-using BuildingBlocks.Exceptions.Handler;
-using BuildingBlocks.Jwt;
-using BuildingBlocks.MassTransit;
-using BuildingBlocks.Web;
-using Carter;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.FeatureManagement;
-using ProfileManagement.API.Data;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Data.Seed;
-using ProfileManagement.API.GrpcServer.Services;
-using ProfileManagement.API.Profiles.Mapster;
-
-namespace ProfileManagement.API.Extensions;
+﻿namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {

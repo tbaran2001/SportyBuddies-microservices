@@ -1,8 +1,4 @@
-﻿using BuildingBlocks.Events.ProfileManagement;
-using MassTransit;
-using MediatR;
-using ProfileManagement.API.Data.Repositories;
-using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
+﻿using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
 
 namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 

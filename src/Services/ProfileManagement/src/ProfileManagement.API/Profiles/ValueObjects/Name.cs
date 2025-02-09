@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Exceptions;
-
-namespace ProfileManagement.API.Profiles.ValueObjects;
+﻿namespace ProfileManagement.API.Profiles.ValueObjects;
 
 public record Name
 {

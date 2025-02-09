@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Sport.API.Data.Repositories;
+﻿namespace Sport.API.Data.Repositories;
 
 public class SportsRepository(ApplicationDbContext dbContext) : ISportsRepository
 {

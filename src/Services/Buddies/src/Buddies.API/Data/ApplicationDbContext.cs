@@ -1,8 +1,4 @@
-﻿using Buddies.API.Buddies.Models;
-using Buddies.API.Buddies.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-
-namespace Buddies.API.Data;
+﻿namespace Buddies.API.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {

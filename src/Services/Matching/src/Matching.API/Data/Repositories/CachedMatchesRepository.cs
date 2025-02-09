@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Matching.API.Matching.Models;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace Matching.API.Data.Repositories;
@@ -17,7 +16,8 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         await matchesRepository.UpdateMatchAsync(match, cancellationToken);
     }
 
-    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid? profileId,CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Match>> GetMatchesAsync(Guid? profileId,
+        CancellationToken cancellationToken = default)
     {
         var cachedMatches = await cache.GetStringAsync(profileId.ToString(), cancellationToken);
         if (!string.IsNullOrEmpty(cachedMatches))
@@ -45,7 +45,8 @@ public class CachedMatchesRepository(IMatchesRepository matchesRepository, IDist
         return match;
     }
 
-    public async Task<bool> CheckIfMatchExistsAsync(Guid profileId, Guid matchedProfileId, CancellationToken cancellationToken = default)
+    public async Task<bool> CheckIfMatchExistsAsync(Guid profileId, Guid matchedProfileId,
+        CancellationToken cancellationToken = default)
     {
         return await matchesRepository.CheckIfMatchExistsAsync(profileId, matchedProfileId, cancellationToken);
     }

@@ -1,7 +1,4 @@
-﻿using Mapster;
-using ProfileManagement.API.Profiles.ValueObjects;
-
-namespace ProfileManagement.API.Profiles.Mapster;
+﻿namespace ProfileManagement.API.Profiles.Mapster;
 
 public class MapsterConfig
 {

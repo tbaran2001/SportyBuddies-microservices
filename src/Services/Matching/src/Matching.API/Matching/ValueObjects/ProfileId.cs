@@ -1,28 +1,18 @@
-﻿using Matching.API.Matching.Exceptions;
-
-namespace Matching.API.Matching.ValueObjects;
+﻿namespace Matching.API.Matching.ValueObjects;
 
 public record ProfileId
 {
     public Guid Value { get; }
 
-    private ProfileId(Guid value)
-    {
-        Value = value;
-    }
+    private ProfileId(Guid value) => Value = value;
 
     public static ProfileId Of(Guid value)
     {
         if (value == Guid.Empty)
-        {
             throw new InvalidProfileIdException(value);
-        }
 
         return new ProfileId(value);
     }
 
-    public static implicit operator Guid(ProfileId profileId)
-    {
-        return profileId.Value;
-    }
+    public static implicit operator Guid(ProfileId profileId) => profileId.Value;
 }

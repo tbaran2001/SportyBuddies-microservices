@@ -1,7 +1,4 @@
-﻿using Matching.API.Matching.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Matching.API.Data;
+﻿namespace Matching.API.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
