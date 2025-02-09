@@ -2,7 +2,7 @@
 
 namespace Sport.API.Data.Repositories;
 
-public class SportsRepository(SportDbContext dbContext) : ISportsRepository
+public class SportsRepository(ApplicationDbContext dbContext) : ISportsRepository
 {
     public async Task<Sports.Models.Sport> GetSportByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {

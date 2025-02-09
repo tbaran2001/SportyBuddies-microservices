@@ -15,7 +15,7 @@ public static class InfrastructureExtensions
     {
         var assembly = typeof(Program).Assembly;
         builder.Services.AddCarter();
-        builder.Services.AddDbContext<SportDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });

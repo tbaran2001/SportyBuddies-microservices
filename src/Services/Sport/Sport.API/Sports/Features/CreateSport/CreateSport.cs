@@ -3,6 +3,7 @@ using BuildingBlocks.Core.Event;
 using Humanizer;
 using Sport.API.Data.Repositories;
 using Sport.API.Sports.Exceptions;
+using Sport.API.Sports.ValueObjects;
 
 namespace Sport.API.Sports.Features.CreateSport;
 
@@ -43,8 +44,10 @@ public class CreateSportCommandValidator : AbstractValidator<CreateSportCommand>
 {
     public CreateSportCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty().MaximumLength(100).WithMessage("Name is required and must not exceed 100 characters.");
-        RuleFor(x => x.Description).NotEmpty().MaximumLength(500).WithMessage("Description is required and must not exceed 500 characters.");
+        RuleFor(x => x.Name).NotEmpty().MaximumLength(100)
+            .WithMessage("Name is required and must not exceed 100 characters.");
+        RuleFor(x => x.Description).NotEmpty().MaximumLength(500)
+            .WithMessage("Description is required and must not exceed 500 characters.");
     }
 }
 
@@ -58,7 +61,7 @@ internal class CreateSportCommandHandler(ISportsRepository sportsRepository)
         if (await sportsRepository.SportExistsAsync(command.Name, cancellationToken))
             throw new SportAlreadyExistException(command.Name);
 
-        var sportEntity = Models.Sport.Create(command.Name, command.Description);
+        var sportEntity = Models.Sport.Create(Name.Of(command.Name), Description.Of(command.Description));
 
         await sportsRepository.AddSportAsync(sportEntity, cancellationToken);
 

@@ -10,13 +10,13 @@ public static class DatabaseExtensions
         var services = scope.ServiceProvider;
 
 
-        var context = services.GetRequiredService<SportDbContext>();
+        var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.MigrateAsync().GetAwaiter().GetResult();
 
         SeedSportAsync(context);
     }
 
-    private static void SeedSportAsync(SportDbContext context)
+    private static void SeedSportAsync(ApplicationDbContext context)
     {
         if (context.Sports.Any())
             return;

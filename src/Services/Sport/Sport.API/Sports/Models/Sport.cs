@@ -6,10 +6,10 @@ namespace Sport.API.Sports.Models;
 
 public record Sport : Aggregate<SportId>
 {
-    public string Name { get; private set; } = default!;
-    public string Description { get; private set; } = default!;
+    public Name Name { get; private set; }
+    public Description Description { get; private set; }
 
-    public static Sport Create(string name, string description)
+    public static Sport Create(Name name, Description description)
     {
         var sport = new Sport
         {
@@ -24,7 +24,7 @@ public record Sport : Aggregate<SportId>
         return sport;
     }
 
-    public static Sport CreateWithId(SportId id, string name, string description)
+    public static Sport CreateWithId(SportId id, Name name, Description description)
     {
         var sport = new Sport
         {
