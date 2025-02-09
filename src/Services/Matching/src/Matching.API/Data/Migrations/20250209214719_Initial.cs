@@ -16,12 +16,12 @@ namespace Matching.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OppositeMatchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchedProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Swipe = table.Column<int>(type: "int", nullable: true),
-                    SwipeDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    OppositeMatchId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchedProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Swipe = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
+                    SwipedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

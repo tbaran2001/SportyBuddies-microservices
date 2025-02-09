@@ -16,7 +16,10 @@ public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository) :
                 cancellationToken))
             return Unit.Value;
 
-        var (match1, match2) = Match.CreatePair(command.ProfileId, command.MatchedProfileId, DateTime.Now);
+        var (match1, match2) = Match.CreatePair(
+            ProfileId.Of(command.ProfileId),
+            ProfileId.Of(command.MatchedProfileId),
+            MatchedAt.Of(DateTime.Now));
 
         var matches = new List<Match> { match1, match2 };
 

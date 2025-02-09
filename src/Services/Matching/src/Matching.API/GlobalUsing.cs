@@ -9,3 +9,5 @@ global using BuildingBlocks.Web;
 global using Matching.API.Data;
 global using Matching.API.Matching.Dtos;
 global using BuildingBlocks.Core.Event;
+global using BuildingBlocks.Core.Model;
+global using Matching.API.Matching.ValueObjects;

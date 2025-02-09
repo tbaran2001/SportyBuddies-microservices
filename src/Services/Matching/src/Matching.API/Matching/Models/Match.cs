@@ -1,33 +1,31 @@
-﻿using BuildingBlocks.Core.Model;
-using Matching.API.Matching.Features.UpdateMatch;
-using Matching.API.Matching.ValueObjects;
+﻿using Matching.API.Matching.Features.UpdateMatch;
 
 namespace Matching.API.Matching.Models;
 
 public record Match : Aggregate<MatchId>
 {
-    public Guid OppositeMatchId { get; private set; }
-    public Guid ProfileId { get; private set; }
-    public Guid MatchedProfileId { get; private set; }
-    public DateTime MatchDateTime { get; private set; }
-    public Swipe? Swipe { get; private set; }
-    public DateTime? SwipeDateTime { get; private set; }
+    public MatchId OppositeMatchId { get; private set; }
+    public ProfileId ProfileId { get; private set; }
+    public ProfileId MatchedProfileId { get; private set; }
+    public MatchedAt MatchedAt { get; private set; }
+    public Swipe Swipe { get; private set; }
+    public SwipedAt SwipedAt { get; private set; }
 
-    public static (Match, Match) CreatePair(Guid profileId, Guid matchedProfileId, DateTime matchDateTime)
+    public static (Match, Match) CreatePair(ProfileId profileId, ProfileId matchedProfileId, MatchedAt matchedAt)
     {
         var match1 = new Match
         {
             Id = MatchId.Of(Guid.NewGuid()),
             ProfileId = profileId,
             MatchedProfileId = matchedProfileId,
-            MatchDateTime = matchDateTime
+            MatchedAt = matchedAt
         };
         var match2 = new Match
         {
             Id =MatchId.Of(Guid.NewGuid()),
             ProfileId = matchedProfileId,
             MatchedProfileId = profileId,
-            MatchDateTime = matchDateTime
+            MatchedAt = matchedAt
         };
 
         match1.OppositeMatchId = match2.Id;
@@ -39,7 +37,7 @@ public record Match : Aggregate<MatchId>
     public void SetSwipe(Swipe swipe, Swipe? oppositeMatchSwipe)
     {
         Swipe = swipe;
-        SwipeDateTime = DateTime.UtcNow;
+        SwipedAt = SwipedAt.Of(DateTime.Now);
 
         if (oppositeMatchSwipe != Models.Swipe.Right)
             return;

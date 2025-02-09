@@ -27,22 +27,25 @@ namespace Matching.API.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("MatchDateTime")
+                    b.Property<DateTime?>("MatchedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("MatchedProfileId")
+                    b.Property<Guid?>("MatchedProfileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("OppositeMatchId")
+                    b.Property<Guid?>("OppositeMatchId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProfileId")
+                    b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Swipe")
-                        .HasColumnType("int");
+                    b.Property<string>("Swipe")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Unknown");
 
-                    b.Property<DateTime?>("SwipeDateTime")
+                    b.Property<DateTime?>("SwipedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
