@@ -10,7 +10,7 @@ public record BuddyId
 
     public static BuddyId Of(Guid value)
     {
-        if (value == default)
+        if (value == Guid.Empty)
         {
             throw new InvalidBuddyIdException(value);
         }

@@ -50,7 +50,7 @@ public class GetBuddiesQueryValidator : AbstractValidator<GetBuddiesQuery>
     }
 }
 
-internal class GetBuddiesQueryHandler(BuddyDbContext dbContext)
+internal class GetBuddiesQueryHandler(ApplicationDbContext dbContext)
     : IQueryHandler<GetBuddiesQuery, GetBuddiesResult>
 {
     public async Task<GetBuddiesResult> Handle(GetBuddiesQuery query, CancellationToken cancellationToken)

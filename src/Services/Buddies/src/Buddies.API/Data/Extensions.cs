@@ -8,7 +8,7 @@ public static class Extensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<BuddyDbContext>();
+        var context = services.GetRequiredService<ApplicationDbContext>();
 
         context.Database.Migrate();
 

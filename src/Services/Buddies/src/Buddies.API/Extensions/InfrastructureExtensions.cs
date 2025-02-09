@@ -23,7 +23,7 @@ public static class InfrastructureExtensions
             configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
             configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
-        builder.Services.AddDbContext<BuddyDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 

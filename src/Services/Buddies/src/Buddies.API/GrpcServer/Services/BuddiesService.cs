@@ -1,4 +1,5 @@
 ﻿using Buddies.API.Buddies.Models;
+using Buddies.API.Buddies.ValueObjects;
 using Buddies.API.Data;
 using Buddies.Grpc;
 using Grpc.Core;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Buddies.API.GrpcServer.Services;
 
-public class BuddiesService(BuddyDbContext dbContext) : BuddiesProtoService.BuddiesProtoServiceBase
+public class BuddiesService(ApplicationDbContext dbContext) : BuddiesProtoService.BuddiesProtoServiceBase
 {
     public override async Task<GetProfileBuddiesResponse> GetProfileBuddies(GetProfileBuddiesRequest request,
         ServerCallContext context)
@@ -38,8 +39,11 @@ public class BuddiesService(BuddyDbContext dbContext) : BuddiesProtoService.Budd
         if (areAlreadyBuddies)
             throw new RpcException(new Status(StatusCode.AlreadyExists, "Already buddies"));
 
-        var (buddy1, buddy2) = Buddy.CreatePair(Guid.Parse(request.ProfileId), Guid.Parse(request.MatchedProfileId),
-            DateTime.UtcNow);
+        var (buddy1, buddy2) = Buddy.CreatePair(
+            ProfileId.Of(Guid.Parse(request.ProfileId)),
+            ProfileId.Of(Guid.Parse(request.MatchedProfileId)),
+            CreatedAt.Of(DateTime.UtcNow));
+
         if (buddy1 is null || buddy2 is null)
             throw new RpcException(new Status(StatusCode.Internal, "Failed to create buddies"));
 

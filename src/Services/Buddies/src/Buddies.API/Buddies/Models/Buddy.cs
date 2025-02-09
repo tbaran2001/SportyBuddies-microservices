@@ -5,26 +5,26 @@ namespace Buddies.API.Buddies.Models;
 
 public record Buddy : Aggregate<BuddyId>
 {
-    public Guid OppositeBuddyId { get; private set; }
-    public Guid ProfileId { get; private set; }
-    public Guid MatchedProfileId { get; private set; }
-    public DateTime CreatedOnUtc { get; private set; }
+    public BuddyId OppositeBuddyId { get; private set; }
+    public ProfileId ProfileId { get; private set; }
+    public ProfileId MatchedProfileId { get; private set; }
+    public CreatedAt CreatedAt { get; private set; }
 
-    public static (Buddy, Buddy) CreatePair(Guid profileId, Guid matchedProfileId, DateTime createdOnUtc)
+    public static (Buddy, Buddy) CreatePair(ProfileId profileId, ProfileId matchedProfileId, CreatedAt createdAt)
     {
         var buddy1 = new Buddy
         {
             Id = BuddyId.Of(Guid.NewGuid()),
             ProfileId = profileId,
             MatchedProfileId = matchedProfileId,
-            CreatedOnUtc = createdOnUtc
+            CreatedAt = createdAt
         };
         var buddy2 = new Buddy
         {
             Id = BuddyId.Of(Guid.NewGuid()),
             ProfileId = matchedProfileId,
             MatchedProfileId = profileId,
-            CreatedOnUtc = createdOnUtc
+            CreatedAt = createdAt
         };
 
         buddy1.OppositeBuddyId = buddy2.Id;
