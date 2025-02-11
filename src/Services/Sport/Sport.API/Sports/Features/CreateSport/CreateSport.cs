@@ -6,7 +6,7 @@ public record CreateSportCommand(string Name, string Description) : ICommand<Cre
 
 public record CreateSportResult(Guid Id);
 
-public record SportCreatedDomainEvent(Guid Id, string Name, string Description) : IDomainEvent;
+public record SportCreatedDomainEvent(Guid Id) : IDomainEvent;
 
 public record CreateSportRequestDto(string Name, string Description);
 

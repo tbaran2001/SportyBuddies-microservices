@@ -35,12 +35,16 @@ services:
       - ConnectionStrings__Database=Server=mssqldb;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - MessageBroker__Host=amqp://sportybuddies-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
       - Jwt__Authority=http://identityservice:8080
       - Jwt__Audience=sport-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
     depends_on:
       - mssqldb
+      - messagebroker
     ports:
       - "6000:8080"
       - "6060:8081"

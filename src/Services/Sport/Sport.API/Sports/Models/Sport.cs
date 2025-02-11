@@ -16,7 +16,7 @@ public record Sport : Aggregate<SportId>
             Description = description
         };
 
-        var domainEvent = new SportCreatedDomainEvent(sport.Id, sport.Name, sport.Description);
+        var domainEvent = new SportCreatedDomainEvent(sport.Id);
         sport.AddDomainEvent(domainEvent);
 
         return sport;
@@ -31,7 +31,7 @@ public record Sport : Aggregate<SportId>
             Description = description
         };
 
-        var domainEvent = new SportCreatedDomainEvent(sport.Id, sport.Name, sport.Description);
+        var domainEvent = new SportCreatedDomainEvent(sport.Id);
         sport.AddDomainEvent(domainEvent);
 
         return sport;

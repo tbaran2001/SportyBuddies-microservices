@@ -1,4 +1,6 @@
-﻿namespace Sport.API.Extensions;
+﻿using BuildingBlocks.MassTransit;
+
+namespace Sport.API.Extensions;
 
 public static class InfrastructureExtensions
 {
@@ -20,6 +22,7 @@ public static class InfrastructureExtensions
         });
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+        builder.Services.AddMessageBroker(builder.Configuration, assembly);
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();

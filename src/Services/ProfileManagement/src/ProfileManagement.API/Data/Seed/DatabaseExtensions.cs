@@ -10,8 +10,6 @@ public static class DatabaseExtensions
 
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.MigrateAsync().GetAwaiter().GetResult();
-
-        SeedAsync(context);
     }
 
     private static void SeedAsync(ApplicationDbContext context)
