@@ -1,6 +1,6 @@
 namespace ProfileManagement.API.Data.Repositories;
 
-public class ProfilesRepository(ProfileDbContext dbContext) : IProfilesRepository
+public class ProfilesRepository(ApplicationDbContext dbContext) : IProfilesRepository
 {
     public async Task<Profile> GetProfileByIdAsync(Guid profileId)
     {

@@ -8,19 +8,19 @@ public static class DatabaseExtensions
         var services = scope.ServiceProvider;
 
 
-        var context = services.GetRequiredService<ProfileDbContext>();
+        var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.MigrateAsync().GetAwaiter().GetResult();
 
         SeedAsync(context);
     }
 
-    private static void SeedAsync(ProfileDbContext context)
+    private static void SeedAsync(ApplicationDbContext context)
     {
         SeedSport(context);
         //await SeedProfileWithSportsAsync(context);
     }
 
-    private static void SeedSport(ProfileDbContext context)
+    private static void SeedSport(ApplicationDbContext context)
     {
         if (context.Sports.Any())
             return;
@@ -29,7 +29,7 @@ public static class DatabaseExtensions
         context.SaveChanges();
     }
 
-    private static async Task SeedProfileWithSportsAsync(ProfileDbContext context)
+    private static async Task SeedProfileWithSportsAsync(ApplicationDbContext context)
     {
         if (!await context.Profiles.AnyAsync())
         {

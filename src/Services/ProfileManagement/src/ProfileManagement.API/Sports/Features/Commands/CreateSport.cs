@@ -6,7 +6,7 @@ public record CreateSportCommand(Guid SportId) : ICommand<CreateSportResult>;
 
 public record CreateSportResult(SportDto Sport);
 
-public class CreateSportCommandHandler(ProfileDbContext dbContext)
+public class CreateSportCommandHandler(ApplicationDbContext dbContext)
     : ICommandHandler<CreateSportCommand, CreateSportResult>
 {
     public async Task<CreateSportResult> Handle(CreateSportCommand command, CancellationToken cancellationToken)

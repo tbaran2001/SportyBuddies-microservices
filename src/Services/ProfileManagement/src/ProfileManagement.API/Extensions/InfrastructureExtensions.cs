@@ -9,14 +9,14 @@ public static class InfrastructureExtensions
         builder.Services.AddGrpc();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddDbContext<ProfileDbContext>((sp, options) =>
+        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
-            serviceProvider.GetRequiredService<ProfileDbContext>());
+            serviceProvider.GetRequiredService<ApplicationDbContext>());
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         //builder.Services.Decorate<IProfilesRepository, CachedProfilesRepository>();
         builder.Services.AddStackExchangeRedisCache(options =>
