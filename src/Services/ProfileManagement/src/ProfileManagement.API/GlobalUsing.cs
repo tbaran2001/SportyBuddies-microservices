@@ -35,3 +35,4 @@ global using BuildingBlocks.Events.Identity;
 global using ProfileManagement.API.Profiles.Exceptions;
 global using ProfileManagement.API.Profiles.Dtos;
 global using ProfileManagement.API.Sports.Exceptions;
+global using ProfileManagement.API.Sports.Dtos;
