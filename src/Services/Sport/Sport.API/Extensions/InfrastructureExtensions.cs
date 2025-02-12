@@ -1,4 +1,6 @@
-﻿using BuildingBlocks.MassTransit;
+﻿using BuildingBlocks.EFCore.Interceptors;
+using BuildingBlocks.MassTransit;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Sport.API.Extensions;
 
@@ -13,6 +15,9 @@ public static class InfrastructureExtensions
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
+        builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
+            serviceProvider.GetRequiredService<ApplicationDbContext>());
+        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         builder.Services.AddMediatR(configuration =>
         {

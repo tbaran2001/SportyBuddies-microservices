@@ -19,7 +19,6 @@ public class SportsRepository(ApplicationDbContext dbContext) : ISportsRepositor
     public async Task AddSportAsync(Sports.Models.Sport sport, CancellationToken cancellationToken = default)
     {
         await dbContext.Sports.AddAsync(sport, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<bool> SportExistsAsync(string name, CancellationToken cancellationToken = default)

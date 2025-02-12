@@ -37,7 +37,21 @@ public class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesIn
 
         entities.ToList().ForEach(e => e.PopDomainEvents());
 
+        */
+
+        var domainEntities = context.ChangeTracker
+            .Entries<IAggregate>()
+            .Where(x => x.Entity.DomainEvents.Any())
+            .Select(x => x.Entity)
+            .ToList();
+
+        var domainEvents = domainEntities
+            .SelectMany(x => x.DomainEvents)
+            .ToList();
+
+        domainEntities.ForEach(entity => entity.ClearDomainEvents());
+
         foreach (var domainEvent in domainEvents)
-            await mediator.Publish(domainEvent);*/
+            await mediator.Publish(domainEvent);
     }
 }

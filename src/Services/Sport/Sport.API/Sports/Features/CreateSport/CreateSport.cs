@@ -46,7 +46,7 @@ public class CreateSportCommandValidator : AbstractValidator<CreateSportCommand>
     }
 }
 
-internal class CreateSportCommandHandler(ISportsRepository sportsRepository)
+internal class CreateSportCommandHandler(ISportsRepository sportsRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateSportCommand, CreateSportResult>
 {
     public async Task<CreateSportResult> Handle(CreateSportCommand command, CancellationToken cancellationToken)
@@ -59,6 +59,7 @@ internal class CreateSportCommandHandler(ISportsRepository sportsRepository)
         var sportEntity = Models.Sport.Create(Name.Of(command.Name), Description.Of(command.Description));
 
         await sportsRepository.AddSportAsync(sportEntity, cancellationToken);
+        await unitOfWork.CommitChangesAsync();
 
         return new CreateSportResult(sportEntity.Id);
     }
