@@ -12,9 +12,6 @@ public class ProfileSportAddedEventHandler(
     {
         logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
 
-        var potentialMatches =
-            await profilesRepository.GetPotentialMatchesAsync(domainEvent.ProfileId, domainEvent.SportIds);
-
         var profileSportAddedIntegrationEvent = new ProfileSportAddedIntegrationEvent
         {
             ProfileId = domainEvent.ProfileId,

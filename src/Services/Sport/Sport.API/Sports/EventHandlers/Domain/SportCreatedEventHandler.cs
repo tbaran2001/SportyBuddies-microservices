@@ -1,8 +1,4 @@
-﻿using BuildingBlocks.Events.Sports;
-using MassTransit;
-using Sport.API.Sports.Features.CreateSport;
-
-namespace Sport.API.Sports.EventHandlers.Domain;
+﻿namespace Sport.API.Sports.EventHandlers.Domain;
 
 public class SportCreatedEventHandler(IPublishEndpoint publishEndpoint, ILogger<SportCreatedEventHandler> logger)
     : INotificationHandler<SportCreatedDomainEvent>

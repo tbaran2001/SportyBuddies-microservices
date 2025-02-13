@@ -26,19 +26,6 @@ public class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesIn
         if (context is null)
             return;
 
-        /*var entities = context.ChangeTracker
-            .Entries<Entity>()
-            .Where(e => e.Entity.DomainEvents.Any())
-            .Select(e => e.Entity);
-
-        var domainEvents = entities
-            .SelectMany(e => e.DomainEvents)
-            .ToList();
-
-        entities.ToList().ForEach(e => e.PopDomainEvents());
-
-        */
-
         var domainEntities = context.ChangeTracker
             .Entries<IAggregate>()
             .Where(x => x.Entity.DomainEvents.Any())
