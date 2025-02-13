@@ -1,6 +1,4 @@
-﻿using Sport.API.Sports.Features.CreateSport;
-
-namespace Sport.API.Data;
+﻿namespace Sport.API.Data;
 
 public static class DatabaseExtensions
 {
@@ -13,22 +11,15 @@ public static class DatabaseExtensions
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.MigrateAsync().GetAwaiter().GetResult();
 
-        var sender = services.GetRequiredService<ISender>();
-
-        SeedSportAsync(context, sender);
+        SeedSportAsync(context);
     }
 
-    private static void SeedSportAsync(ApplicationDbContext context, ISender sender)
+    private static void SeedSportAsync(ApplicationDbContext context)
     {
         if (context.Sports.Any())
             return;
 
-        //context.Sports.AddRange(SportInitialData.GetInitialSports());
-        //context.SaveChangesAsync();
-
-        var command = new CreateSportCommand(Name.Of("Football"), Description.Of("Football description"));
-        sender.Send(command);
-
+        context.Sports.AddRange(SportInitialData.GetInitialSports());
         context.SaveChangesAsync();
     }
 }

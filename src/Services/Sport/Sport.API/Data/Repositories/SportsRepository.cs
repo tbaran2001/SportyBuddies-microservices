@@ -4,16 +4,12 @@ public class SportsRepository(ApplicationDbContext dbContext) : ISportsRepositor
 {
     public async Task<Sports.Models.Sport> GetSportByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var sport = await dbContext.Sports.FindAsync(id, cancellationToken);
-
-        return sport;
+        return await dbContext.Sports.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
     }
 
     public async Task<IEnumerable<Sports.Models.Sport>> GetSportsAsync(CancellationToken cancellationToken = default)
     {
-        var sports = await dbContext.Sports.ToListAsync(cancellationToken);
-
-        return sports;
+        return await dbContext.Sports.ToListAsync(cancellationToken);
     }
 
     public async Task AddSportAsync(Sports.Models.Sport sport, CancellationToken cancellationToken = default)
@@ -23,6 +19,6 @@ public class SportsRepository(ApplicationDbContext dbContext) : ISportsRepositor
 
     public async Task<bool> SportExistsAsync(string name, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Sports.AnyAsync(s => s.Name == name, cancellationToken);
+        return await dbContext.Sports.AnyAsync(s => s.Name.Value == name, cancellationToken);
     }
 }

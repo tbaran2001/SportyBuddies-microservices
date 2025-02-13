@@ -3,7 +3,6 @@
 namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
 public class ProfileSportRemovedEventHandler(
-    IProfilesRepository profilesRepository,
     ILogger<ProfileSportRemovedEventHandler> logger,
     IPublishEndpoint publishEndpoint)
     : INotificationHandler<ProfileSportRemovedDomainEvent>

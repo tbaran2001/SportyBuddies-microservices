@@ -10,8 +10,9 @@ public static class InfrastructureExtensions
     {
         var assembly = typeof(Program).Assembly;
         builder.Services.AddCarter();
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
