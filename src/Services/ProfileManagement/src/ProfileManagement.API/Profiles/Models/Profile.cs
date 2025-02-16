@@ -72,7 +72,7 @@ public record Profile : Aggregate<ProfileId>
             throw new DomainException("Profile already has this sport.");
 
         _profileSports.Add(new ProfileSport(Id, SportId.Of(sportId)));
-        AddDomainEvent(new ProfileSportAddedDomainEvent(Id, _profileSports.Select(ps => ps.SportId.Value).ToList()));
+        AddDomainEvent(new ProfileSportAddedDomainEvent(Id));
     }
 
     public void RemoveSport(Guid sportId)
@@ -82,7 +82,7 @@ public record Profile : Aggregate<ProfileId>
             throw new DomainException("Profile does not have this sport.");
 
         _profileSports.Remove(sport);
-        AddDomainEvent(new ProfileSportRemovedDomainEvent(Id, _profileSports.Select(ps => ps.SportId.Value).ToList()));
+        AddDomainEvent(new ProfileSportRemovedDomainEvent(Id));
     }
 
     public void UpdatePreferences(Preferences preferences)
