@@ -1,4 +1,4 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles;
+﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Models;
 
 public static class FakeProfileUpdate
 {

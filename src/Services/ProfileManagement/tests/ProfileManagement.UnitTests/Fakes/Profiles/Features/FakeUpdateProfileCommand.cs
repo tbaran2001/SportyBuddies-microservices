@@ -1,4 +1,4 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles;
+﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Features;
 
 public sealed class FakeUpdateProfileCommand : AutoFaker<UpdateProfileCommand>
 {
