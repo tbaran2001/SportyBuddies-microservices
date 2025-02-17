@@ -39,6 +39,7 @@ public class RemoveProfileSportCommandValidator : AbstractValidator<RemoveProfil
 
 internal class RemoveProfileSportCommandHandler(
     IProfilesRepository profilesRepository,
+    ISportsRepository sportsRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<RemoveProfileSportCommand>
 {
     public async Task<Unit> Handle(RemoveProfileSportCommand command, CancellationToken cancellationToken)
@@ -48,6 +49,9 @@ internal class RemoveProfileSportCommandHandler(
         var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
+
+        if (!await sportsRepository.SportExistsAsync(command.SportId))
+            throw new SportNotFoundException(command.SportId);
 
         profile.RemoveSport(SportId.Of(command.SportId));
         await unitOfWork.CommitChangesAsync();
