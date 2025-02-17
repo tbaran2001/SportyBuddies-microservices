@@ -41,6 +41,7 @@ public class AddProfileSportCommandValidator : AbstractValidator<AddProfileSport
 
 internal class AddProfileSportCommandHandler(
     IProfilesRepository profilesRepository,
+    ISportsRepository sportsRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<AddProfileSportCommand>
 {
     public async Task<Unit> Handle(AddProfileSportCommand command, CancellationToken cancellationToken)
@@ -50,6 +51,9 @@ internal class AddProfileSportCommandHandler(
         var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
+
+        if (!await sportsRepository.SportExistsAsync(command.SportId))
+            throw new SportNotFoundException(command.SportId);
 
         profile.AddSport(SportId.Of(command.SportId));
         await unitOfWork.CommitChangesAsync();

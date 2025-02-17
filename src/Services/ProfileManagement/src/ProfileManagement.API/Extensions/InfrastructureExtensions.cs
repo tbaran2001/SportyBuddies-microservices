@@ -15,6 +15,7 @@ public static class InfrastructureExtensions
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
+        builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
