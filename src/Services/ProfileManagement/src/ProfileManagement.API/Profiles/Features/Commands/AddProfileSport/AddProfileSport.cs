@@ -51,7 +51,7 @@ internal class AddProfileSportCommandHandler(
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 
-        profile.AddSport(command.SportId);
+        profile.AddSport(SportId.Of(command.SportId));
         await unitOfWork.CommitChangesAsync();
 
         return Unit.Value;

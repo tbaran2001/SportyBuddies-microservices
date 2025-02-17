@@ -21,8 +21,8 @@ internal static class InitialData
                 Gender.Male,
                 Preferences.Default);
 
-            p1.AddSport(new Guid("c256f0e3-be38-4502-89af-f26ac6553aeb"));
-            p1.AddSport(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"));
+            //p1.AddSport(new Guid("c256f0e3-be38-4502-89af-f26ac6553aeb"));
+            //p1.AddSport(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"));
 
             var p2 = Profile.Create(
                 ProfileId.Of(new Guid("f0d08409-8f34-4f88-aba4-cc7e906f7d62")),
@@ -32,8 +32,8 @@ internal static class InitialData
                 Gender.Female,
                 Preferences.Default);
 
-            p2.AddSport(new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc"));
-            p2.AddSport(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"));
+            //p2.AddSport(new Guid("e1dfb3ff-b817-4322-9f91-6af7efd337cc"));
+            //p2.AddSport(new Guid("8104248e-4c99-49f3-9ca3-4f15f6993ae6"));
 
             return new List<Profile> { p1, p2 };
         }

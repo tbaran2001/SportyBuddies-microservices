@@ -49,7 +49,7 @@ internal class RemoveProfileSportCommandHandler(
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 
-        profile.RemoveSport(command.SportId);
+        profile.RemoveSport(SportId.Of(command.SportId));
         await unitOfWork.CommitChangesAsync();
 
         return Unit.Value;

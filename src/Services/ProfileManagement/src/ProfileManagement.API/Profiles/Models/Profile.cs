@@ -66,16 +66,16 @@ public record Profile : Aggregate<ProfileId>
         AddDomainEvent(new ProfileUpdatedDomainEvent(Id));
     }
 
-    public void AddSport(Guid sportId)
+    public void AddSport(SportId sportId)
     {
         if (_profileSports.Any(s => s.SportId == sportId))
             throw new DomainException("Profile already has this sport.");
 
-        _profileSports.Add(new ProfileSport(Id, SportId.Of(sportId)));
+        _profileSports.Add(ProfileSport.Create(Id, sportId));
         AddDomainEvent(new ProfileSportAddedDomainEvent(Id));
     }
 
-    public void RemoveSport(Guid sportId)
+    public void RemoveSport(SportId sportId)
     {
         var sport = _profileSports.FirstOrDefault(s => s.SportId == sportId);
         if (sport is null)
