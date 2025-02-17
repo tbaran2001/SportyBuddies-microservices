@@ -1,0 +1,13 @@
+﻿global using BuildingBlocks.Test;
+global using FluentAssertions;
+global using AutoBogus;
+global using BuildingBlocks.Exceptions;
+global using ProfileManagement.API.Profiles.Models;
+global using ProfileManagement.API.Profiles.ValueObjects;
+global using ProfileManagement.UnitTests.Fakes.Profiles;
+global using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
+global using ProfileManagement.API.Profiles.Enums;
+global using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
+global using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
+global using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
+global using ProfileManagement.API.Sports.ValueObjects;

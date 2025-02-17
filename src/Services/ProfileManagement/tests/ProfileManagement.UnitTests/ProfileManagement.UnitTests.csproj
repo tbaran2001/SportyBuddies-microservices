@@ -20,4 +20,9 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+      <ProjectReference Include="..\..\src\ProfileManagement.API\ProfileManagement.API.csproj" />
+    </ItemGroup>
+
 </Project>
