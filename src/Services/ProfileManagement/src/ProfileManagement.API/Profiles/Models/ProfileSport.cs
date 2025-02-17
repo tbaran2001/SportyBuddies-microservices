@@ -13,6 +13,9 @@ public record ProfileSport : Entity<ProfileSportId>
 
     public static ProfileSport Create(ProfileId profileId, SportId sportId)
     {
-        return new ProfileSport(profileId, sportId);
+        return new ProfileSport(profileId, sportId)
+        {
+            Id = ProfileSportId.Of(Guid.NewGuid())
+        };
     }
 }
