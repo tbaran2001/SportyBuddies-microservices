@@ -26,8 +26,8 @@ Architecture & Patterns
 Application Infrastructure
 - Yarp API Gateway
 - Duende IdentityServer
+- ASP.NET Core Identity
 - Docker
-- MassTransit
 - RabbitMQ
 
 Deployment & Automation
@@ -40,7 +40,14 @@ Libraries & Utilities
 - FluentValidation
 - Mapster
 - Carter
+- MassTransit
 - Scrutor
+
+Testing
+- XUnit
+- NSubsitute
+- FluentAssertions
+- AutoBogus
 
 Development:
 - JetBrains Rider
