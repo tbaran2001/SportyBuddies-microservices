@@ -1,26 +1,30 @@
-﻿namespace ProfileManagement.UnitTests.Profiles.Features.Commands.AddProfileSport;
+﻿namespace ProfileManagement.UnitTests.Profiles.Features.Commands.RemoveProfileSport;
 
-public class AddProfileSportTests
+public class RemoveProfileSportTests
 {
-    private readonly AddProfileSportCommandHandler _handler;
+    private readonly RemoveProfileSportCommandHandler _handler;
     private readonly IProfilesRepository _profilesRepository = Substitute.For<IProfilesRepository>();
     private readonly ISportsRepository _sportsRepository = Substitute.For<ISportsRepository>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
 
-    private Task<Unit> Act(AddProfileSportCommand command, CancellationToken cancellationToken) =>
+    private Task<Unit> Act(RemoveProfileSportCommand command, CancellationToken cancellationToken) =>
         _handler.Handle(command, cancellationToken);
 
-    public AddProfileSportTests()
+    public RemoveProfileSportTests()
     {
-        _handler = new AddProfileSportCommandHandler(_profilesRepository, _sportsRepository, _unitOfWork);
+        _handler = new RemoveProfileSportCommandHandler(
+            _profilesRepository,
+            _sportsRepository,
+            _unitOfWork);
     }
 
     [Fact]
-    public async Task Handle_ShouldAddProfileSport_WhenValidData()
+    public async Task Handle_ShouldRemoveProfileSport_WhenValidData()
     {
         // Arrange
         var profile = FakeProfileCreate.Generate();
-        var command = new FakeAddProfileSportCommand().Generate();
+        var command = new FakeRemoveProfileSportCommand().Generate();
+        profile.AddSport(SportId.Of(command.SportId));
         _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).Returns(profile);
         _sportsRepository.SportExistsAsync(command.SportId).Returns(true);
 
@@ -28,7 +32,7 @@ public class AddProfileSportTests
         var result = await Act(command, CancellationToken.None);
 
         // Assert
-        profile.ProfileSports.Single().SportId.Value.Should().Be(command.SportId);
+        profile.ProfileSports.Should().BeEmpty();
         result.Should().Be(Unit.Value);
 
         await _unitOfWork.Received(1).CommitChangesAsync();
@@ -38,7 +42,7 @@ public class AddProfileSportTests
     public async Task Handle_ShouldThrowProfileNotFoundException_WhenProfileDoesNotExist()
     {
         // Arrange
-        var command = new FakeAddProfileSportCommand().Generate();
+        var command = new FakeRemoveProfileSportCommand().Generate();
         _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).ReturnsNull();
 
         // Act
@@ -53,7 +57,7 @@ public class AddProfileSportTests
     {
         // Arrange
         var profile = FakeProfileCreate.Generate();
-        var command = new FakeAddProfileSportCommand().Generate();
+        var command = new FakeRemoveProfileSportCommand().Generate();
         _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).Returns(profile);
         _sportsRepository.SportExistsAsync(command.SportId).Returns(false);
 
