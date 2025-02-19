@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.EFCore.Interceptors;
+using BuildingBlocks.Logging;
 using BuildingBlocks.MassTransit;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -9,6 +10,7 @@ public static class InfrastructureExtensions
     public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
     {
         var assembly = typeof(Program).Assembly;
+        builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {

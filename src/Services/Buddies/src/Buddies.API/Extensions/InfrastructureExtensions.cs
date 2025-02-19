@@ -1,11 +1,13 @@
-﻿namespace Buddies.API.Extensions;
+﻿using BuildingBlocks.Logging;
+
+namespace Buddies.API.Extensions;
 
 public static class InfrastructureExtensions
 {
     public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
     {
         var assembly = typeof(Program).Assembly;
-
+        builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddGrpc();
         builder.Services.AddMediatR(configuration =>

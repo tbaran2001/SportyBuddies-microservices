@@ -64,6 +64,7 @@ services:
       - Jwt__Audience=sport-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - mssqldb
       - messagebroker
@@ -93,6 +94,7 @@ services:
       - Jwt__Audience=matching-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - mssqldb
       - distributedcache
@@ -118,6 +120,7 @@ services:
       - Jwt__Audience=buddies-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - mssqldb
     ports:
@@ -145,6 +148,7 @@ services:
       - Jwt__Audience=profilemanagement-api
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - mssqldb
       - messagebroker
@@ -164,6 +168,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
       - IdentityServiceUrl=http://identityservice:8080
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - sport.api
       - matching.api
@@ -184,6 +189,7 @@ services:
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
       - AuthOptions__IssuerUri=http://identityservice:8080
+      - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
       - mssqldb
       - messagebroker

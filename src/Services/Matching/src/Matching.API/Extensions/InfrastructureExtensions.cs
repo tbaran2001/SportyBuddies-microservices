@@ -2,10 +2,12 @@
 using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Jwt;
+using BuildingBlocks.Logging;
 using BuildingBlocks.MassTransit;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Serilog;
 
 namespace Matching.API.Extensions;
 
@@ -14,9 +16,8 @@ public static class InfrastructureExtensions
     public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
     {
         var assembly = typeof(Program).Assembly;
-
+        builder.AddCustomSerilog();
         builder.Services.AddCarter();
-
         builder.Services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(assembly);
