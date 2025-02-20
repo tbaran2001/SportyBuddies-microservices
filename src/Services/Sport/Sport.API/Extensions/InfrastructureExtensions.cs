@@ -2,6 +2,7 @@
 using BuildingBlocks.Logging;
 using BuildingBlocks.MassTransit;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Sport.API.Sports.Mapster;
 
 namespace Sport.API.Extensions;
 
@@ -22,6 +23,7 @@ public static class InfrastructureExtensions
             serviceProvider.GetRequiredService<ApplicationDbContext>());
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
+        builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(assembly);
@@ -31,6 +33,7 @@ public static class InfrastructureExtensions
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
         builder.Services.AddMessageBroker(builder.Configuration, assembly);
+        MapsterConfig.Configure();
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
@@ -48,13 +51,9 @@ public static class InfrastructureExtensions
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         app.MapCarter();
-
         app.UseExceptionHandler(_ => { });
 
-        if (app.Environment.IsDevelopment())
-        {
-            app.InitializeDatabaseAsync();
-        }
+        app.InitializeDatabaseAsync();
 
         app.UseSwagger();
         app.UseSwaggerUI(options =>

@@ -51,8 +51,8 @@ public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileComm
         RuleFor(x => x.Gender)
             .IsInEnum();
         RuleFor(x => x.BirthDate)
-            .Must(birthDate => DateTime.Now.Year - birthDate.Year >= 18)
-            .WithMessage("Date of birth must be at least 18 years ago.");
+            .Must(birthDate => DateTime.Now.Year - birthDate.Year >= 18 && DateTime.Now.Year - birthDate.Year < 120)
+            .WithMessage("Age must be over 18");
     }
 }
 

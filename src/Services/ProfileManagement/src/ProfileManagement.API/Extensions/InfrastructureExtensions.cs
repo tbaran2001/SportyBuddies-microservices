@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Logging;
+﻿using System.Reflection;
+using BuildingBlocks.Logging;
 
 namespace ProfileManagement.API.Extensions;
 
@@ -10,8 +11,6 @@ public static class InfrastructureExtensions
         builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddGrpc();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
@@ -28,6 +27,7 @@ public static class InfrastructureExtensions
             options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
         });
 
+        builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddMediatR(serviceConfiguration =>
         {
             serviceConfiguration.RegisterServicesFromAssembly(assembly);
@@ -64,8 +64,6 @@ public static class InfrastructureExtensions
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
 
-        app.UseSwagger();
-        app.UseSwaggerUI();
         app.MapGrpcService<ProfileService>();
 
         app.InitializeDatabase();
@@ -76,7 +74,6 @@ public static class InfrastructureExtensions
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "Profile API");
             options.RoutePrefix = string.Empty;
         });
-
 
         return app;
     }

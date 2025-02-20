@@ -10,6 +10,8 @@ public record BirthDate
     {
         if (value == default)
             throw new InvalidBirthDateException(value);
+        if (DateTime.Now.Year - value.Year < 18 || DateTime.Now.Year - value.Year >= 120)
+            throw new InvalidBirthDateException(value);
 
         return new BirthDate(value);
     }
