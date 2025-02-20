@@ -10,6 +10,7 @@ public static class InfrastructureExtensions
         builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddGrpc();
+        builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(assembly);

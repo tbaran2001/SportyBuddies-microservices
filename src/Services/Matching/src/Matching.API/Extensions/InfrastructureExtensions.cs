@@ -18,6 +18,7 @@ public static class InfrastructureExtensions
         var assembly = typeof(Program).Assembly;
         builder.AddCustomSerilog();
         builder.Services.AddCarter();
+        builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(assembly);
