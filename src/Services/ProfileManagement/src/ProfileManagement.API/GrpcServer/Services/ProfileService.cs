@@ -15,7 +15,7 @@ public class ProfileService(IProfilesRepository profilesRepository)
 
         var response = new GetPotentialMatchesResponse
         {
-            ProfileIds = { potentialMatches.Select(x => x.ToString()) }
+            ProfileIds = { potentialMatches.Select(x => x.Value.ToString()) }
         };
 
         return response;
