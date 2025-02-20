@@ -2,6 +2,7 @@
 
 public class ProfileSportRemovedIntegrationEventHandler(
     IMatchesRepository matchesRepository,
+    IUnitOfWork unitOfWork,
     ProfileProtoService.ProfileProtoServiceClient profileProtoService)
     : IConsumer<ProfileSportRemovedIntegrationEvent>
 {
@@ -17,5 +18,6 @@ public class ProfileSportRemovedIntegrationEventHandler(
         var potentialMatches = response.ProfileIds.Select(Guid.Parse).ToList();
 
         await matchesRepository.RemoveMatchesAsync(Guid.Parse(request.ProfileId), potentialMatches);
+        await unitOfWork.CommitChangesAsync();
     }
 }

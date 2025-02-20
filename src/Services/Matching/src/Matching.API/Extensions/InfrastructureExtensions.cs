@@ -30,6 +30,8 @@ public static class InfrastructureExtensions
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
+        builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
+            serviceProvider.GetRequiredService<ApplicationDbContext>());
         builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         //builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();

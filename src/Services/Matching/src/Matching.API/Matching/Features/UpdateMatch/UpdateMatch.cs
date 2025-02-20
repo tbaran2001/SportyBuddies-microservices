@@ -41,7 +41,8 @@ public class UpdateMatchCommandValidator : AbstractValidator<UpdateMatchCommand>
 }
 
 internal class UpdateMatchCommandHandler(
-    IMatchesRepository matchesRepository)
+    IMatchesRepository matchesRepository,
+    IUnitOfWork unitOfWork)
     : ICommandHandler<UpdateMatchCommand, UpdateMatchResult>
 {
     public async Task<UpdateMatchResult> Handle(UpdateMatchCommand command, CancellationToken cancellationToken)
@@ -57,7 +58,7 @@ internal class UpdateMatchCommandHandler(
             throw new MatchNotFoundException(match.OppositeMatchId);
 
         match.SetSwipe(command.Swipe, oppositeMatch.Swipe);
-        await matchesRepository.UpdateMatchAsync(match, cancellationToken);
+        await unitOfWork.CommitChangesAsync();
 
         return new UpdateMatchResult(match.Id);
     }

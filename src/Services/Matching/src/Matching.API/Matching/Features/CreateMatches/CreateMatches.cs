@@ -4,7 +4,8 @@ namespace Matching.API.Matching.Features.CreateMatches;
 
 public record CreateMatchesCommand(Guid ProfileId, Guid MatchedProfileId) : ICommand;
 
-public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository) : ICommandHandler<CreateMatchesCommand>
+public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository, IUnitOfWork unitOfWork)
+    : ICommandHandler<CreateMatchesCommand>
 {
     public async Task<Unit> Handle(CreateMatchesCommand command, CancellationToken cancellationToken)
     {
@@ -22,6 +23,7 @@ public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository) :
         var matches = new List<Match> { match1, match2 };
 
         await matchesRepository.AddMatchesAsync(matches, cancellationToken);
+        await unitOfWork.CommitChangesAsync();
 
         return Unit.Value;
     }

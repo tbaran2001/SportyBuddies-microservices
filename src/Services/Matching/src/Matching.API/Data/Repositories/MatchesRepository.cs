@@ -4,17 +4,7 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
 {
     public async Task<Match> GetMatchByIdAsync(Guid matchId, CancellationToken cancellationToken = default)
     {
-        var match = await dbContext.Matches.FindAsync(matchId, cancellationToken);
-        if (match == null)
-            throw new MatchNotFoundException(matchId);
-
-        return match;
-    }
-
-    public async Task UpdateMatchAsync(Match match, CancellationToken cancellationToken = default)
-    {
-        dbContext.Matches.Update(match);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        return await dbContext.Matches.FirstOrDefaultAsync(m => m.Id == matchId, cancellationToken);
     }
 
     public async Task<IEnumerable<Match>> GetMatchesAsync(Guid? profileId,
@@ -31,7 +21,6 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
     public async Task AddMatchesAsync(IEnumerable<Match> matches, CancellationToken cancellationToken = default)
     {
         await dbContext.Matches.AddRangeAsync(matches, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<Match> GetRandomMatchAsync(Guid profileId, CancellationToken cancellationToken = default)
@@ -63,10 +52,7 @@ public class MatchesRepository(ApplicationDbContext dbContext) : IMatchesReposit
             )
             .ToListAsync();
 
-        if (matchesToRemove.Any())
-        {
+        if (matchesToRemove.Count != 0)
             dbContext.Matches.RemoveRange(matchesToRemove);
-            await dbContext.SaveChangesAsync();
-        }
     }
 }
