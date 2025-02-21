@@ -30,6 +30,11 @@ Application Infrastructure
 - Docker
 - RabbitMQ
 
+Logging & Monitoring
+- Serilog
+- Elasticsearch
+- Kibana
+
 Deployment & Automation
 - Kubernetes
 - Azure
