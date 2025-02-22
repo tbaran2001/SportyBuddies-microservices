@@ -13,6 +13,12 @@ public class UpdateProfilePreferencesValidatorTests : ValidatorTestBase<UpdatePr
     }
 
     [Fact]
+    protected override void Validate_ShouldPass_WhenAllPropertiesAreValid()
+    {
+        base.Validate_ShouldPass_WhenAllPropertiesAreValid();
+    }
+
+    [Fact]
     public void Validate_ShouldFail_WhenProfileIdIsEmpty()
     {
         // Act

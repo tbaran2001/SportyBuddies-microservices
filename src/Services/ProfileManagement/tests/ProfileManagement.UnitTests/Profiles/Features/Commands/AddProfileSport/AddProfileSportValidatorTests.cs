@@ -1,6 +1,8 @@
+using FluentValidation.TestHelper;
+
 namespace ProfileManagement.UnitTests.Profiles.Features.Commands.AddProfileSport;
 
-public class AddProfileSportValidatorTests:ValidatorTestBase<AddProfileSportCommand>
+public class AddProfileSportValidatorTests : ValidatorTestBase<AddProfileSportCommand>
 {
     protected override AddProfileSportCommand CreateValidObject()
     {
@@ -10,6 +12,12 @@ public class AddProfileSportValidatorTests:ValidatorTestBase<AddProfileSportComm
     protected override IValidator<AddProfileSportCommand> CreateValidator()
     {
         return new AddProfileSportCommandValidator();
+    }
+
+    [Fact]
+    protected override void Validate_ShouldPass_WhenAllPropertiesAreValid()
+    {
+        base.Validate_ShouldPass_WhenAllPropertiesAreValid();
     }
 
     [Fact]

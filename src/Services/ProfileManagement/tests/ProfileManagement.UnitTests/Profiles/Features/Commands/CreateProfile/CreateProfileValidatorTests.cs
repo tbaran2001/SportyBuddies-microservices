@@ -1,3 +1,5 @@
+using FluentValidation.TestHelper;
+
 namespace ProfileManagement.UnitTests.Profiles.Features.Commands.CreateProfile;
 
 public class CreateProfileValidatorTests : ValidatorTestBase<CreateProfileCommand>
@@ -10,6 +12,12 @@ public class CreateProfileValidatorTests : ValidatorTestBase<CreateProfileComman
     protected override IValidator<CreateProfileCommand> CreateValidator()
     {
         return new CreateProfileCommandValidator();
+    }
+
+    [Fact]
+    protected override void Validate_ShouldPass_WhenAllPropertiesAreValid()
+    {
+        base.Validate_ShouldPass_WhenAllPropertiesAreValid();
     }
 
     [Fact]

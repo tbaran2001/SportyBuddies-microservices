@@ -18,4 +18,16 @@ public abstract class ValidatorTestBase<TModel>
     }
 
     protected abstract IValidator<TModel> CreateValidator();
+
+    protected virtual void Validate_ShouldPass_WhenAllPropertiesAreValid()
+    {
+        // Arrange
+        var command = CreateValidObject();
+
+        // Act
+        var result = Validate(x => x); // No modifications
+
+        // Assert
+        result.ShouldNotHaveAnyValidationErrors();
+    }
 }
