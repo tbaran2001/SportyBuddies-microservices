@@ -5,6 +5,7 @@ global using BuildingBlocks.Test;
 global using BuildingBlocks.Web;
 global using FluentAssertions;
 global using MediatR;
+global using FluentValidation;
 global using NSubstitute;
 global using NSubstitute.ReturnsExtensions;
 global using ProfileManagement.API.Data.Repositories;

@@ -43,10 +43,14 @@ public class UpdateProfilePreferencesCommandValidator : AbstractValidator<Update
             .WithMessage("ProfileId is required.");
         RuleFor(x => x.MinAge)
             .InclusiveBetween(18, 100)
-            .WithMessage("MinAge must be between 18 and 100.");
+            .WithMessage("MinAge must be between 18 and 100.")
+            .LessThanOrEqualTo(x => x.MaxAge)
+            .WithMessage("MinAge cannot be greater than MaxAge.");
         RuleFor(x => x.MaxAge)
             .InclusiveBetween(18, 100)
-            .WithMessage("MaxAge must be between 18 and 100.");
+            .WithMessage("MaxAge must be between 18 and 100.")
+            .GreaterThanOrEqualTo(x => x.MinAge)
+            .WithMessage("MaxAge cannot be smaller than MinAge.");
         RuleFor(x => x.MaxDistance)
             .InclusiveBetween(1, 100)
             .WithMessage("MaxDistance must be between 1 and 100.");
