@@ -4,8 +4,8 @@ public class UpdateProfileValidatorTests : ValidatorTestBase<UpdateProfileComman
 {
     protected override UpdateProfileCommand CreateValidObject()
     {
-        return new UpdateProfileCommand(Guid.NewGuid(), "Name", "Description", Gender.Male,
-            DateTime.Now.AddYears(-20));
+        var fakeProfile = FakeProfileCreate.Generate();
+        return new FakeUpdateProfileCommand(fakeProfile.Id).Generate();
     }
 
     protected override IValidator<UpdateProfileCommand> CreateValidator()

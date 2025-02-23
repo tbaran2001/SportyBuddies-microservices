@@ -8,5 +8,6 @@ public sealed class FakeUpdateProfileCommand : AutoFaker<UpdateProfileCommand>
         RuleFor(x => x.Name, x => x.Person.FullName);
         RuleFor(x => x.Description, x => x.Lorem.Sentence());
         RuleFor(x => x.Gender, x => x.PickRandom<Gender>());
+        RuleFor(x => x.BirthDate, x => x.Person.DateOfBirth);
     }
 }

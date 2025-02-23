@@ -19,8 +19,7 @@ public class UpdateProfileTests
     {
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
-        var command = new UpdateProfileCommand(fakeProfile.Id, "Xd", fakeProfile.Description,
-            fakeProfile.Gender, fakeProfile.BirthDate);
+        var command = new FakeUpdateProfileCommand(fakeProfile.Id).Generate();
         _profilesRepository.GetProfileByIdAsync(command.ProfileId).Returns(fakeProfile);
 
         // Act
@@ -38,8 +37,7 @@ public class UpdateProfileTests
     {
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
-        var command = new UpdateProfileCommand(fakeProfile.Id, "Xd", fakeProfile.Description,
-            fakeProfile.Gender, fakeProfile.BirthDate);
+        var command = new FakeUpdateProfileCommand(fakeProfile.Id).Generate();
         _profilesRepository.GetProfileByIdAsync(command.ProfileId).ReturnsNull();
 
         // Act
