@@ -5,6 +5,6 @@ public record ProfileDto(
     string Name,
     string Description,
     Gender Gender,
-    DateOnly BirthDate,
+    DateTime BirthDate,
     Preferences Preferences,
     List<ProfileSportDto> ProfileSports);

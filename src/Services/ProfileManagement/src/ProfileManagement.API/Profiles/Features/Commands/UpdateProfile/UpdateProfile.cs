@@ -2,7 +2,7 @@
 
 namespace ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
 
-public record UpdateProfileCommand(Guid ProfileId, string Name, string Description, Gender Gender, DateOnly BirthDate)
+public record UpdateProfileCommand(Guid ProfileId, string Name, string Description, Gender Gender, DateTime BirthDate)
     : ICommand<UpdateProfileResult>;
 
 public record UpdateProfileResult(Guid Id);

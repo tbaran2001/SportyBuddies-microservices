@@ -45,7 +45,7 @@ public record Profile : Aggregate<ProfileId>
             id,
             name,
             description,
-            BirthDate.Of(new DateOnly(1990, 1, 1)),
+            BirthDate.Of(new DateTime(1990, 1, 1)),
             Gender.Unknown,
             Preferences.Default);
 

@@ -6,7 +6,7 @@ public class BirthDateTests
     public void Of_ShouldReturnBirthDate_WhenValueIsValid()
     {
         // Arrange
-        var value = DateOnly.FromDateTime(DateTime.Now.AddYears(-20));
+        var value = DateTime.Now.AddYears(-20);
 
         // Act
         var result = BirthDate.Of(value);
@@ -20,7 +20,7 @@ public class BirthDateTests
     public void Of_ShouldThrowInvalidBirthDateException_WhenValueIsDefault()
     {
         // Arrange
-        var value = default(DateOnly);
+        var value = default(DateTime);
 
         // Act
         Action act = () => BirthDate.Of(value);
@@ -35,7 +35,7 @@ public class BirthDateTests
     public void Of_ShouldThrowInvalidBirthDateException_WhenValueIsInvalid(int years)
     {
         // Arrange
-        var value = DateOnly.FromDateTime(DateTime.Now.AddYears(-years));
+        var value = DateTime.Now.AddYears(-years);
 
         // Act
         Action act = () => BirthDate.Of(value);
@@ -48,11 +48,11 @@ public class BirthDateTests
     public void ImplicitOperator_ShouldReturnDateOnly_WhenBirthDateIsValid()
     {
         // Arrange
-        var value = DateOnly.FromDateTime(DateTime.Now.AddYears(-20));
+        var value = DateTime.Now.AddYears(-20);
         var birthDate = BirthDate.Of(value);
 
         // Act
-        DateOnly result = birthDate;
+        DateTime result = birthDate;
 
         // Assert
         result.Should().Be(value);

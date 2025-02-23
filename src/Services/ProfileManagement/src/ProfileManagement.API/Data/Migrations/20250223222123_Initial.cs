@@ -18,7 +18,7 @@ namespace ProfileManagement.API.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
                     Preferences_MinAge = table.Column<int>(type: "int", nullable: true),
                     Preferences_MaxAge = table.Column<int>(type: "int", nullable: true),

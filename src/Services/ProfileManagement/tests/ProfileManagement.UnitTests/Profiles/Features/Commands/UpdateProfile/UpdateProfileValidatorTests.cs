@@ -5,7 +5,7 @@ public class UpdateProfileValidatorTests : ValidatorTestBase<UpdateProfileComman
     protected override UpdateProfileCommand CreateValidObject()
     {
         return new UpdateProfileCommand(Guid.NewGuid(), "Name", "Description", Gender.Male,
-            DateOnly.FromDateTime(DateTime.Now.AddYears(-20)));
+            DateTime.Now.AddYears(-20));
     }
 
     protected override IValidator<UpdateProfileCommand> CreateValidator()
@@ -73,7 +73,7 @@ public class UpdateProfileValidatorTests : ValidatorTestBase<UpdateProfileComman
     public void Validate_ShouldFail_WhenBirthDateIsInvalid(int age)
     {
         // Act
-        var result = Validate(x => x with { BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-age)) });
+        var result = Validate(x => x with { BirthDate = DateTime.Now.AddYears(-age) });
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.BirthDate);

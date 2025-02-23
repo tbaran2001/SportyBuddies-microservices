@@ -2,11 +2,11 @@
 
 public record BirthDate
 {
-    public DateOnly Value { get; }
+    public DateTime Value { get; }
 
-    private BirthDate(DateOnly value) => Value = value;
+    private BirthDate(DateTime value) => Value = value;
 
-    public static BirthDate Of(DateOnly value)
+    public static BirthDate Of(DateTime value)
     {
         if (value == default)
             throw new InvalidBirthDateException(value);
@@ -16,5 +16,5 @@ public record BirthDate
         return new BirthDate(value);
     }
 
-    public static implicit operator DateOnly(BirthDate birthDate) => birthDate.Value;
+    public static implicit operator DateTime(BirthDate birthDate) => birthDate.Value;
 }

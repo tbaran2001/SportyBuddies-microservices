@@ -17,7 +17,7 @@ internal static class InitialData
                 ProfileId.Of(new Guid("8d69a725-c1b7-45eb-8ace-982bdc21ca78")),
                 Name.Of("John"),
                 Description.Of("Description"),
-                BirthDate.Of(new DateOnly(1990, 1, 1)),
+                BirthDate.Of(new DateTime(1990, 1, 1)),
                 Gender.Male,
                 Preferences.Default);
 
@@ -28,7 +28,7 @@ internal static class InitialData
                 ProfileId.Of(new Guid("f0d08409-8f34-4f88-aba4-cc7e906f7d62")),
                 Name.Of("Alice"),
                 Description.Of("Description"),
-                BirthDate.Of(new DateOnly(1990, 1, 1)),
+                BirthDate.Of(new DateTime(1990, 1, 1)),
                 Gender.Female,
                 Preferences.Default);
 

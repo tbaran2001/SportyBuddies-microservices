@@ -75,8 +75,8 @@ namespace ProfileManagement.API.Data.Migrations
                             b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<DateOnly>("Value")
-                                .HasColumnType("date")
+                            b1.Property<DateTime>("Value")
+                                .HasColumnType("datetime2")
                                 .HasColumnName("BirthDate");
 
                             b1.HasKey("ProfileId");

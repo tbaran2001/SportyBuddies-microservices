@@ -20,7 +20,7 @@ public class ProfileTests : BaseDomainTest
         createdProfile.Id.Value.Should().Be(fakeProfile.ProfileId);
         createdProfile.Name.Value.Should().Be(fakeProfile.Name);
         createdProfile.Description.Value.Should().Be(fakeProfile.Description);
-        createdProfile.BirthDate.Value.Should().Be(new DateOnly(1990, 1, 1));
+        createdProfile.BirthDate.Value.Should().Be(new DateTime(1990, 1, 1));
         createdProfile.Gender.Should().Be(Gender.Unknown);
         createdProfile.Preferences.Should().Be(Preferences.Default);
         createdProfile.ProfileSports.Should().BeEmpty();

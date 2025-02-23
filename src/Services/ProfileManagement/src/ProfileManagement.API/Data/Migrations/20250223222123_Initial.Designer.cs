@@ -12,7 +12,7 @@ using ProfileManagement.API.Data;
 namespace ProfileManagement.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250211222851_Initial")]
+    [Migration("20250223222123_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -78,8 +78,8 @@ namespace ProfileManagement.API.Data.Migrations
                             b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<DateOnly>("Value")
-                                .HasColumnType("date")
+                            b1.Property<DateTime>("Value")
+                                .HasColumnType("datetime2")
                                 .HasColumnName("BirthDate");
 
                             b1.HasKey("ProfileId");
