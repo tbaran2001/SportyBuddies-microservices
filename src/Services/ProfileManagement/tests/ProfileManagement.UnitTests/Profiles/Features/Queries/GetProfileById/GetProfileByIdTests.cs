@@ -29,6 +29,7 @@ public class GetProfileByIdTests
 
         // Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<GetProfileByIdResult>();
         result.Profile.Id.Should().Be(fakeProfile.Id);
 
         await _profilesRepository.Received(1).GetProfileByIdWithSportsAsync(query.Id);

@@ -32,6 +32,7 @@ public class GetProfilesTests
 
         // Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<GetProfilesResult>();
         result.Profiles.Should().NotBeEmpty();
         result.Profiles.Should().HaveCount(3);
     }
