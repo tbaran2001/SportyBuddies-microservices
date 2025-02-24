@@ -26,3 +26,6 @@ global using ProfileManagement.API.Sports.Exceptions;
 global using ProfileManagement.API.Sports.ValueObjects;
 global using ProfileManagement.UnitTests.Fakes.Profiles.Features;
 global using ProfileManagement.UnitTests.Fakes.Profiles.Models;
+global using ProfileManagement.API.Sports.Models;
+global using ProfileManagement.UnitTests.Fakes.Sports.Features;
+global using ProfileManagement.API.Sports.Features.Commands;

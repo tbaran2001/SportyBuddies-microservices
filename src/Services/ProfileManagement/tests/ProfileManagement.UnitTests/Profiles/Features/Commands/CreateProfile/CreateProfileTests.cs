@@ -26,6 +26,7 @@ public class CreateProfileTests
         // Assert
         result.Should().NotBeNull();
         result.Profile.Id.Should().Be(command.ProfileId);
+        result.Should().BeOfType<CreateProfileResult>();
 
         await _profilesRepository.Received(1).AddProfileAsync(Arg.Any<Profile>());
         await _unitOfWork.Received(1).CommitChangesAsync();

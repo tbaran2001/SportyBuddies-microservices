@@ -28,6 +28,7 @@ public class UpdateProfileTests
         // Assert
         result.Should().NotBeNull();
         result.Id.Should().Be(command.ProfileId);
+        result.Should().BeOfType<UpdateProfileResult>();
 
         await _unitOfWork.Received(1).CommitChangesAsync();
     }
