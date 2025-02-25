@@ -32,6 +32,7 @@ public class GetCurrentProfileTests
 
         // Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<GetCurrentProfileResult>();
         result.Profile.Should().NotBeNull();
         result.Profile.Id.Should().Be(fakeProfile.Id);
     }
