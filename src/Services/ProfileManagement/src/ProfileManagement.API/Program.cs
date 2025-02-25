@@ -11,3 +11,6 @@ app.UseAuthorization();
 app.UseInfrastructure();
 
 app.Run();
+
+
+public partial class Program;
