@@ -1,7 +1,4 @@
-﻿using NSubstitute.ReturnsExtensions;
-using ProfileManagement.API.Profiles.Exceptions;
-
-namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetProfileById;
+﻿namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetProfileById;
 
 public class GetProfileByIdTests
 {

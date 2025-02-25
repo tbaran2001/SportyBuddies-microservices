@@ -41,6 +41,9 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>ProfileManagement.IntegrationTests</_Parameter1>
         </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>ProfileManagement.TestShared</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
 
 </Project>

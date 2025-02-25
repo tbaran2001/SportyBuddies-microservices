@@ -1,3 +1,5 @@
+using ProfileManagement.TestShared.Fakes.Sports.Features;
+
 namespace ProfileManagement.UnitTests.Sports.Features.Commands.CreateSport;
 
 public class CreateSportTests

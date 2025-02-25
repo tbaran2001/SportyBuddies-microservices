@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Features.Commands.UpdateProfilePreferences;
-
-namespace ProfileManagement.UnitTests.Profiles.Features.Commands.UpdateProfilePreferences;
+﻿namespace ProfileManagement.UnitTests.Profiles.Features.Commands.UpdateProfilePreferences;
 
 public class UpdateProfilePreferencesTests
 {

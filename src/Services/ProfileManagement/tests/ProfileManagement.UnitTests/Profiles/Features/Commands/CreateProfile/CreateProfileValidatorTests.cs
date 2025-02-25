@@ -1,5 +1,3 @@
-using FluentValidation.TestHelper;
-
 namespace ProfileManagement.UnitTests.Profiles.Features.Commands.CreateProfile;
 
 public class CreateProfileValidatorTests : ValidatorTestBase<CreateProfileCommand>
