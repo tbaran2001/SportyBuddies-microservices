@@ -1,9 +1,4 @@
-﻿using FluentAssertions;
-using ProfileManagement.API.Profiles.Features.Queries.GetProfiles;
-using ProfileManagement.API.Profiles.Models;
-using ProfileManagement.API.Profiles.ValueObjects;
-
-namespace ProfileManagement.IntegrationTests;
+﻿namespace ProfileManagement.IntegrationTests;
 
 public class GetProfilesTests(IntegrationTestWebAppFactory factory) : ProfileServiceIntegrationTestBase(factory)
 {
@@ -11,8 +6,8 @@ public class GetProfilesTests(IntegrationTestWebAppFactory factory) : ProfileSer
     public async Task GetProfiles_ShouldReturnProfiles_WhenProfilesExist()
     {
         // Arrange
-        var profile = Profile.CreateSimple(ProfileId.Of(Guid.NewGuid()), Name.Of("xd"), Description.Of("xd"));
-        DbContext.Profiles.Add(profile);
+        var fakeProfile = FakeProfileCreate.Generate();
+        DbContext.Profiles.Add(fakeProfile);
         await DbContext.SaveChangesAsync();
 
         var query = new GetProfilesQuery();
@@ -23,6 +18,6 @@ public class GetProfilesTests(IntegrationTestWebAppFactory factory) : ProfileSer
         // Assert
         result.Profiles.Should().NotBeEmpty();
         result.Profiles.Should().HaveCount(1);
-        result.Profiles.First().Id.Should().Be(profile.Id);
+        result.Profiles.First().Id.Should().Be(fakeProfile.Id);
     }
 }
