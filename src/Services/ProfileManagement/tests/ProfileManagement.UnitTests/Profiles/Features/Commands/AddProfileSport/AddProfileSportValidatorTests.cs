@@ -1,5 +1,3 @@
-using FluentValidation.TestHelper;
-
 namespace ProfileManagement.UnitTests.Profiles.Features.Commands.AddProfileSport;
 
 public class AddProfileSportValidatorTests : ValidatorTestBase<AddProfileSportCommand>

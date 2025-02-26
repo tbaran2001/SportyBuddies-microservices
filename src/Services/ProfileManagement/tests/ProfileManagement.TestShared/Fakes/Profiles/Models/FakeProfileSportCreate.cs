@@ -1,4 +1,4 @@
-namespace ProfileManagement.UnitTests.Fakes.Profiles.Models;
+namespace ProfileManagement.TestShared.Fakes.Profiles.Models;
 
 public static class FakeProfileSportCreate
 {

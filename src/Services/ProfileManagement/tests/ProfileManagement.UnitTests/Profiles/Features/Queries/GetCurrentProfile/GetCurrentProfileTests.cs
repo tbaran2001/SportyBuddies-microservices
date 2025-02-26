@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.Web;
-using ProfileManagement.API.Profiles.Features.Queries.GetCurrentProfile;
-
-namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
+﻿namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
 
 public class GetCurrentProfileTests
 {

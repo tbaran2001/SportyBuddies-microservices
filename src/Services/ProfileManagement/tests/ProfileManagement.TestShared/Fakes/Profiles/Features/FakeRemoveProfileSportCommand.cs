@@ -1,6 +1,6 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Features;
+﻿namespace ProfileManagement.TestShared.Fakes.Profiles.Features;
 
-public sealed class FakeRemoveProfileSportCommand:AutoFaker<RemoveProfileSportCommand>
+public sealed class FakeRemoveProfileSportCommand : AutoFaker<RemoveProfileSportCommand>
 {
     public FakeRemoveProfileSportCommand()
     {

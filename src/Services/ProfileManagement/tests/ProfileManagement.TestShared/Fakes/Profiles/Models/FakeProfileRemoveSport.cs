@@ -1,15 +1,15 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Models;
+﻿namespace ProfileManagement.TestShared.Fakes.Profiles.Models;
 
-public static class FakeProfileAddSport
+public static class FakeProfileRemoveSport
 {
     public static void Generate(Profile profile)
     {
-        profile.AddSport(
+        profile.RemoveSport(
             SportId.Of(Guid.NewGuid()));
     }
 
     public static void Generate(Profile profile, SportId sportId)
     {
-        profile.AddSport(sportId);
+        profile.RemoveSport(sportId);
     }
 }

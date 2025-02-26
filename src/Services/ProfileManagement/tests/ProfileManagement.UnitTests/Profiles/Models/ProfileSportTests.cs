@@ -1,6 +1,6 @@
 namespace ProfileManagement.UnitTests.Profiles.Models;
 
-public class ProfileSportTests:BaseDomainTest
+public class ProfileSportTests : BaseDomainTest
 {
     [Fact]
     public void Create_ShouldCreateProfileSport_WhenValidData()

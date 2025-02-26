@@ -1,4 +1,6 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Models;
+﻿using ProfileManagement.TestShared.Fakes.Profiles.Features;
+
+namespace ProfileManagement.TestShared.Fakes.Profiles.Models;
 
 public static class FakeProfileCreate
 {

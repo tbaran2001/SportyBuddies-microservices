@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.UnitTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.IntegrationTests", "Services\ProfileManagement\tests\ProfileManagement.IntegrationTests\ProfileManagement.IntegrationTests.csproj", "{86AA628C-3778-43EC-9E45-6DEA1A4A6821}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.TestShared", "Services\ProfileManagement\tests\ProfileManagement.TestShared\ProfileManagement.TestShared.csproj", "{576364E3-96EE-493A-84C0-2FFB9C952AF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{86AA628C-3778-43EC-9E45-6DEA1A4A6821}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86AA628C-3778-43EC-9E45-6DEA1A4A6821}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86AA628C-3778-43EC-9E45-6DEA1A4A6821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73} = {5B6A2814-B073-4027-81A5-2564BB43CCC4}
 		{9821AF09-ECDD-4817-826F-8683CD716E75} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
 		{86AA628C-3778-43EC-9E45-6DEA1A4A6821} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
+		{576364E3-96EE-493A-84C0-2FFB9C952AF6} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A798736C-AADB-4D36-80B1-B4DBC3B9078B}

@@ -1,0 +1,11 @@
+﻿global using AutoBogus;
+global using ProfileManagement.API.Profiles.Enums;
+global using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
+global using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
+global using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
+global using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
+global using ProfileManagement.API.Profiles.Features.Commands.UpdateProfilePreferences;
+global using ProfileManagement.API.Profiles.Models;
+global using ProfileManagement.API.Profiles.ValueObjects;
+global using ProfileManagement.API.Sports.Features.Commands;
+global using ProfileManagement.API.Sports.ValueObjects;

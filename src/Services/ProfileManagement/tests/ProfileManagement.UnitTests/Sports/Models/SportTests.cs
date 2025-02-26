@@ -1,3 +1,5 @@
+using ProfileManagement.TestShared.Fakes.Sports.Features;
+
 namespace ProfileManagement.UnitTests.Sports.Models;
 
 public class SportTests : BaseDomainTest

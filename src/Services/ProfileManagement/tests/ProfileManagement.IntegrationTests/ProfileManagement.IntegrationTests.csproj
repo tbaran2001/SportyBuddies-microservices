@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\ProfileManagement.API\ProfileManagement.API.csproj" />
+      <ProjectReference Include="..\ProfileManagement.TestShared\ProfileManagement.TestShared.csproj" />
     </ItemGroup>
 
 </Project>

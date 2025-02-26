@@ -1,4 +1,4 @@
-﻿namespace ProfileManagement.UnitTests.Fakes.Profiles.Features;
+﻿namespace ProfileManagement.TestShared.Fakes.Profiles.Features;
 
 public sealed class FakeAddProfileSportCommand : AutoFaker<AddProfileSportCommand>
 {
