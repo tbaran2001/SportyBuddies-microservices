@@ -5,7 +5,7 @@ using ProfileManagement.API.Profiles.ValueObjects;
 
 namespace ProfileManagement.IntegrationTests;
 
-public class GetProfilesTests(IntegrationTestWebAppFactory factory) : BaseIntegrationTest(factory)
+public class GetProfilesTests(IntegrationTestWebAppFactory factory) : ProfileServiceIntegrationTestBase(factory)
 {
     [Fact]
     public async Task GetProfiles_ShouldReturnProfiles_WhenProfilesExist()
