@@ -11,4 +11,16 @@ public static class FakeProfileCreate
         return Profile.CreateSimple(ProfileId.Of(command.ProfileId), Name.Of(command.Name),
             Description.Of(command.Description));
     }
+
+    public static List<Profile> Generate(int count)
+    {
+        var profiles = new List<Profile>();
+
+        for (var i = 0; i < count; i++)
+        {
+            profiles.Add(Generate());
+        }
+
+        return profiles;
+    }
 }
