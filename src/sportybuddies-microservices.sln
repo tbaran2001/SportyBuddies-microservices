@@ -51,6 +51,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.Integrati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileManagement.TestShared", "Services\ProfileManagement\tests\ProfileManagement.TestShared\ProfileManagement.TestShared.csproj", "{576364E3-96EE-493A-84C0-2FFB9C952AF6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{606CAD36-D914-4585-BEF4-966C05DABB15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.UnitTests", "Services\Matching\tests\Matching.UnitTests\Matching.UnitTests.csproj", "{E3159796-9183-4B9C-BAF4-005EE9EB5A0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +105,10 @@ Global
 		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{576364E3-96EE-493A-84C0-2FFB9C952AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3159796-9183-4B9C-BAF4-005EE9EB5A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3159796-9183-4B9C-BAF4-005EE9EB5A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3159796-9183-4B9C-BAF4-005EE9EB5A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3159796-9183-4B9C-BAF4-005EE9EB5A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +134,8 @@ Global
 		{9821AF09-ECDD-4817-826F-8683CD716E75} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
 		{86AA628C-3778-43EC-9E45-6DEA1A4A6821} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
 		{576364E3-96EE-493A-84C0-2FFB9C952AF6} = {4CC91A4E-C8F3-4664-A2B1-9AEAFF868A73}
+		{606CAD36-D914-4585-BEF4-966C05DABB15} = {1BA4397F-560C-418C-BCD0-B3AEBFEE9186}
+		{E3159796-9183-4B9C-BAF4-005EE9EB5A0F} = {606CAD36-D914-4585-BEF4-966C05DABB15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A798736C-AADB-4D36-80B1-B4DBC3B9078B}
