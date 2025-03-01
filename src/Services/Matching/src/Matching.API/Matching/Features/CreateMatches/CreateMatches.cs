@@ -4,6 +4,15 @@ namespace Matching.API.Matching.Features.CreateMatches;
 
 public record CreateMatchesCommand(Guid ProfileId, Guid MatchedProfileId) : ICommand;
 
+public class CreateMatchesCommandValidator : AbstractValidator<CreateMatchesCommand>
+{
+    public CreateMatchesCommandValidator()
+    {
+        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
+        RuleFor(x => x.MatchedProfileId).NotEmpty().WithMessage("MatchedProfileId is required.");
+    }
+}
+
 public class CreateMatchesCommandHandler(IMatchesRepository matchesRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateMatchesCommand>
 {
