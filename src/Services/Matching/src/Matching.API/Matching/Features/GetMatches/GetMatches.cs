@@ -32,14 +32,6 @@ public class GetMatchesEndpoint : ICarterModule
     }
 }
 
-public class GetMatchesQueryValidator : AbstractValidator<GetMatchesQuery>
-{
-    public GetMatchesQueryValidator()
-    {
-        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
-    }
-}
-
 internal class GetMatchesQueryHandler(
     IMatchesRepository matchesRepository)
     : IQueryHandler<GetMatchesQuery, GetMatchesResult>
