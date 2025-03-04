@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Matching.API\Matching.API.csproj" />
+        <ProjectReference Include="..\Matching.TestShared\Matching.TestShared.csproj"/>
     </ItemGroup>
 
 </Project>

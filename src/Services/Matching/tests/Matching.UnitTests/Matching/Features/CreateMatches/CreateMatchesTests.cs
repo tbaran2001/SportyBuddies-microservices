@@ -1,9 +1,3 @@
-using BuildingBlocks.Core.Model;
-using Matching.API.Data.Repositories;
-using Matching.API.Matching.Features.CreateMatches;
-using MediatR;
-using NSubstitute;
-
 namespace Matching.UnitTests.Matching.Features.CreateMatches;
 
 public class CreateMatchesTests
@@ -17,18 +11,17 @@ public class CreateMatchesTests
 
     public CreateMatchesTests()
     {
-        _handler=new CreateMatchesCommandHandler(_matchesRepository,_unitOfWork);
+        _handler = new CreateMatchesCommandHandler(_matchesRepository, _unitOfWork);
     }
 
     [Fact]
     public async Task Handle_ShouldCreateMatches_WhenMatchesDoesNotExist()
     {
         // Arrange
-        var profileId = Guid.NewGuid();
-        var matchedProfileId = Guid.NewGuid();
-        var command = new CreateMatchesCommand(profileId, matchedProfileId);
-        
-        _matchesRepository.CheckIfMatchExistsAsync(profileId, matchedProfileId, Arg.Any<CancellationToken>())
+        var command = new FakeCreateMatchesCommand().Generate();
+
+        _matchesRepository
+            .CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>())
             .Returns(false);
 
         // Act
@@ -38,34 +31,34 @@ public class CreateMatchesTests
         result.Should().NotBeNull();
         result.Should().BeOfType<Unit>();
 
-        await _matchesRepository.Received(1).CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>());
+        await _matchesRepository.Received(1)
+            .CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>());
         await _matchesRepository.Received(1).AddMatchesAsync(Arg.Any<List<Match>>(), Arg.Any<CancellationToken>());
         await _unitOfWork.Received(1).CommitChangesAsync();
     }
-    
+
     [Fact]
     public async Task Handle_ShouldNotCreateMatches_WhenMatchesExist()
     {
         // Arrange
-        var profileId = Guid.NewGuid();
-        var matchedProfileId = Guid.NewGuid();
-        var command = new CreateMatchesCommand(profileId, matchedProfileId);
-        
-        _matchesRepository.CheckIfMatchExistsAsync(profileId, matchedProfileId, Arg.Any<CancellationToken>())
+        var command = new FakeCreateMatchesCommand().Generate();
+
+        _matchesRepository
+            .CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>())
             .Returns(true);
 
         // Act
         var result = await Act(command, CancellationToken.None);
 
         // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Unit>();
+        result.Should().Be(Unit.Value);
 
-        await _matchesRepository.Received(1).CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>());
+        await _matchesRepository.Received(1)
+            .CheckIfMatchExistsAsync(command.ProfileId, command.MatchedProfileId, Arg.Any<CancellationToken>());
         await _matchesRepository.DidNotReceive().AddMatchesAsync(Arg.Any<List<Match>>(), Arg.Any<CancellationToken>());
         await _unitOfWork.DidNotReceive().CommitChangesAsync();
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowArgumentNullException_WhenCommandIsNull()
     {

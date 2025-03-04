@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Matching.API.Data.Repositories;
 
 namespace Matching.API.Matching.Features.GetMatches;
@@ -32,20 +33,14 @@ public class GetMatchesEndpoint : ICarterModule
     }
 }
 
-public class GetMatchesQueryValidator : AbstractValidator<GetMatchesQuery>
-{
-    public GetMatchesQueryValidator()
-    {
-        RuleFor(x => x.ProfileId).NotEmpty().WithMessage("ProfileId is required.");
-    }
-}
-
 internal class GetMatchesQueryHandler(
     IMatchesRepository matchesRepository)
     : IQueryHandler<GetMatchesQuery, GetMatchesResult>
 {
     public async Task<GetMatchesResult> Handle(GetMatchesQuery query, CancellationToken cancellationToken)
     {
+        Guard.Against.Null(query, nameof(query));
+        
         var matches = await matchesRepository.GetMatchesAsync(query.ProfileId, cancellationToken);
 
         var matchDtos = matches.Adapt<IEnumerable<MatchDto>>();
