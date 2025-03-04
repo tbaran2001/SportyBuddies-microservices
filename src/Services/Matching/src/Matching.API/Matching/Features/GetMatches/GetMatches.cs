@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Ardalis.GuardClauses;
+using Humanizer;
 using Matching.API.Data.Repositories;
 
 namespace Matching.API.Matching.Features.GetMatches;
@@ -38,6 +39,8 @@ internal class GetMatchesQueryHandler(
 {
     public async Task<GetMatchesResult> Handle(GetMatchesQuery query, CancellationToken cancellationToken)
     {
+        Guard.Against.Null(query, nameof(query));
+        
         var matches = await matchesRepository.GetMatchesAsync(query.ProfileId, cancellationToken);
 
         var matchDtos = matches.Adapt<IEnumerable<MatchDto>>();

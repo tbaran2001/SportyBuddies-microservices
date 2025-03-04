@@ -12,4 +12,18 @@ public static class FakeMatchCreatePair
             MatchedAt.Of(DateTime.Now)
         );
     }
+    
+    public static List<Match> Generate(int count)
+    {
+        var matches = new List<Match>();
+
+        for (var i = 0; i < count; i++)
+        {
+            var (m1, m2) = Generate();
+            matches.Add(m1);
+            matches.Add(m2);
+        }
+
+        return matches;
+    }
 }
