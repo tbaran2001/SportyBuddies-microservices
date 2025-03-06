@@ -1,12 +1,4 @@
-﻿using MediatR;
-using ProfileManagement.API.Profiles.Exceptions;
-using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
-using ProfileManagement.API.Profiles.ValueObjects;
-using ProfileManagement.API.Sports.Exceptions;
-using ProfileManagement.API.Sports.ValueObjects;
-using ProfileManagement.TestShared.Fakes.Sports.Models;
-
-namespace ProfileManagement.IntegrationTests.Profiles.Features.Commands;
+﻿namespace ProfileManagement.IntegrationTests.Profiles.Features.Commands;
 
 public class AddProfileSportTests(IntegrationTestWebAppFactory factory) : ProfileServiceIntegrationTestBase(factory)
 {
