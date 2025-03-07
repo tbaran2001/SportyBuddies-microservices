@@ -56,7 +56,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=mssqldb;Database=SportDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/aspnetapp.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
@@ -85,7 +85,7 @@ services:
       - GrpcSettings__BuddiesUrl=https://buddies.api:8081
       - GrpcSettings__ProfileUrl=https://profilemanagement.api:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/aspnetapp.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
@@ -115,7 +115,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=mssqldb;Database=BuddiesDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/aspnetapp.pfx
       - Jwt__Authority=http://identityservice:8080
       - Jwt__Audience=buddies-api
       - Jwt__RequireHttpsMetadata=false
@@ -138,7 +138,7 @@ services:
       - ConnectionStrings__Database=Server=mssqldb;Database=ProfileDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True;
       - ConnectionStrings__Redis=distributedcache:6379
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/aspnetapp.pfx
       - MessageBroker__Host=amqp://sportybuddies-mq:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
@@ -166,7 +166,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/matchingapi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/aspnetapp.pfx
       - IdentityServiceUrl=http://identityservice:8080
       - ElasticConfiguration__Uri=http://elasticsearch:9200
     depends_on:
