@@ -46,4 +46,10 @@
         </AssemblyAttribute>
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="MongoDB.Driver">
+        <HintPath>..\..\..\..\..\..\..\.nuget\packages\mongodb.driver\3.2.1\lib\net6.0\MongoDB.Driver.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

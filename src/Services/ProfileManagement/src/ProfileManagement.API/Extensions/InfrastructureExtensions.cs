@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BuildingBlocks.Logging;
+using BuildingBlocks.Mongo;
 
 namespace ProfileManagement.API.Extensions;
 
@@ -16,6 +17,8 @@ public static class InfrastructureExtensions
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
+        builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
+        builder.Services.AddSingleton<ApplicationReadDbContext>();
         builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
