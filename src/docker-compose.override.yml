@@ -159,6 +159,7 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
       - ElasticConfiguration__Uri=http://elasticsearch:9200
+      - MongoOptions__ConnectionString=mongodb://admin:admin@mongodb:27017
     depends_on:
       - mssqldb
       - mongodb

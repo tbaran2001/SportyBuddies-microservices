@@ -26,7 +26,7 @@ public class ProfileTests : BaseDomainTest
         createdProfile.ProfileSports.Should().BeEmpty();
 
         var domainEvent = AssertDomainEventWasPublished<ProfileCreatedDomainEvent>(createdProfile);
-        domainEvent.ProfileId.Should().Be(fakeProfile.ProfileId);
+        domainEvent.Id.Should().Be(fakeProfile.ProfileId);
     }
 
     [Fact]

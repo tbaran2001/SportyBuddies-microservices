@@ -1,13 +1,15 @@
 using BuildingBlocks.Mongo;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using ProfileManagement.API.Profiles.Models.ReadModels;
 
 namespace ProfileManagement.API.Data;
 
 public class ApplicationReadDbContext
 {
     private readonly IMongoDatabase _database;
-    
+    public IMongoCollection<ProfileReadModel> Profiles => _database.GetCollection<ProfileReadModel>("Profiles");
+
     public ApplicationReadDbContext(IOptions<MongoOptions> options)
     {
         var client = new MongoClient(options.Value.ConnectionString);

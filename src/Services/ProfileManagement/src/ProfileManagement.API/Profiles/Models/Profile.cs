@@ -20,7 +20,7 @@ public record Profile : Aggregate<ProfileId>
         ProfileId id,
         Name name,
         Description description,
-        BirthDate dateOfBirth,
+        BirthDate birthDate,
         Gender gender,
         Preferences preferences)
     {
@@ -29,12 +29,20 @@ public record Profile : Aggregate<ProfileId>
             Id = id,
             Name = name,
             Description = description,
-            BirthDate = dateOfBirth,
+            BirthDate = birthDate,
             Gender = gender,
             Preferences = preferences,
         };
 
-        profile.AddDomainEvent(new ProfileCreatedDomainEvent(profile.Id));
+        profile.AddDomainEvent(
+            new ProfileCreatedDomainEvent(
+                profile.Id,
+                name,
+                description,
+                birthDate,
+                gender,
+                preferences)
+        );
 
         return profile;
     }
