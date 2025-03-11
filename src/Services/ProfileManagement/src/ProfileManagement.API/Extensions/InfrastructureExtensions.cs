@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using BuildingBlocks.Logging;
-
-namespace ProfileManagement.API.Extensions;
+﻿namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {
@@ -16,7 +13,10 @@ public static class InfrastructureExtensions
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
+        builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
+        builder.Services.AddSingleton<ApplicationReadDbContext>();
         builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
+        builder.Services.AddScoped<IProfilesReadRepository, ProfilesReadRepository>();
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
@@ -41,6 +41,7 @@ public static class InfrastructureExtensions
         builder.Services.AddFeatureManagement();
         builder.Services.AddMessageBroker(builder.Configuration, assembly);
         MapsterConfig.Configure();
+        TypeAdapterConfig.GlobalSettings.Scan(assembly);
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();

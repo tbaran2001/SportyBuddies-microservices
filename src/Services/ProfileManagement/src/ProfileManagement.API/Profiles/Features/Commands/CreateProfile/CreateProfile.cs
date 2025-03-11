@@ -6,7 +6,13 @@ public record CreateProfileCommand(Guid ProfileId, string Name, string Descripti
 
 public record CreateProfileResult(ProfileDto Profile);
 
-public record ProfileCreatedDomainEvent(Guid ProfileId) : IDomainEvent;
+public record ProfileCreatedDomainEvent(
+    Guid Id,
+    string Name,
+    string Description,
+    DateTime BirthDate,
+    Gender Gender,
+    Preferences Preferences) : IDomainEvent;
 
 public class CreateProfileCommandValidator : AbstractValidator<CreateProfileCommand>
 {

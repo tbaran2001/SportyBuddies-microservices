@@ -26,7 +26,7 @@ public class ProfileTests : BaseDomainTest
         createdProfile.ProfileSports.Should().BeEmpty();
 
         var domainEvent = AssertDomainEventWasPublished<ProfileCreatedDomainEvent>(createdProfile);
-        domainEvent.ProfileId.Should().Be(fakeProfile.ProfileId);
+        domainEvent.Id.Should().Be(fakeProfile.ProfileId);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class ProfileTests : BaseDomainTest
         fakeProfile.Gender.Should().Be(fakeProfile.Gender);
 
         var domainEvent = AssertDomainEventWasPublished<ProfileUpdatedDomainEvent>(fakeProfile);
-        domainEvent.ProfileId.Should().Be(fakeProfile.Id);
+        domainEvent.Id.Should().Be(fakeProfile.Id);
     }
 
     [Fact]

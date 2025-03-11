@@ -37,14 +37,14 @@ public class GetProfileByIdQueryValidator : AbstractValidator<GetProfileByIdQuer
     }
 }
 
-internal class GetProfileByIdQueryHandler(IProfilesRepository profilesRepository)
+internal class GetProfileByIdQueryHandler(IProfilesReadRepository profilesReadRepository)
     : IQueryHandler<GetProfileByIdQuery, GetProfileByIdResult>
 {
     public async Task<GetProfileByIdResult> Handle(GetProfileByIdQuery query, CancellationToken cancellationToken)
     {
         Guard.Against.Null(query, nameof(query));
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(query.Id);
+        var profile = await profilesReadRepository.GetProfileByIdAsync(query.Id);
         if (profile == null)
             throw new ProfileNotFoundException(query.Id);
 

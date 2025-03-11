@@ -30,14 +30,14 @@ public class GetProfileEndpoint : ICarterModule
     }
 }
 
-internal class GetProfilesQueryHandler(IProfilesRepository profilesRepository)
+internal class GetProfilesQueryHandler(IProfilesReadRepository profilesReadRepository)
     : IQueryHandler<GetProfilesQuery, GetProfilesResult>
 {
     public async Task<GetProfilesResult> Handle(GetProfilesQuery query, CancellationToken cancellationToken)
     {
         Guard.Against.Null(query, nameof(query));
 
-        var profiles = await profilesRepository.GetAllProfilesAsync();
+        var profiles = await profilesReadRepository.GetProfilesAsync();
 
         var profileDtos = profiles.Adapt<IEnumerable<ProfileDto>>();
 

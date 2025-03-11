@@ -1,5 +1,6 @@
 ﻿namespace ProfileManagement.IntegrationTests;
 
-public class IntegrationTestWebAppFactory : BaseIntegrationTestWebAppFactory<Program, ApplicationDbContext>
+public class IntegrationTestWebAppFactory
+    : BaseIntegrationTestWebAppFactory<Program, ApplicationDbContext, ApplicationReadDbContext>
 {
 }

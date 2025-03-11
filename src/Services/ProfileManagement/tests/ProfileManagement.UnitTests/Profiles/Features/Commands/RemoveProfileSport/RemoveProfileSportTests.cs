@@ -25,7 +25,7 @@ public class RemoveProfileSportTests
         var profile = FakeProfileCreate.Generate();
         var command = new FakeRemoveProfileSportCommand().Generate();
         profile.AddSport(SportId.Of(command.SportId));
-        _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).Returns(profile);
+        _profilesRepository.GetProfileByIdAsync(command.ProfileId).Returns(profile);
         _sportsRepository.SportExistsAsync(command.SportId).Returns(true);
 
         // Act
@@ -43,7 +43,7 @@ public class RemoveProfileSportTests
     {
         // Arrange
         var command = new FakeRemoveProfileSportCommand().Generate();
-        _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).ReturnsNull();
+        _profilesRepository.GetProfileByIdAsync(command.ProfileId).ReturnsNull();
 
         // Act
         Func<Task> act = async () => { await Act(command, CancellationToken.None); };
@@ -58,7 +58,7 @@ public class RemoveProfileSportTests
         // Arrange
         var profile = FakeProfileCreate.Generate();
         var command = new FakeRemoveProfileSportCommand().Generate();
-        _profilesRepository.GetProfileByIdWithSportsAsync(ProfileId.Of(command.ProfileId)).Returns(profile);
+        _profilesRepository.GetProfileByIdAsync(command.ProfileId).Returns(profile);
         _sportsRepository.SportExistsAsync(command.SportId).Returns(false);
 
         // Act

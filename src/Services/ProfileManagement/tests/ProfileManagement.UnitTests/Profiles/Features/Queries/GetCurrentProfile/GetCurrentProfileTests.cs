@@ -3,7 +3,7 @@
 public class GetCurrentProfileTests
 {
     private readonly GetCurrentProfileQueryHandler _handler;
-    private readonly IProfilesRepository _profileRepository = Substitute.For<IProfilesRepository>();
+    private readonly IProfilesReadRepository _profileRepository = Substitute.For<IProfilesReadRepository>();
     private readonly ICurrentUserProvider _currentUserProvider = Substitute.For<ICurrentUserProvider>();
 
     private Task<GetCurrentProfileResult> Act(GetCurrentProfileQuery query, CancellationToken cancellationToken) =>
@@ -20,7 +20,7 @@ public class GetCurrentProfileTests
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
-        _profileRepository.GetProfileByIdWithSportsAsync(fakeProfile.Id).Returns(fakeProfile);
+        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).Returns(fakeProfile.Adapt<ProfileReadModel>());
 
         var query = new GetCurrentProfileQuery();
 
@@ -40,7 +40,7 @@ public class GetCurrentProfileTests
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
-        _profileRepository.GetProfileByIdWithSportsAsync(fakeProfile.Id).ReturnsNull();
+        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).ReturnsNull();
 
         var query = new GetCurrentProfileQuery();
 

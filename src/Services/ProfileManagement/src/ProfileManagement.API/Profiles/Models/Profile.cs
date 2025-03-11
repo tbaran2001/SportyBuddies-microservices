@@ -1,8 +1,3 @@
-using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
-using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
-using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
-using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
-
 namespace ProfileManagement.API.Profiles.Models;
 
 public record Profile : Aggregate<ProfileId>
@@ -20,7 +15,7 @@ public record Profile : Aggregate<ProfileId>
         ProfileId id,
         Name name,
         Description description,
-        BirthDate dateOfBirth,
+        BirthDate birthDate,
         Gender gender,
         Preferences preferences)
     {
@@ -29,12 +24,13 @@ public record Profile : Aggregate<ProfileId>
             Id = id,
             Name = name,
             Description = description,
-            BirthDate = dateOfBirth,
+            BirthDate = birthDate,
             Gender = gender,
             Preferences = preferences,
         };
 
-        profile.AddDomainEvent(new ProfileCreatedDomainEvent(profile.Id));
+        profile.AddDomainEvent(new ProfileCreatedDomainEvent(profile.Id, name, description,
+            birthDate, gender, preferences));
 
         return profile;
     }
@@ -63,7 +59,8 @@ public record Profile : Aggregate<ProfileId>
         BirthDate = dateOfBirth;
         Gender = gender;
 
-        AddDomainEvent(new ProfileUpdatedDomainEvent(Id));
+        AddDomainEvent(new ProfileUpdatedDomainEvent(Id, name, description,
+            dateOfBirth, gender));
     }
 
     public void AddSport(SportId sportId)
@@ -71,8 +68,10 @@ public record Profile : Aggregate<ProfileId>
         if (_profileSports.Any(s => s.SportId == sportId))
             throw new DomainException("Profile already has this sport.");
 
-        _profileSports.Add(ProfileSport.Create(Id, sportId));
-        AddDomainEvent(new ProfileSportAddedDomainEvent(Id));
+        var profileSport = ProfileSport.Create(Id, sportId);
+        _profileSports.Add(profileSport);
+
+        AddDomainEvent(new ProfileSportAddedDomainEvent(profileSport.Id, profileSport.ProfileId, profileSport.SportId));
     }
 
     public void RemoveSport(SportId sportId)
@@ -82,7 +81,7 @@ public record Profile : Aggregate<ProfileId>
             throw new DomainException("Profile does not have this sport.");
 
         _profileSports.Remove(sport);
-        AddDomainEvent(new ProfileSportRemovedDomainEvent(Id));
+        AddDomainEvent(new ProfileSportRemovedDomainEvent(sport.Id, sport.ProfileId, sport.SportId));
     }
 
     public void UpdatePreferences(Preferences preferences)

@@ -7,7 +7,8 @@ public record UpdateProfileCommand(Guid ProfileId, string Name, string Descripti
 
 public record UpdateProfileResult(Guid Id);
 
-public record ProfileUpdatedDomainEvent(Guid ProfileId) : IDomainEvent;
+public record ProfileUpdatedDomainEvent(Guid Id, string Name, string Description, DateTime BirthDate, Gender Gender)
+    : IDomainEvent;
 
 public record UpdateProfileRequestDto(string Name, string Description, Gender Gender, DateOnly BirthDate);
 

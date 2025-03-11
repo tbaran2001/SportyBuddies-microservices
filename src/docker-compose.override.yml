@@ -22,6 +22,16 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
+        
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
 
   mssqldb:
     container_name: mssqldb
@@ -149,8 +159,10 @@ services:
       - Jwt__RequireHttpsMetadata=false
       - Jwt__MetadataAddress=http://identityservice:8080/.well-known/openid-configuration
       - ElasticConfiguration__Uri=http://elasticsearch:9200
+      - MongoOptions__ConnectionString=mongodb://admin:admin@mongodb:27017
     depends_on:
       - mssqldb
+      - mongodb
       - messagebroker
       - distributedcache
     ports:

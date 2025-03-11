@@ -4,7 +4,7 @@ namespace ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
 
 public record AddProfileSportCommand(Guid ProfileId, Guid SportId) : ICommand;
 
-public record ProfileSportAddedDomainEvent(Guid ProfileId) : IDomainEvent;
+public record ProfileSportAddedDomainEvent(Guid Id, Guid ProfileId, Guid SportId) : IDomainEvent;
 
 public record AddProfileSportRequestDto(Guid SportId);
 
@@ -48,7 +48,7 @@ internal class AddProfileSportCommandHandler(
     {
         Guard.Against.Null(command, nameof(command));
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
+        var profile = await profilesRepository.GetProfileByIdAsync(command.ProfileId);
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 

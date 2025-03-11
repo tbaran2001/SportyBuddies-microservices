@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks.Events.Sports;
 using ProfileManagement.API.Sports.Features.Commands;
 
-namespace ProfileManagement.API.Profiles.EventHandlers.Integration;
+namespace ProfileManagement.API.Sports.EventHandlers.Integration;
 
 public class SportCreatedIntegrationEventHandler(ISender sender) : IConsumer<SportCreatedIntegrationEvent>
 {

@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 
 namespace ProfileManagement.API.Profiles.Features.Queries.GetCurrentProfile;
 
@@ -13,13 +12,6 @@ public class GetCurrentProfileEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("test", (IHttpContextAccessor context) =>
-        {
-            var id = context?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            return Results.Content(id);
-        });
-
         app.MapGet("profiles/me", async (ISender sender) =>
             {
                 var query = new GetCurrentProfileQuery();
@@ -40,7 +32,7 @@ public class GetCurrentProfileEndpoint : ICarterModule
 }
 
 internal class GetCurrentProfileQueryHandler(
-    IProfilesRepository profilesRepository,
+    IProfilesReadRepository profilesReadRepository,
     ICurrentUserProvider currentUserProvider) : IQueryHandler<GetCurrentProfileQuery, GetCurrentProfileResult>
 {
     public async Task<GetCurrentProfileResult> Handle(GetCurrentProfileQuery query, CancellationToken cancellationToken)
@@ -49,8 +41,8 @@ internal class GetCurrentProfileQueryHandler(
 
         var currentUserId = currentUserProvider.GetCurrentUserId();
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUserId);
-        if (profile == null)
+        var profile = await profilesReadRepository.GetProfileByIdAsync(currentUserId);
+        if (profile is null)
             throw new ProfileNotFoundException(currentUserId);
 
         var profileDto = profile.Adapt<ProfileDto>();

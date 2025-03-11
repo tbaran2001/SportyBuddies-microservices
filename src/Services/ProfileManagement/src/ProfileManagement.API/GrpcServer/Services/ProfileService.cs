@@ -8,7 +8,7 @@ public class ProfileService(IProfilesRepository profilesRepository)
     public override async Task<GetPotentialMatchesResponse> GetPotentialMatches(GetPotentialMatchesRequest request,
         ServerCallContext context)
     {
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(new Guid(request.ProfileId));
+        var profile = await profilesRepository.GetProfileByIdAsync(new Guid(request.ProfileId));
         var potentialMatches =
             await profilesRepository.GetPotentialMatchesAsync(profile.Id,
                 profile.ProfileSports.Select(x => x.SportId.Value).ToList());

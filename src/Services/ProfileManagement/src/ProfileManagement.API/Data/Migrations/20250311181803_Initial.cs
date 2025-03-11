@@ -46,7 +46,7 @@ namespace ProfileManagement.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SportId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -56,7 +56,8 @@ namespace ProfileManagement.API.Data.Migrations
                         name: "FK_ProfileSports_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProfileSports_Sports_SportId",
                         column: x => x.SportId,

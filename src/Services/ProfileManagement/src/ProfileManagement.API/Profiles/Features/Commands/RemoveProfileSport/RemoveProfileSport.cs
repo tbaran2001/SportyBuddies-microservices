@@ -4,7 +4,7 @@ namespace ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
 
 public record RemoveProfileSportCommand(Guid ProfileId, Guid SportId) : ICommand;
 
-public record ProfileSportRemovedDomainEvent(Guid ProfileId) : IDomainEvent;
+public record ProfileSportRemovedDomainEvent(Guid Id, Guid ProfileId, Guid SportId) : IDomainEvent;
 
 public class RemoveProfileSportEndpoint : ICarterModule
 {
@@ -46,7 +46,7 @@ internal class RemoveProfileSportCommandHandler(
     {
         Guard.Against.Null(command, nameof(command));
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
+        var profile = await profilesRepository.GetProfileByIdAsync(command.ProfileId);
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 
