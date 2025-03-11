@@ -1,8 +1,4 @@
-﻿using System.Reflection;
-using BuildingBlocks.Logging;
-using BuildingBlocks.Mongo;
-
-namespace ProfileManagement.API.Extensions;
+﻿namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {

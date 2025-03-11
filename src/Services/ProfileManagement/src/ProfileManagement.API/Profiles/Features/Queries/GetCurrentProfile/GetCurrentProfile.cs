@@ -40,7 +40,7 @@ public class GetCurrentProfileEndpoint : ICarterModule
 }
 
 internal class GetCurrentProfileQueryHandler(
-    IProfilesRepository profilesRepository,
+    ApplicationReadDbContext readDbContext,
     ICurrentUserProvider currentUserProvider) : IQueryHandler<GetCurrentProfileQuery, GetCurrentProfileResult>
 {
     public async Task<GetCurrentProfileResult> Handle(GetCurrentProfileQuery query, CancellationToken cancellationToken)
@@ -49,8 +49,10 @@ internal class GetCurrentProfileQueryHandler(
 
         var currentUserId = currentUserProvider.GetCurrentUserId();
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(currentUserId);
-        if (profile == null)
+        var profile = await readDbContext.Profiles
+            .Find(p => p.ProfileId == currentUserId)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (profile is null)
             throw new ProfileNotFoundException(currentUserId);
 
         var profileDto = profile.Adapt<ProfileDto>();

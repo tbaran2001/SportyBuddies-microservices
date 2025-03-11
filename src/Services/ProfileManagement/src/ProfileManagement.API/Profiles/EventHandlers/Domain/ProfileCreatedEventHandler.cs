@@ -1,8 +1,4 @@
-﻿using MongoDB.Driver;
-using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
-using ProfileManagement.API.Profiles.Models.ReadModels;
-
-namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
+﻿namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
 public class ProfileCreatedEventHandler(ILogger<ProfileCreatedEventHandler> logger, ApplicationReadDbContext dbContext)
     : INotificationHandler<ProfileCreatedDomainEvent>

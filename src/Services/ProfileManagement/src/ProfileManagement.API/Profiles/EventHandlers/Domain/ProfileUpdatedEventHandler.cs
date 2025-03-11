@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
-
-namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
+﻿namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
 public class ProfileUpdatedEventHandler(ILogger<ProfileUpdatedEventHandler> logger)
     : INotificationHandler<ProfileUpdatedDomainEvent>

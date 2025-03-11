@@ -1,8 +1,3 @@
-using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
-using ProfileManagement.API.Profiles.Features.Commands.CreateProfile;
-using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
-using ProfileManagement.API.Profiles.Features.Commands.UpdateProfile;
-
 namespace ProfileManagement.API.Profiles.Models;
 
 public record Profile : Aggregate<ProfileId>

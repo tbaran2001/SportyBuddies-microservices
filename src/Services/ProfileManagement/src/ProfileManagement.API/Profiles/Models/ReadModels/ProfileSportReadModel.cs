@@ -1,6 +1,3 @@
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
 namespace ProfileManagement.API.Profiles.Models.ReadModels;
 
 public class ProfileSportReadModel

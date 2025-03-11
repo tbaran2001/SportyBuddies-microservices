@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
-
-namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
+﻿namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
 public class ProfileSportAddedEventHandler(
     IPublishEndpoint publishEndpoint,

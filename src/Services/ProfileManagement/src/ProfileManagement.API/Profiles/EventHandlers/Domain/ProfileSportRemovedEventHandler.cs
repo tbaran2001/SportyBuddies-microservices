@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
-
-namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
+﻿namespace ProfileManagement.API.Profiles.EventHandlers.Domain;
 
 public class ProfileSportRemovedEventHandler(
     ILogger<ProfileSportRemovedEventHandler> logger,

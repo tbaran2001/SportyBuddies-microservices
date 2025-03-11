@@ -1,8 +1,3 @@
-using BuildingBlocks.Mongo;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using ProfileManagement.API.Profiles.Models.ReadModels;
-
 namespace ProfileManagement.API.Data;
 
 public class ApplicationReadDbContext
