@@ -16,6 +16,7 @@ public static class InfrastructureExtensions
         builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
         builder.Services.AddSingleton<ApplicationReadDbContext>();
         builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
+        builder.Services.AddScoped<IProfilesReadRepository, ProfilesReadRepository>();
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
