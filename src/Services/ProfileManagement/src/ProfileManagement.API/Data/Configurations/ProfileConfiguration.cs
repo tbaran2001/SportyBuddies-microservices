@@ -11,7 +11,8 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 
         builder.HasMany(p => p.ProfileSports)
             .WithOne()
-            .HasForeignKey(p => p.ProfileId);
+            .HasForeignKey(p => p.ProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.OwnsOne(p => p.Name, nameBuilder =>
         {

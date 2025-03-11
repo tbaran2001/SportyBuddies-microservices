@@ -4,7 +4,7 @@ namespace ProfileManagement.API.Profiles.Features.Commands.RemoveProfileSport;
 
 public record RemoveProfileSportCommand(Guid ProfileId, Guid SportId) : ICommand;
 
-public record ProfileSportRemovedDomainEvent(Guid ProfileId) : IDomainEvent;
+public record ProfileSportRemovedDomainEvent(Guid Id, Guid ProfileId, Guid SportId) : IDomainEvent;
 
 public class RemoveProfileSportEndpoint : ICarterModule
 {

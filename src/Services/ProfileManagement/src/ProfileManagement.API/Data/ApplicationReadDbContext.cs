@@ -3,7 +3,9 @@ namespace ProfileManagement.API.Data;
 public class ApplicationReadDbContext
 {
     private readonly IMongoDatabase _database;
-    public IMongoCollection<ProfileReadModel> Profiles => _database.GetCollection<ProfileReadModel>("Profiles");
+
+    public IMongoCollection<ProfileReadModel> Profiles =>
+        _database.GetCollection<ProfileReadModel>(nameof(Profiles));
 
     public ApplicationReadDbContext(IOptions<MongoOptions> options)
     {

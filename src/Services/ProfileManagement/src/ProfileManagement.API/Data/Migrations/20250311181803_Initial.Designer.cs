@@ -12,7 +12,7 @@ using ProfileManagement.API.Data;
 namespace ProfileManagement.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250223222123_Initial")]
+    [Migration("20250311181803_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -46,7 +46,7 @@ namespace ProfileManagement.API.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProfileId")
+                    b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SportId")
@@ -165,7 +165,9 @@ namespace ProfileManagement.API.Data.Migrations
                 {
                     b.HasOne("ProfileManagement.API.Profiles.Models.Profile", null)
                         .WithMany("ProfileSports")
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProfileManagement.API.Sports.Models.Sport", null)
                         .WithMany()

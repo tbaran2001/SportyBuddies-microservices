@@ -43,7 +43,7 @@ namespace ProfileManagement.API.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProfileId")
+                    b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("SportId")
@@ -162,7 +162,9 @@ namespace ProfileManagement.API.Data.Migrations
                 {
                     b.HasOne("ProfileManagement.API.Profiles.Models.Profile", null)
                         .WithMany("ProfileSports")
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProfileManagement.API.Sports.Models.Sport", null)
                         .WithMany()

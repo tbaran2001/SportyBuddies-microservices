@@ -2,16 +2,26 @@
 
 public class ProfileSportRemovedEventHandler(
     ILogger<ProfileSportRemovedEventHandler> logger,
-    IPublishEndpoint publishEndpoint)
+    IPublishEndpoint publishEndpoint,
+    ApplicationReadDbContext dbContext)
     : INotificationHandler<ProfileSportRemovedDomainEvent>
 {
-    public async Task Handle(ProfileSportRemovedDomainEvent domainEvent, CancellationToken cancellationToken)
+    public async Task Handle(ProfileSportRemovedDomainEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
+        logger.LogInformation("Domain Event handled: {DomainEvent}", notification.GetType().Name);
+
+        var result = await dbContext.Profiles
+            .FindOneAndUpdateAsync(
+                Builders<ProfileReadModel>.Filter.Where(p => p.ProfileId == notification.ProfileId),
+                Builders<ProfileReadModel>.Update.PullFilter(p => p.ProfileSports,
+                    ps => ps.ProfileSportId == notification.Id),
+                cancellationToken: cancellationToken);
+        if (result is null)
+            throw new ProfileNotFoundException(notification.ProfileId);
 
         var profileSportAddedIntegrationEvent = new ProfileSportRemovedIntegrationEvent()
         {
-            ProfileId = domainEvent.ProfileId,
+            ProfileId = notification.ProfileId,
         };
         await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
     }
