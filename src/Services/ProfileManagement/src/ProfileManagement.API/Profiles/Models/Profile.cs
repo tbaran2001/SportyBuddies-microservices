@@ -29,15 +29,8 @@ public record Profile : Aggregate<ProfileId>
             Preferences = preferences,
         };
 
-        profile.AddDomainEvent(
-            new ProfileCreatedDomainEvent(
-                profile.Id,
-                name,
-                description,
-                birthDate,
-                gender,
-                preferences)
-        );
+        profile.AddDomainEvent(new ProfileCreatedDomainEvent(profile.Id, name, description,
+            birthDate, gender, preferences));
 
         return profile;
     }
@@ -66,7 +59,8 @@ public record Profile : Aggregate<ProfileId>
         BirthDate = dateOfBirth;
         Gender = gender;
 
-        AddDomainEvent(new ProfileUpdatedDomainEvent(Id));
+        AddDomainEvent(new ProfileUpdatedDomainEvent(Id, name, description,
+            dateOfBirth, gender));
     }
 
     public void AddSport(SportId sportId)

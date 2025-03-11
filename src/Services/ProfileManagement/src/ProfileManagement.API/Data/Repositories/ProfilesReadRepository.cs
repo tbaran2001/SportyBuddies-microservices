@@ -8,4 +8,11 @@ public class ProfilesReadRepository(ApplicationReadDbContext readDbContext) : IP
             .Find(p => p.ProfileId == id)
             .FirstOrDefaultAsync();
     }
+
+    public async Task<IEnumerable<ProfileReadModel>> GetProfilesAsync()
+    {
+        return await readDbContext.Profiles
+            .Find(_ => true)
+            .ToListAsync();
+    }
 }

@@ -3,7 +3,7 @@
 public class GetProfileByIdTests
 {
     private readonly GetProfileByIdQueryHandler _handler;
-    private readonly IProfilesRepository _profilesRepository = Substitute.For<IProfilesRepository>();
+    private readonly IProfilesReadRepository _profilesRepository = Substitute.For<IProfilesReadRepository>();
 
     private Task<GetProfileByIdResult> Act(GetProfileByIdQuery query, CancellationToken cancellationToken) =>
         _handler.Handle(query, cancellationToken);
@@ -19,7 +19,7 @@ public class GetProfileByIdTests
         // Arrange
         var query = new GetProfileByIdQuery(Guid.NewGuid());
         var fakeProfile = FakeProfileCreate.Generate();
-        _profilesRepository.GetProfileByIdAsync(query.Id).Returns(fakeProfile);
+        _profilesRepository.GetProfileByIdAsync(query.Id).Returns(fakeProfile.Adapt<ProfileReadModel>());
 
         // Act
         var result = await Act(query, CancellationToken.None);

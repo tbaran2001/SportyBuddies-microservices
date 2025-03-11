@@ -20,7 +20,7 @@ public class GetCurrentProfileTests
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
-        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).Returns(fakeProfile);
+        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).Returns(fakeProfile.Adapt<ProfileReadModel>());
 
         var query = new GetCurrentProfileQuery();
 

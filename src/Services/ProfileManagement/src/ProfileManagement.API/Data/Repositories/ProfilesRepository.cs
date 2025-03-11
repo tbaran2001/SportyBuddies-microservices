@@ -9,7 +9,7 @@ public class ProfilesRepository(ApplicationDbContext dbContext) : IProfilesRepos
             .FirstOrDefaultAsync(u => u.Id == profileId);
     }
 
-    public async Task<IEnumerable<Profile>> GetAllProfilesAsync()
+    public async Task<IEnumerable<Profile>> GetProfilesAsync()
     {
         return await dbContext.Profiles.Include(p => p.ProfileSports).ToListAsync();
     }

@@ -3,7 +3,7 @@
 public class GetProfilesTests
 {
     private readonly GetProfilesQueryHandler _handler;
-    private readonly IProfilesRepository _profileRepository = Substitute.For<IProfilesRepository>();
+    private readonly IProfilesReadRepository _profileRepository = Substitute.For<IProfilesReadRepository>();
 
     private Task<GetProfilesResult> Act(GetProfilesQuery query, CancellationToken cancellationToken) =>
         _handler.Handle(query, cancellationToken);
@@ -23,7 +23,7 @@ public class GetProfilesTests
             FakeProfileCreate.Generate(),
             FakeProfileCreate.Generate()
         };
-        _profileRepository.GetAllProfilesAsync().Returns(fakeProfiles);
+        _profileRepository.GetProfilesAsync().Returns(fakeProfiles.Adapt<IEnumerable<ProfileReadModel>>());
 
         var query = new GetProfilesQuery();
 
@@ -41,7 +41,7 @@ public class GetProfilesTests
     public async Task Handle_ShouldReturnEmptyList_WhenNoProfilesExist()
     {
         // Arrange
-        _profileRepository.GetAllProfilesAsync().Returns(new List<Profile>());
+        _profileRepository.GetProfilesAsync().Returns(new List<ProfileReadModel>());
 
         var query = new GetProfilesQuery();
 

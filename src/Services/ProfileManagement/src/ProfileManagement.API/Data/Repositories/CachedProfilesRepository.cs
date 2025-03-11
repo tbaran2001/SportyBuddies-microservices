@@ -19,13 +19,13 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
         return profile;
     }
 
-    public async Task<IEnumerable<Profile>> GetAllProfilesAsync()
+    public async Task<IEnumerable<Profile>> GetProfilesAsync()
     {
         var cachedProfiles = await cache.GetStringAsync("all");
         if (!string.IsNullOrEmpty(cachedProfiles))
             return JsonSerializer.Deserialize<IEnumerable<Profile>>(cachedProfiles)!;
 
-        var profiles = await profilesRepository.GetAllProfilesAsync();
+        var profiles = await profilesRepository.GetProfilesAsync();
 
         await cache.SetStringAsync("all", JsonSerializer.Serialize(profiles));
 

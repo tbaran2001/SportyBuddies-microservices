@@ -46,7 +46,7 @@ public class ProfileTests : BaseDomainTest
         fakeProfile.Gender.Should().Be(fakeProfile.Gender);
 
         var domainEvent = AssertDomainEventWasPublished<ProfileUpdatedDomainEvent>(fakeProfile);
-        domainEvent.ProfileId.Should().Be(fakeProfile.Id);
+        domainEvent.Id.Should().Be(fakeProfile.Id);
     }
 
     [Fact]

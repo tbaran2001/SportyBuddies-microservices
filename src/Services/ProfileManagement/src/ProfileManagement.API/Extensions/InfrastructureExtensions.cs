@@ -41,6 +41,7 @@ public static class InfrastructureExtensions
         builder.Services.AddFeatureManagement();
         builder.Services.AddMessageBroker(builder.Configuration, assembly);
         MapsterConfig.Configure();
+        TypeAdapterConfig.GlobalSettings.Scan(assembly);
 
         // Identity
         builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
