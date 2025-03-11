@@ -19,19 +19,6 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
         return profile;
     }
 
-    public async Task<Profile> GetProfileByIdWithSportsAsync(Guid profileId)
-    {
-        var cachedProfile = await cache.GetStringAsync(profileId.ToString());
-        if (!string.IsNullOrEmpty(cachedProfile))
-            return JsonSerializer.Deserialize<Profile>(cachedProfile)!;
-
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(profileId);
-
-        await cache.SetStringAsync(profileId.ToString(), JsonSerializer.Serialize(profile));
-
-        return profile;
-    }
-
     public async Task<IEnumerable<Profile>> GetAllProfilesAsync()
     {
         var cachedProfiles = await cache.GetStringAsync("all");

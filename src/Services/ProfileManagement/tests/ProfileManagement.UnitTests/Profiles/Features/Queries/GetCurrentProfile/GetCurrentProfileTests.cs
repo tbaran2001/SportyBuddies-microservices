@@ -1,14 +1,9 @@
-﻿using Mapster;
-using MongoDB.Driver;
-using ProfileManagement.API.Data;
-using ProfileManagement.API.Profiles.Models.ReadModels;
-
-namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
+﻿namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
 
 public class GetCurrentProfileTests
 {
     private readonly GetCurrentProfileQueryHandler _handler;
-    private readonly ApplicationReadDbContext _readDbContext = Substitute.For<ApplicationReadDbContext>();
+    private readonly IProfilesReadRepository _profileRepository = Substitute.For<IProfilesReadRepository>();
     private readonly ICurrentUserProvider _currentUserProvider = Substitute.For<ICurrentUserProvider>();
 
     private Task<GetCurrentProfileResult> Act(GetCurrentProfileQuery query, CancellationToken cancellationToken) =>
@@ -16,7 +11,7 @@ public class GetCurrentProfileTests
 
     public GetCurrentProfileTests()
     {
-        _handler = new GetCurrentProfileQueryHandler(_readDbContext, _currentUserProvider);
+        _handler = new GetCurrentProfileQueryHandler(_profileRepository, _currentUserProvider);
     }
 
     [Fact]
@@ -24,11 +19,8 @@ public class GetCurrentProfileTests
     {
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
-        var fakeProfileReadModel = fakeProfile.Adapt<ProfileReadModel>();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
-        _readDbContext.Profiles.Find(p => p.ProfileId == fakeProfile.Id)
-            .FirstOrDefaultAsync(Arg.Any<CancellationToken>())
-            .Returns(fakeProfileReadModel);
+        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).Returns(fakeProfile);
 
         var query = new GetCurrentProfileQuery();
 
@@ -48,6 +40,7 @@ public class GetCurrentProfileTests
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
+        _profileRepository.GetProfileByIdWithSportsAsync(fakeProfile.Id).ReturnsNull();
 
         var query = new GetCurrentProfileQuery();
 

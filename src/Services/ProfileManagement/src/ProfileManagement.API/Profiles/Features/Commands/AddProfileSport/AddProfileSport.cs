@@ -48,7 +48,7 @@ internal class AddProfileSportCommandHandler(
     {
         Guard.Against.Null(command, nameof(command));
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(command.ProfileId);
+        var profile = await profilesRepository.GetProfileByIdAsync(command.ProfileId);
         if (profile == null)
             throw new ProfileNotFoundException(command.ProfileId);
 

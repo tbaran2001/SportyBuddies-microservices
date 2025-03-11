@@ -4,11 +4,6 @@ public class ProfilesRepository(ApplicationDbContext dbContext) : IProfilesRepos
 {
     public async Task<Profile> GetProfileByIdAsync(Guid profileId)
     {
-        return await dbContext.Profiles.FirstOrDefaultAsync(u=>u.Id == profileId);
-    }
-
-    public async Task<Profile> GetProfileByIdWithSportsAsync(Guid profileId)
-    {
         return await dbContext.Profiles
             .Include(u => u.ProfileSports)
             .FirstOrDefaultAsync(u => u.Id == profileId);

@@ -44,7 +44,7 @@ internal class GetProfileByIdQueryHandler(IProfilesRepository profilesRepository
     {
         Guard.Against.Null(query, nameof(query));
 
-        var profile = await profilesRepository.GetProfileByIdWithSportsAsync(query.Id);
+        var profile = await profilesRepository.GetProfileByIdAsync(query.Id);
         if (profile == null)
             throw new ProfileNotFoundException(query.Id);
 
