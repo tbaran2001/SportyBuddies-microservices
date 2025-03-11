@@ -19,7 +19,7 @@ public class GetProfileByIdTests
         // Arrange
         var query = new GetProfileByIdQuery(Guid.NewGuid());
         var fakeProfile = FakeProfileCreate.Generate();
-        _profilesRepository.GetProfileByIdWithSportsAsync(query.Id).Returns(fakeProfile);
+        _profilesRepository.GetProfileByIdAsync(query.Id).Returns(fakeProfile);
 
         // Act
         var result = await Act(query, CancellationToken.None);
@@ -29,7 +29,7 @@ public class GetProfileByIdTests
         result.Should().BeOfType<GetProfileByIdResult>();
         result.Profile.Id.Should().Be(fakeProfile.Id);
 
-        await _profilesRepository.Received(1).GetProfileByIdWithSportsAsync(query.Id);
+        await _profilesRepository.Received(1).GetProfileByIdAsync(query.Id);
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class GetProfileByIdTests
     {
         // Arrange
         var query = new GetProfileByIdQuery(Guid.NewGuid());
-        _profilesRepository.GetProfileByIdWithSportsAsync(query.Id).ReturnsNull();
+        _profilesRepository.GetProfileByIdAsync(query.Id).ReturnsNull();
 
         // Act
         Func<Task> act = async () => { await Act(query, CancellationToken.None); };
@@ -45,7 +45,7 @@ public class GetProfileByIdTests
         // Assert
         await act.Should().ThrowAsync<ProfileNotFoundException>();
 
-        await _profilesRepository.Received(1).GetProfileByIdWithSportsAsync(query.Id);
+        await _profilesRepository.Received(1).GetProfileByIdAsync(query.Id);
     }
 
     [Fact]

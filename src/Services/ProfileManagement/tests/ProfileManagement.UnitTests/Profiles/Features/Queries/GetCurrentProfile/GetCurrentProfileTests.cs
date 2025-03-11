@@ -40,7 +40,7 @@ public class GetCurrentProfileTests
         // Arrange
         var fakeProfile = FakeProfileCreate.Generate();
         _currentUserProvider.GetCurrentUserId().Returns(fakeProfile.Id);
-        _profileRepository.GetProfileByIdWithSportsAsync(fakeProfile.Id).ReturnsNull();
+        _profileRepository.GetProfileByIdAsync(fakeProfile.Id).ReturnsNull();
 
         var query = new GetCurrentProfileQuery();
 
