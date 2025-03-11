@@ -1,4 +1,8 @@
-﻿namespace ProfileManagement.IntegrationTests.Profiles.Features.Queries;
+﻿using Mapster;
+using MongoDB.Driver;
+using ProfileManagement.API.Profiles.Models.ReadModels;
+
+namespace ProfileManagement.IntegrationTests.Profiles.Features.Queries;
 
 public class GetProfilesTests : ProfileServiceIntegrationTestBase
 {
@@ -6,6 +10,8 @@ public class GetProfilesTests : ProfileServiceIntegrationTestBase
     {
         DbContext.Profiles.RemoveRange(DbContext.Profiles);
         DbContext.SaveChanges();
+
+        ReadDbContext.Profiles.DeleteMany(Builders<ProfileReadModel>.Filter.Empty);
     }
 
     [Fact]
@@ -15,6 +21,9 @@ public class GetProfilesTests : ProfileServiceIntegrationTestBase
         var fakeProfiles = new FakeProfile().Generate(5);
         DbContext.Profiles.AddRange(fakeProfiles);
         await DbContext.SaveChangesAsync();
+
+        await ReadDbContext.Profiles
+            .InsertManyAsync(fakeProfiles.Adapt<IEnumerable<ProfileReadModel>>());
 
         var query = new GetProfilesQuery();
 
