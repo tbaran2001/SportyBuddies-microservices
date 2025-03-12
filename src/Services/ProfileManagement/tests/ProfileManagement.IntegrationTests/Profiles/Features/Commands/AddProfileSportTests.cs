@@ -1,6 +1,7 @@
 ﻿namespace ProfileManagement.IntegrationTests.Profiles.Features.Commands;
 
-public class AddProfileSportTests(IntegrationTestWebAppFactory factory) : ProfileServiceIntegrationTestBase(factory)
+public class AddProfileSportTests(ProfileServiceIntegrationTestWebAppFactory factory)
+    : ProfileServiceIntegrationTestBase(factory)
 {
     [Fact]
     public async Task AddProfileSport_ShouldAddProfileSport_WhenProfileExists()

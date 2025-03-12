@@ -1,9 +1,10 @@
 ﻿namespace ProfileManagement.IntegrationTests;
 
 public class ProfileServiceIntegrationTestBase :
-    IntegrationTestBase<IntegrationTestWebAppFactory, Program, ApplicationDbContext, ApplicationReadDbContext>
+    IntegrationTestBase<ProfileServiceIntegrationTestWebAppFactory, Program, ApplicationDbContext,
+        ApplicationReadDbContext>
 {
-    protected ProfileServiceIntegrationTestBase(IntegrationTestWebAppFactory factory) : base(factory)
+    protected ProfileServiceIntegrationTestBase(ProfileServiceIntegrationTestWebAppFactory factory) : base(factory)
     {
     }
 }

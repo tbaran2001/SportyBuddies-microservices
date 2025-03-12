@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Testcontainers.MongoDb;
@@ -11,7 +12,7 @@ using Xunit;
 
 namespace BuildingBlocks.Test;
 
-public abstract class BaseIntegrationTestWebAppFactory<TProgram, TDbContext, TReadDbContext>
+public abstract class IntegrationTestWebAppFactoryBase<TProgram, TDbContext, TReadDbContext>
     : WebApplicationFactory<TProgram>, IAsyncLifetime
     where TProgram : class
     where TDbContext : DbContext
@@ -31,9 +32,11 @@ public abstract class BaseIntegrationTestWebAppFactory<TProgram, TDbContext, TRe
         builder.ConfigureTestServices(services =>
         {
             services.RemoveAll(typeof(DbContextOptions<TDbContext>));
-            services.AddDbContext<TDbContext>(options =>
-                options.UseSqlServer(_dbContainer.GetConnectionString()));
-
+            services.AddDbContext<TDbContext>((sp, options) =>
+            {
+                options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+                options.UseSqlServer(_dbContainer.GetConnectionString());
+            });
 
             services.RemoveAll<TReadDbContext>();
             services.RemoveAll<MongoOptions>();

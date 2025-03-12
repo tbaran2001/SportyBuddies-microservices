@@ -1,6 +1,7 @@
 ﻿namespace ProfileManagement.IntegrationTests.Profiles.Features.Commands;
 
-public class RemoveProfileSportTests(IntegrationTestWebAppFactory factory) : ProfileServiceIntegrationTestBase(factory)
+public class RemoveProfileSportTests(ProfileServiceIntegrationTestWebAppFactory factory)
+    : ProfileServiceIntegrationTestBase(factory)
 {
     [Fact]
     public async Task RemoveProfileSport_ShouldRemoveProfileSport_WhenProfileHasSport()

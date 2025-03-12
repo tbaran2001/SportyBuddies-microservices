@@ -6,7 +6,7 @@ using Xunit;
 namespace BuildingBlocks.Test;
 
 public class IntegrationTestBase<TFactory, TProgram, TDbContext, TReadDbContext> : IClassFixture<TFactory>, IDisposable
-    where TFactory : BaseIntegrationTestWebAppFactory<TProgram, TDbContext, TReadDbContext>
+    where TFactory : IntegrationTestWebAppFactoryBase<TProgram, TDbContext, TReadDbContext>
     where TProgram : class
     where TDbContext : DbContext
     where TReadDbContext : class
