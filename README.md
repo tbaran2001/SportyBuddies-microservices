@@ -14,6 +14,7 @@ Core Framework & Language
 Database & Storage
 - Entity Framework Core
 - MSSQL
+- MongoDB
 - Redis
 
 Architecture & Patterns
@@ -22,6 +23,7 @@ Architecture & Patterns
 - Clean Architecture
 - Vertical Slice Architecture
 - Domain Driven Design
+- CQRS
 
 Application Infrastructure
 - Yarp API Gateway
@@ -50,9 +52,11 @@ Libraries & Utilities
 
 Testing
 - XUnit
+- Testcontainers
 - NSubsitute
 - FluentAssertions
 - AutoBogus
+- NetArchTest.Rules
 
 Development:
 - JetBrains Rider
