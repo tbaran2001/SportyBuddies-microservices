@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sport.API.Data;
+using ProfileManagement.API.Data;
 
 #nullable disable
 
-namespace Sport.API.Data.Migrations
+namespace ProfileManagement.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250314214250_Outbox")]
+    partial class Outbox
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +195,43 @@ namespace Sport.API.Data.Migrations
                     b.ToTable("OutboxState");
                 });
 
-            modelBuilder.Entity("Sport.API.Sports.Models.Sport", b =>
+            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Unknown");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.ProfileSport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SportId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("SportId");
+
+                    b.ToTable("ProfileSports");
+                });
+
+            modelBuilder.Entity("ProfileManagement.API.Sports.Models.Sport", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -214,11 +253,28 @@ namespace Sport.API.Data.Migrations
                         .HasPrincipalKey("MessageId", "ConsumerId");
                 });
 
-            modelBuilder.Entity("Sport.API.Sports.Models.Sport", b =>
+            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>
                 {
-                    b.OwnsOne("Sport.API.Sports.ValueObjects.Description", "Description", b1 =>
+                    b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.BirthDate", "BirthDate", b1 =>
                         {
-                            b1.Property<Guid>("SportId")
+                            b1.Property<Guid>("ProfileId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("Value")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("BirthDate");
+
+                            b1.HasKey("ProfileId");
+
+                            b1.ToTable("Profiles");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProfileId");
+                        });
+
+                    b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.Description", "Description", b1 =>
+                        {
+                            b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -226,17 +282,17 @@ namespace Sport.API.Data.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Description");
 
-                            b1.HasKey("SportId");
+                            b1.HasKey("ProfileId");
 
-                            b1.ToTable("Sports");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
-                                .HasForeignKey("SportId");
+                                .HasForeignKey("ProfileId");
                         });
 
-                    b.OwnsOne("Sport.API.Sports.ValueObjects.Name", "Name", b1 =>
+                    b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.Name", "Name", b1 =>
                         {
-                            b1.Property<Guid>("SportId")
+                            b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -244,17 +300,65 @@ namespace Sport.API.Data.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Name");
 
-                            b1.HasKey("SportId");
+                            b1.HasKey("ProfileId");
 
-                            b1.ToTable("Sports");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
-                                .HasForeignKey("SportId");
+                                .HasForeignKey("ProfileId");
                         });
+
+                    b.OwnsOne("ProfileManagement.API.Profiles.ValueObjects.Preferences", "Preferences", b1 =>
+                        {
+                            b1.Property<Guid>("ProfileId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("MaxAge")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("MaxDistance")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("MinAge")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("PreferredGender")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ProfileId");
+
+                            b1.ToTable("Profiles");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProfileId");
+                        });
+
+                    b.Navigation("BirthDate");
 
                     b.Navigation("Description");
 
                     b.Navigation("Name");
+
+                    b.Navigation("Preferences");
+                });
+
+            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.ProfileSport", b =>
+                {
+                    b.HasOne("ProfileManagement.API.Profiles.Models.Profile", null)
+                        .WithMany("ProfileSports")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProfileManagement.API.Sports.Models.Sport", null)
+                        .WithMany()
+                        .HasForeignKey("SportId");
+                });
+
+            modelBuilder.Entity("ProfileManagement.API.Profiles.Models.Profile", b =>
+                {
+                    b.Navigation("ProfileSports");
                 });
 #pragma warning restore 612, 618
         }

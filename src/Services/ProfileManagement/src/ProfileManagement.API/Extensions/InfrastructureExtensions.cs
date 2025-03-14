@@ -39,7 +39,9 @@ public static class InfrastructureExtensions
         builder.Services.AddHealthChecks()
             .AddSqlServer(builder.Configuration.GetConnectionString("Database")!);
         builder.Services.AddFeatureManagement();
-        builder.Services.AddMessageBroker(builder.Configuration, assembly);
+        
+        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, assembly);
+        
         MapsterConfig.Configure();
         TypeAdapterConfig.GlobalSettings.Scan(assembly);
 

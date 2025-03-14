@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,8 +8,10 @@ namespace BuildingBlocks.MassTransit;
 
 public static class Extensions
 {
-    public static IServiceCollection AddMessageBroker(this IServiceCollection services, IConfiguration configuration,
+    public static IServiceCollection AddMessageBroker<TDbContext>(this IServiceCollection services,
+        IConfiguration configuration,
         Assembly assembly = null)
+        where TDbContext : DbContext
     {
         services.AddMassTransit(config =>
         {
@@ -25,6 +28,13 @@ public static class Extensions
                     host.Password(configuration["MessageBroker:Password"]!);
                 });
                 configurator.ConfigureEndpoints(context);
+            });
+
+            config.AddEntityFrameworkOutbox<TDbContext>(options =>
+            {
+                options.QueryDelay = TimeSpan.FromSeconds(10);
+                options.UseSqlServer();
+                options.UseBusOutbox();
             });
         });
 

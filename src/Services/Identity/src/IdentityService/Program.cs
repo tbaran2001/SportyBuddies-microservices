@@ -1,13 +1,14 @@
 ﻿using System.Reflection;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.MassTransit;
+using IdentityService.Data;
 using IdentityService.Data.Seed;
 using IdentityService.Extensions;
 using IdentityService.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
+builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, Assembly.GetExecutingAssembly());
 
 builder.AddInfrastructure();
 

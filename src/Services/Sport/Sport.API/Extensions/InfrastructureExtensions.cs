@@ -32,7 +32,7 @@ public static class InfrastructureExtensions
         });
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-        builder.Services.AddMessageBroker(builder.Configuration, assembly);
+        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, assembly);
         MapsterConfig.Configure();
 
         // Identity
