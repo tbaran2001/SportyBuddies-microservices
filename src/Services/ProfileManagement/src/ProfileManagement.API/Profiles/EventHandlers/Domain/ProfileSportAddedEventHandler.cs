@@ -3,7 +3,8 @@
 public class ProfileSportAddedEventHandler(
     IPublishEndpoint publishEndpoint,
     ILogger<ProfileSportAddedEventHandler> logger,
-    ApplicationReadDbContext dbContext)
+    ApplicationReadDbContext readDbContext,
+    IUnitOfWork unitOfWork)
     : INotificationHandler<ProfileSportAddedDomainEvent>
 {
     public async Task Handle(ProfileSportAddedDomainEvent notification, CancellationToken cancellationToken)
@@ -18,7 +19,7 @@ public class ProfileSportAddedEventHandler(
             SportId = notification.SportId
         };
 
-        var result = await dbContext.Profiles
+        var result = await readDbContext.Profiles
             .FindOneAndUpdateAsync(
                 Builders<ProfileReadModel>.Filter.Where(p => p.ProfileId == notification.ProfileId),
                 Builders<ProfileReadModel>.Update.Push(p => p.ProfileSports, profileSportReadModel),
@@ -31,5 +32,6 @@ public class ProfileSportAddedEventHandler(
             ProfileId = notification.ProfileId,
         };
         await publishEndpoint.Publish(profileSportAddedIntegrationEvent, cancellationToken);
+        await unitOfWork.CommitChangesAsync();
     }
 }
