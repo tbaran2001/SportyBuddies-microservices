@@ -44,7 +44,7 @@ public static class InfrastructureExtensions
         builder.Services.AddHealthChecks()
             .AddSqlServer(builder.Configuration.GetConnectionString("Database")!)
             .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
-        builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
+        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, Assembly.GetExecutingAssembly());
         builder.Services.AddGrpcClient<BuddiesProtoService.BuddiesProtoServiceClient>(options =>
             {
                 options.Address = new Uri(builder.Configuration["GrpcSettings:BuddiesUrl"]!);

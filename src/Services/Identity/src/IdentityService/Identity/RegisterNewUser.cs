@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.CQRS;
 using BuildingBlocks.Events.Identity;
 using FluentValidation;
+using IdentityService.Data;
 using IdentityService.Models;
 using Mapster;
 using MassTransit;
@@ -73,7 +74,7 @@ public class RegisterNewUserValidator : AbstractValidator<RegisterNewUserCommand
     }
 }
 
-internal class RegisterNewUserHandler(UserManager<ApplicationUser> userManager, IPublishEndpoint publishEndpoint)
+internal class RegisterNewUserHandler(UserManager<ApplicationUser> userManager, IPublishEndpoint publishEndpoint, ApplicationDbContext dbContext)
     : ICommandHandler<RegisterNewUserCommand, RegisterNewUserResult>
 {
     public async Task<RegisterNewUserResult> Handle(RegisterNewUserCommand request,
@@ -103,6 +104,8 @@ internal class RegisterNewUserHandler(UserManager<ApplicationUser> userManager, 
             Name = request.Name,
         };
         await publishEndpoint.Publish(integrationEvent, cancellationToken);
+
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return new RegisterNewUserResult(applicationUser.Id, request.Name);
     }

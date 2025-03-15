@@ -63,5 +63,7 @@ public class SeedIdentityData
                 await publishEndpoint.Publish(integrationEvent);
             }
         }
+        
+        await context.SaveChangesAsync();
     }
 }
