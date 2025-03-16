@@ -8,9 +8,11 @@ public static class InfrastructureExtensions
         builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddGrpc();
+        
+        builder.Services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.AddInterceptors(sp.GetServices<ConvertDomainEventsToOutboxMessagesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
@@ -20,8 +22,9 @@ public static class InfrastructureExtensions
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
-        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        //builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         //builder.Services.Decorate<IProfilesRepository, CachedProfilesRepository>();
+        
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
