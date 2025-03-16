@@ -1,7 +1,5 @@
 using BuildingBlocks.Core.Model;
 using BuildingBlocks.Outbox;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 
@@ -28,17 +26,14 @@ public class ConvertDomainEventsToOutboxMessagesInterceptor : SaveChangesInterce
 
                 return domainEvents;
             })
-            .Select(domainEvent => new OutboxMessage
+            .Select(domainEvent => new OutboxMessage(
+                Guid.NewGuid(),
+                DateTime.Now,
+                domainEvent.GetType().Name,
+                JsonConvert.SerializeObject(domainEvent, new JsonSerializerSettings
                 {
-                    Id = Guid.NewGuid(),
-                    Type = domainEvent.GetType().Name,
-                    OccurredOnUtc = DateTime.Now,
-                    Content = JsonConvert.SerializeObject(domainEvent, new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.All
-                    })
-                }
-            )
+                    TypeNameHandling = TypeNameHandling.All
+                })))
             .ToList();
 
         dbContext.Set<OutboxMessage>().AddRange(outboxMessages);
