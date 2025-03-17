@@ -10,7 +10,7 @@ public sealed class OutboxMessage(Guid id, DateTime occurredOnUtc, string type, 
 
     public string Content { get; init; } = content;
 
-    public DateTime? ProcessedOnUtc { get; init; }
+    public DateTime? ProcessedOnUtc { get; set; }
 
-    public string? Error { get; init; }
+    public string Error { get; set; }
 }
