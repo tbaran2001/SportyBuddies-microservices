@@ -27,4 +27,8 @@ public record Preferences
 
         return new Preferences(minAge, maxAge, maxDistance, preferredGender);
     }
+
+    private Preferences()
+    {
+    }
 }

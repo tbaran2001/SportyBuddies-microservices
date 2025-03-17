@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.EFCore.Interceptors;
+﻿using System.Reflection;
+using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Logging;
 using BuildingBlocks.MassTransit;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -32,7 +33,7 @@ public static class InfrastructureExtensions
         });
         builder.Services.AddValidatorsFromAssembly(assembly);
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, assembly);
+        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, Assembly.GetExecutingAssembly());
         MapsterConfig.Configure();
 
         // Identity

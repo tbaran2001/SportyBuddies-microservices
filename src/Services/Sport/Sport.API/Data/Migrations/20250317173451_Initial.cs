@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sport.API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Outbox : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,19 @@ namespace Sport.API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OutboxState", x => x.OutboxId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sports", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,6 +145,9 @@ namespace Sport.API.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "OutboxMessage");
+
+            migrationBuilder.DropTable(
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "InboxState");
