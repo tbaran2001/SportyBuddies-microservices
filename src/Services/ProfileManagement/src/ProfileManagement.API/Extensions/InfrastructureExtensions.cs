@@ -1,4 +1,6 @@
-﻿namespace ProfileManagement.API.Extensions;
+﻿using Quartz;
+
+namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {
@@ -8,9 +10,11 @@ public static class InfrastructureExtensions
         builder.AddCustomSerilog();
         builder.Services.AddCarter();
         builder.Services.AddGrpc();
+
+        builder.Services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.AddInterceptors(sp.GetServices<ConvertDomainEventsToOutboxMessagesInterceptor>());
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
@@ -20,8 +24,9 @@ public static class InfrastructureExtensions
         builder.Services.AddScoped<ISportsRepository, SportsRepository>();
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
-        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        //builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         //builder.Services.Decorate<IProfilesRepository, CachedProfilesRepository>();
+
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
@@ -39,9 +44,9 @@ public static class InfrastructureExtensions
         builder.Services.AddHealthChecks()
             .AddSqlServer(builder.Configuration.GetConnectionString("Database")!);
         builder.Services.AddFeatureManagement();
-        
+
         builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, assembly);
-        
+
         MapsterConfig.Configure();
         TypeAdapterConfig.GlobalSettings.Scan(assembly);
 
@@ -54,6 +59,8 @@ public static class InfrastructureExtensions
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddBackgroundJobs();
 
         return builder;
     }
@@ -79,5 +86,16 @@ public static class InfrastructureExtensions
         });
 
         return app;
+    }
+
+    public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
+    {
+        services.AddQuartz();
+
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+
+        services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
+
+        return services;
     }
 }

@@ -12,8 +12,8 @@ using Sport.API.Data;
 namespace Sport.API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250314220245_Outbox")]
-    partial class Outbox
+    [Migration("20250317173451_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
