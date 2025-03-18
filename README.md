@@ -24,6 +24,7 @@ Architecture & Patterns
 - Vertical Slice Architecture
 - Domain Driven Design
 - CQRS
+- Outbox
 
 Application Infrastructure
 - Yarp API Gateway
@@ -48,6 +49,7 @@ Libraries & Utilities
 - Mapster
 - Carter
 - MassTransit
+- Quartz
 - Scrutor
 
 Testing
