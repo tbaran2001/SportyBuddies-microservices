@@ -4,7 +4,7 @@ namespace ProfileManagement.API.Profiles.Features.Commands.AddProfileSport;
 
 public record AddProfileSportCommand(Guid ProfileId, Guid SportId) : ICommand;
 
-public record ProfileSportAddedDomainEvent(Guid Id, Guid ProfileId, Guid SportId) : IDomainEvent;
+public record ProfileSportAddedDomainEvent(ProfileSportId Id, ProfileId ProfileId, SportId SportId) : IDomainEvent;
 
 public record AddProfileSportRequestDto(Guid SportId);
 

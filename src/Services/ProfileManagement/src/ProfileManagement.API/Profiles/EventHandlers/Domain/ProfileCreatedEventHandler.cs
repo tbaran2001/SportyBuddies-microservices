@@ -8,7 +8,7 @@ public class ProfileCreatedEventHandler(ILogger<ProfileCreatedEventHandler> logg
         var profileReadModel = new ProfileReadModel
         {
             Id = Guid.NewGuid(),
-            ProfileId = notification.Id,
+            ProfileId = notification.ProfileId,
             Name = notification.Name,
             Description = notification.Description,
             BirthDate = notification.BirthDate,
@@ -21,7 +21,7 @@ public class ProfileCreatedEventHandler(ILogger<ProfileCreatedEventHandler> logg
         };
 
         var profile = await dbContext.Profiles
-            .Find(p => p.ProfileId == notification.Id)
+            .Find(p => p.ProfileId == notification.ProfileId)
             .FirstOrDefaultAsync(cancellationToken);
         if (profile is not null)
             throw new ProfileAlreadyExistException();

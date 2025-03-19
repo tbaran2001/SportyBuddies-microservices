@@ -7,10 +7,10 @@ public record CreateProfileCommand(Guid ProfileId, string Name, string Descripti
 public record CreateProfileResult(ProfileDto Profile);
 
 public record ProfileCreatedDomainEvent(
-    Guid Id,
-    string Name,
-    string Description,
-    DateTime BirthDate,
+    ProfileId ProfileId,
+    Name Name,
+    Description Description,
+    BirthDate BirthDate,
     Gender Gender,
     Preferences Preferences) : IDomainEvent;
 
