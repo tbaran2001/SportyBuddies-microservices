@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using ProfileManagement.API.Data.Seed;
+using Quartz;
 
 namespace ProfileManagement.API.Extensions;
 

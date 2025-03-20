@@ -1,4 +1,4 @@
-namespace Sport.API.Data;
+namespace Sport.API.Data.Seed;
 
 public static class SportInitialData
 {
