@@ -1,84 +1,104 @@
-﻿using ProfileManagement.API.Data.Seed;
-using Quartz;
-
-namespace ProfileManagement.API.Extensions;
+﻿namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {
     public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
     {
+        var configuration = builder.Configuration;
         var assembly = typeof(Program).Assembly;
+        var services = builder.Services;
+
+        // Logging
         builder.AddCustomSerilog();
-        builder.Services.AddCarter();
-        builder.Services.AddGrpc();
 
-        builder.Services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
-        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
-        {
-            options.AddInterceptors(sp.GetServices<ConvertDomainEventsToOutboxMessagesInterceptor>());
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
-        });
-        builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection("MongoOptions"));
-        builder.Services.AddSingleton<ApplicationReadDbContext>();
-        builder.Services.AddScoped<IProfilesRepository, ProfilesRepository>();
-        builder.Services.AddScoped<IProfilesReadRepository, ProfilesReadRepository>();
-        builder.Services.AddScoped<ISportsRepository, SportsRepository>();
-        builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
-            serviceProvider.GetRequiredService<ApplicationDbContext>());
-        //builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-        //builder.Services.Decorate<IProfilesRepository, CachedProfilesRepository>();
+        // Carter + gRPC
+        services.AddCarter();
+        services.AddGrpc();
 
-        builder.Services.AddStackExchangeRedisCache(options =>
+        // EF Core DbContext & Interceptors
+        services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+            var interceptor = sp.GetRequiredService<ConvertDomainEventsToOutboxMessagesInterceptor>();
+            options.AddInterceptors(interceptor);
+            options.UseSqlServer(configuration.GetConnectionString("Database"));
         });
 
-        builder.Services.AddValidatorsFromAssembly(assembly);
-        builder.Services.AddMediatR(serviceConfiguration =>
+        // MongoDB Config & ReadDbContext
+        services.Configure<MongoOptions>(configuration.GetSection("MongoOptions"));
+        services.AddSingleton<ApplicationReadDbContext>();
+
+        // Repositories
+        services.AddScoped<IProfilesRepository, ProfilesRepository>();
+        services.AddScoped<IProfilesReadRepository, ProfilesReadRepository>();
+        services.AddScoped<ISportsRepository, SportsRepository>();
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        //services.Decorate<IProfilesRepository, CachedProfilesRepository>();
+
+        // Caching
+        services.AddStackExchangeRedisCache(options =>
         {
-            serviceConfiguration.RegisterServicesFromAssembly(assembly);
-            serviceConfiguration.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            serviceConfiguration.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            options.Configuration = configuration.GetConnectionString("Redis")!;
         });
 
-        builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-        builder.Services.AddHealthChecks()
-            .AddSqlServer(builder.Configuration.GetConnectionString("Database")!);
-        builder.Services.AddFeatureManagement();
+        // Validation & MediatR Behaviors
+        services.AddValidatorsFromAssembly(assembly);
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(assembly);
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+        });
 
-        builder.Services.AddMessageBroker<ApplicationDbContext>(builder.Configuration, assembly);
+        // Exception Handling
+        services.AddExceptionHandler<CustomExceptionHandler>();
 
+        // Health Checks
+        services.AddHealthChecks()
+            .AddSqlServer(configuration.GetConnectionString("Database")!);
+
+        // Feature Flags
+        services.AddFeatureManagement();
+
+        // Messaging / Outbox
+        services.AddMessageBroker<ApplicationDbContext>(configuration, assembly);
+
+        // Mapster
         MapsterConfig.Configure();
         TypeAdapterConfig.GlobalSettings.Scan(assembly);
 
-        // Identity
-        builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-        builder.Services.AddJwt();
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<AuthHeaderHandler>();
-        builder.Services.AddAuthorization();
+        // Identity & Auth
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        services.AddJwt();
+        services.AddHttpContextAccessor();
+        services.AddTransient<AuthHeaderHandler>();
+        services.AddAuthorization();
 
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        // Swagger
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
 
-        builder.Services.AddBackgroundJobs();
+        // Quartz & Background Jobs
+        services.AddBackgroundJobs();
 
         return builder;
     }
 
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
+        // Middleware and endpoints
         app.MapCarter();
         app.UseExceptionHandler(_ => { });
+
         app.UseHealthChecks("/health", new HealthCheckOptions
         {
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
 
         app.MapGrpcService<ProfileService>();
-
         app.InitializeDatabase();
 
+        // Swagger
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
@@ -89,12 +109,10 @@ public static class InfrastructureExtensions
         return app;
     }
 
-    public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
+    private static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
     {
         services.AddQuartz();
-
         services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
-
         services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
 
         return services;

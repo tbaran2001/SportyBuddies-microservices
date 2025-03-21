@@ -1,13 +1,4 @@
-﻿using System.Reflection;
-using BuildingBlocks.EFCore;
-using BuildingBlocks.EFCore.Interceptors;
-using BuildingBlocks.Logging;
-using BuildingBlocks.MassTransit;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Sport.API.Data.Seed;
-using Sport.API.Sports.Mapster;
-
-namespace Sport.API.Extensions;
+﻿namespace Sport.API.Extensions;
 
 public static class InfrastructureExtensions
 {

@@ -1,6 +1,5 @@
 using BuildingBlocks.Outbox;
 using Newtonsoft.Json;
-using Quartz;
 
 namespace ProfileManagement.API;
 

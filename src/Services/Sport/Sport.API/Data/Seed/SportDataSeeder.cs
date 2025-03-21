@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.EFCore;
-
-namespace Sport.API.Data.Seed;
+﻿namespace Sport.API.Data.Seed;
 
 public class SportDataSeeder(ApplicationDbContext dbContext) : IDataSeeder
 {

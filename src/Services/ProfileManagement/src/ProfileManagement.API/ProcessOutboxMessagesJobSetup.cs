@@ -1,6 +1,4 @@
-﻿using Quartz;
-
-namespace ProfileManagement.API;
+﻿namespace ProfileManagement.API;
 
 public class ProcessOutboxMessagesJobSetup : IConfigureOptions<QuartzOptions>
 {
