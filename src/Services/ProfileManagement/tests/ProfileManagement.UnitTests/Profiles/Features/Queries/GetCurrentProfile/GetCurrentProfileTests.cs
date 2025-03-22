@@ -1,4 +1,6 @@
-﻿namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
+﻿using ProfileManagement.API.Data.Repositories.Read;
+
+namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetCurrentProfile;
 
 public class GetCurrentProfileTests
 {

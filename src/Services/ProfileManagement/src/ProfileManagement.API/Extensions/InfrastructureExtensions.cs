@@ -1,4 +1,6 @@
-﻿namespace ProfileManagement.API.Extensions;
+﻿using ProfileManagement.API.Data.Repositories.Read;
+
+namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {

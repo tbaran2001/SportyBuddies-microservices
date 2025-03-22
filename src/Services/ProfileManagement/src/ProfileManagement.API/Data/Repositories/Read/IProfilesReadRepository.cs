@@ -1,4 +1,4 @@
-﻿namespace ProfileManagement.API.Data.Repositories;
+﻿namespace ProfileManagement.API.Data.Repositories.Read;
 
 public interface IProfilesReadRepository
 {

@@ -1,4 +1,6 @@
-﻿namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetProfiles;
+﻿using ProfileManagement.API.Data.Repositories.Read;
+
+namespace ProfileManagement.UnitTests.Profiles.Features.Queries.GetProfiles;
 
 public class GetProfilesTests
 {

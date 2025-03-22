@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using ProfileManagement.API.Data.Repositories.Read;
 
 namespace ProfileManagement.API.Profiles.Features.Queries.GetProfiles;
 
