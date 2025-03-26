@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: sportapi
-          image: tbaran2001/sportapi:latest
-          imagePullPolicy: IfNotPresent
+          image: sportapi:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
