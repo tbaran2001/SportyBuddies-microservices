@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: identityservice
-          image: tbaran2001/identityservice:latest
-          imagePullPolicy: IfNotPresent
+          image: identityservice:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development

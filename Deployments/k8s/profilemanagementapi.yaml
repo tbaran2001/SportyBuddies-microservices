@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: profilemanagementapi
-          image: tbaran2001/profilemanagementapi:latest
-          imagePullPolicy: IfNotPresent
+          image: profilemanagementapi:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
@@ -44,6 +44,11 @@ spec:
               value: guest
             - name: MessageBroker__UserName
               value: guest
+            - name: MongoOptions__ConnectionString
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-configmap
+                  key: connection_string
           ports:
             - containerPort: 8080
               protocol: TCP

@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: yarpapigateway
-          image: tbaran2001/yarpapigateway:latest
-          imagePullPolicy: IfNotPresent
+          image: yarpapigateway:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development

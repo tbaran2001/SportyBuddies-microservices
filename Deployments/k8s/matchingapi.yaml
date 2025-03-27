@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: matchingapi
-          image: tbaran2001/matchingapi:latest
-          imagePullPolicy: IfNotPresent
+          image: matchingapi:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development

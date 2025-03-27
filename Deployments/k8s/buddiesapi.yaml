@@ -15,8 +15,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: buddiesapi
-          image: tbaran2001/buddiesapi:latest
-          imagePullPolicy: IfNotPresent
+          image: buddiesapi:latest
+          imagePullPolicy: Never
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development

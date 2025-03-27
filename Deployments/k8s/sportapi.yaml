@@ -32,6 +32,12 @@ spec:
               value: http://identityservice-service:6065/.well-known/openid-configuration
             - name: Jwt__RequireHttpsMetadata
               value: "false"
+            - name: MessageBroker__Host
+              value: amqp://messagebroker-service:5672
+            - name: MessageBroker__Password
+              value: guest
+            - name: MessageBroker__UserName
+              value: guest
           ports:
             - containerPort: 8080
               protocol: TCP
