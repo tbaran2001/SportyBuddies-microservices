@@ -47,3 +47,4 @@ global using ProfileManagement.API.Profiles.Models.ReadModels;
 global using ProfileManagement.API.Sports.Exceptions;
 global using ProfileManagement.API.Sports.Dtos;
 global using Quartz;
+global using Newtonsoft.Json;

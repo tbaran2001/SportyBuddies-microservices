@@ -4,6 +4,7 @@ public record Description
 {
     public string Value { get; }
 
+    [JsonConstructor]
     private Description(string value) => Value = value;
 
     public static Description Of(string description)

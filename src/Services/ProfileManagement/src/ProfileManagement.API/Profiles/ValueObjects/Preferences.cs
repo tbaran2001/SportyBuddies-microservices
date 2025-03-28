@@ -8,6 +8,7 @@ public record Preferences
     public int MaxDistance { get; }
     public Gender PreferredGender { get; }
 
+    [JsonConstructor]
     private Preferences(int minAge, int maxAge, int maxDistance, Gender preferredGender)
     {
         MinAge = minAge;

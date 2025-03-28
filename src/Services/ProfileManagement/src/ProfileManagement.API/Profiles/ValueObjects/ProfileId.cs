@@ -4,6 +4,7 @@ public record ProfileId
 {
     public Guid Value { get; }
 
+    [JsonConstructor]
     private ProfileId(Guid value) => Value = value;
 
     public static ProfileId Of(Guid value)

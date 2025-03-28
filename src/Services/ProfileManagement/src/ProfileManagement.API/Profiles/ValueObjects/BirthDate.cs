@@ -4,6 +4,7 @@ public record BirthDate
 {
     public DateTime Value { get; }
 
+    [JsonConstructor]
     private BirthDate(DateTime value) => Value = value;
 
     public static BirthDate Of(DateTime value)

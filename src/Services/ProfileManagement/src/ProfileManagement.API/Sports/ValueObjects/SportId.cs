@@ -4,6 +4,7 @@ public record SportId
 {
     public Guid Value { get; }
 
+    [JsonConstructor]
     private SportId(Guid value) => Value = value;
 
     public static SportId Of(Guid value)

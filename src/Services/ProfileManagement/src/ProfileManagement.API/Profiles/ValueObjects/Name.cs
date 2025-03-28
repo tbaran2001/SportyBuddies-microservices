@@ -4,6 +4,7 @@ public record Name
 {
     public string Value { get; }
 
+    [JsonConstructor]
     private Name(string value) => Value = value;
 
     public static Name Of(string value)
