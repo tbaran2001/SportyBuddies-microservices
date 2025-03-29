@@ -1,3 +1,4 @@
+using BuildingBlocks.EFCore.Interceptors;
 using BuildingBlocks.Mongo;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -32,9 +33,11 @@ public abstract class IntegrationTestWebAppFactoryBase<TProgram, TDbContext, TRe
         builder.ConfigureTestServices(services =>
         {
             services.RemoveAll(typeof(DbContextOptions<TDbContext>));
+            services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
             services.AddDbContext<TDbContext>((sp, options) =>
             {
-                options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+                var interceptor = sp.GetRequiredService<ConvertDomainEventsToOutboxMessagesInterceptor>();
+                options.AddInterceptors(interceptor);
                 options.UseSqlServer(_dbContainer.GetConnectionString());
             });
 

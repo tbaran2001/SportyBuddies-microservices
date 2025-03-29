@@ -12,6 +12,6 @@ public class ProcessOutboxMessagesJobSetup : IConfigureOptions<QuartzOptions>
                 configure
                     .ForJob(jobName)
                     .WithSimpleSchedule(schedule =>
-                        schedule.WithIntervalInSeconds(10).RepeatForever()));
+                        schedule.WithIntervalInSeconds(2).RepeatForever()));
     }
 }

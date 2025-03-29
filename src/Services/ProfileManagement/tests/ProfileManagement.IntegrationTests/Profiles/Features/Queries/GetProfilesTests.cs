@@ -25,6 +25,7 @@ public class GetProfilesTests : ProfileServiceIntegrationTestBase
         var query = new GetProfilesQuery();
 
         // Act
+        await Task.Delay(5000);
         var result = await Sender.Send(query);
 
         // Assert
