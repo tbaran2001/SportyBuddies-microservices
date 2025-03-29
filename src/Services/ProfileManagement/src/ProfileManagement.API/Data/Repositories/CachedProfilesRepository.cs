@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 
 namespace ProfileManagement.API.Data.Repositories;
 
@@ -10,11 +9,11 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
     {
         var cachedProfile = await cache.GetStringAsync(profileId.ToString());
         if (!string.IsNullOrEmpty(cachedProfile))
-            return JsonSerializer.Deserialize<Profile>(cachedProfile)!;
+            return JsonConvert.DeserializeObject<Profile>(cachedProfile)!;
 
         var profile = await profilesRepository.GetProfileByIdAsync(profileId);
 
-        await cache.SetStringAsync(profileId.ToString(), JsonSerializer.Serialize(profile));
+        await cache.SetStringAsync(profileId.ToString(), JsonConvert.SerializeObject(profile));
 
         return profile;
     }
@@ -23,11 +22,11 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
     {
         var cachedProfiles = await cache.GetStringAsync("all");
         if (!string.IsNullOrEmpty(cachedProfiles))
-            return JsonSerializer.Deserialize<IEnumerable<Profile>>(cachedProfiles)!;
+            return JsonConvert.DeserializeObject<IEnumerable<Profile>>(cachedProfiles)!;
 
         var profiles = await profilesRepository.GetProfilesAsync();
 
-        await cache.SetStringAsync("all", JsonSerializer.Serialize(profiles));
+        await cache.SetStringAsync("all", JsonConvert.SerializeObject(profiles));
 
         return profiles;
     }
@@ -36,7 +35,7 @@ public class CachedProfilesRepository(IProfilesRepository profilesRepository, ID
     {
         await profilesRepository.AddProfileAsync(profile);
 
-        await cache.SetStringAsync(profile.Id.ToString(), JsonSerializer.Serialize(profile));
+        await cache.SetStringAsync(profile.Id.ToString(), JsonConvert.SerializeObject(profile));
     }
 
     public void RemoveProfile(Profile profile)
