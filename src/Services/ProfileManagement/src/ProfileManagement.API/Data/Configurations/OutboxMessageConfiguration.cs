@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Outbox;
-
-namespace ProfileManagement.API.Data.Configurations;
+﻿namespace ProfileManagement.API.Data.Configurations;
 
 public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {

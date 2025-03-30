@@ -1,6 +1,4 @@
-﻿using ProfileManagement.API.Data.Repositories.Read;
-
-namespace ProfileManagement.API.Extensions;
+﻿namespace ProfileManagement.API.Extensions;
 
 public static class InfrastructureExtensions
 {
@@ -115,7 +113,7 @@ public static class InfrastructureExtensions
     {
         services.AddQuartz();
         services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
-        services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
+        services.ConfigureOptions<ProcessOutboxMessagesJobSetup<ApplicationDbContext>>();
 
         return services;
     }
