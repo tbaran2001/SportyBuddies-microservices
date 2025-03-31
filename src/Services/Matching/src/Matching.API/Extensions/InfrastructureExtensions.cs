@@ -1,15 +1,4 @@
-﻿using System.Reflection;
-using BuildingBlocks.EFCore.Interceptors;
-using BuildingBlocks.Exceptions.Handler;
-using BuildingBlocks.Jwt;
-using BuildingBlocks.Logging;
-using BuildingBlocks.MassTransit;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Serilog;
-
-namespace Matching.API.Extensions;
+﻿namespace Matching.API.Extensions;
 
 public static class InfrastructureExtensions
 {

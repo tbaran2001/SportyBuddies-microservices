@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Matching.API.Data.Configuration;
+﻿namespace Matching.API.Data.Configuration;
 
 public class MatchConfiguration : IEntityTypeConfiguration<Match>
 {

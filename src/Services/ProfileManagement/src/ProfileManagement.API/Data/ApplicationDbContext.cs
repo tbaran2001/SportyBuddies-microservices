@@ -1,5 +1,3 @@
-using BuildingBlocks.EFCore;
-
 namespace ProfileManagement.API.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : BaseDbContext(options)

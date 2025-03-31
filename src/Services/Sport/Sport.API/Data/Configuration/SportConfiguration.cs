@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Sport.API.Data.Configuration;
+﻿namespace Sport.API.Data.Configuration;
 
 public class SportConfiguration : IEntityTypeConfiguration<Sports.Models.Sport>
 {

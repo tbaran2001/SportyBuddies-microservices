@@ -1,6 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using Humanizer;
-using Matching.API.Data.Repositories;
 
 namespace Matching.API.Matching.Features.GetMatches;
 
