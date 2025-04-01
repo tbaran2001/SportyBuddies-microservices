@@ -16,13 +16,14 @@ public static class InfrastructureExtensions
         });
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            var interceptor = sp.GetRequiredService<ConvertDomainEventsToOutboxMessagesInterceptor>();
+            options.AddInterceptors(interceptor);
             options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
         });
         builder.Services.AddScoped<IUnitOfWork>(serviceProvider =>
             serviceProvider.GetRequiredService<ApplicationDbContext>());
         builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
-        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        builder.Services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
         //builder.Services.Decorate<IMatchesRepository, CachedMatchesRepository>();
         builder.Services.AddStackExchangeRedisCache(options =>
         {
@@ -72,6 +73,8 @@ public static class InfrastructureExtensions
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        builder.Services.AddBackgroundJobs();
 
         return builder;
     }
