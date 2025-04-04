@@ -6,9 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Exceptions.Handler;
 
-public class CustomExceptionHandler(ILogger<CustomExceptionHandler>logger):IExceptionHandler
+public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception,
+        CancellationToken cancellationToken)
     {
         logger.LogError(
             "Error Message: {exceptionMessage}, Time of occurrence {time}",
@@ -46,6 +47,12 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler>logger):IExce
                 exception.GetType().Name,
                 context.Response.StatusCode = StatusCodes.Status409Conflict
             ),
+            DomainException =>
+            (
+                exception.Message,
+                exception.GetType().Name,
+                context.Response.StatusCode = StatusCodes.Status400BadRequest
+            ),
             _ =>
             (
                 exception.Message,
@@ -69,7 +76,12 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler>logger):IExce
             problemDetails.Extensions.Add("ValidationErrors", validationException.Errors);
         }
 
-        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken: cancellationToken);
+        await context.Response.WriteAsJsonAsync(
+            problemDetails,
+            options: null,
+            contentType: "application/problem+json",
+            cancellationToken: cancellationToken);
+        
         return true;
     }
 }
