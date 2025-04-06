@@ -16,6 +16,7 @@ global using BuildingBlocks.Outbox;
 global using BuildingBlocks.Web;
 global using Carter;
 global using Chat.API.Conversations.Exceptions;
+global using Chat.API.Conversations.Models;
 global using Chat.API.Conversations.ValueObjects;
 global using FluentValidation;
 global using HealthChecks.UI.Client;
