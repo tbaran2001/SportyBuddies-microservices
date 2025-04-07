@@ -1,5 +1,5 @@
 ﻿namespace Chat.API.Conversations.Models;
 
-public class Participant
+public record Participant : Entity<ParticipantId>
 {
 }
