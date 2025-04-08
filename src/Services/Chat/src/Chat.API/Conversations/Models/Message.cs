@@ -2,13 +2,13 @@
 
 public record Message : Entity<MessageId>
 {
-    public string Content { get; init; } = string.Empty;
+    public Content Content { get; init; }
     public DateTime CreatedAt { get; init; }
 
     public static Message Create(
         MessageId messageId,
-        string content,
-        DateTime createdAt)
+        Content content,
+        CreatedAt createdAt)
     {
         var message = new Message
         {
